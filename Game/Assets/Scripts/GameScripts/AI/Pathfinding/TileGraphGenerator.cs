@@ -7,16 +7,13 @@ using Pathfinding.Graph;
 	
 public class TileGraphGenerator : MonoBehaviour {
 
-	// JUST FOR TESTING
-	public Transform start;
-	public Transform end;
-
 	public int width = 100;
 	public int depth = 100;
 	public float height = 1000f;
 	
+	public bool drawDebugGraph = false;
+	
 	public TileGraph tileGraph;
-	//Path path, smoothed;
 	
 	LayerMask layerFloor, layerObstacles;
 	LayerMask layer;
@@ -28,23 +25,15 @@ public class TileGraphGenerator : MonoBehaviour {
 		
 		layer = (1 << layerFloor) | (1 << layerObstacles);
 		
-		// scan the map
-		Scan();
-		RadiusModifier(1);
-		
-		// compute the path and smooth it
-//		path = (tileGraph.AStar(start.position, end.position));
-//		smoothed = Smoother.smoothPath(path);
+		Scan(); // scan the map
+		RadiusModifier(1); // extend the unwalkable areas
+
 	}
 	
 	void Update () {
-		// compute path
-//		path = (tileGraph.AStar(start.position, end.position));
-//		smoothed = Smoother.smoothPath(path);
-		
-//		tileGraph.drawDebugGraph();
-//		path.drawDebugPath(Color.green);
-//		smoothed.drawDebugPath(Color.white);
+		if (drawDebugGraph) {
+			tileGraph.drawDebugGraph();	
+		}
 	}
 	
 	/** Scan the map with a raycast */
@@ -108,6 +97,3 @@ public class TileGraphGenerator : MonoBehaviour {
 	}
 	
 }
-
-	
-//}
