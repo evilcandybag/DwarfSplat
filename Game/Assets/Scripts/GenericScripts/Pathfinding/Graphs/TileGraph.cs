@@ -1,0 +1,167 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+using Pathfinding.Core;
+
+namespace Pathfinding.Graph {
+
+	public class TileGraph: Graph {
+		
+		protected int width;
+		protected int depth;
+		protected float cellWidth;
+		protected float cellDepth;
+		protected Vector3 startPos;
+		
+		protected Node[,] nodes;
+		
+		public TileGraph(Node[,] nodes, int width, int depth, float cellWidth, float cellDepth, Vector3 startPos) {
+			this.nodes = nodes;
+			this.width = width;
+			this.depth = depth;
+			this.cellWidth = cellWidth;
+			this.cellDepth = cellDepth;
+			this.startPos = startPos;
+		}
+		
+		/** Find the closest node to a position which is walkable */
+		protected override Node getClosestNode(Vector3 position) {
+			
+			position -= startPos;
+			// only x and z
+			int i = Mathf.FloorToInt(position.x / cellWidth);
+			int j = Mathf.FloorToInt(position.z / cellDepth);
+			
+			if (i < 0 || i >= width || j < 0 || j >= depth) return null;
+			
+			// spiral looping to find the closest walkable node
+			int x = 0, y = 0;
+			int dx = 0, dy = -1;
+			while (!nodes[i+x,j+y].Walkable) {
+				if (x == y || (x < 0 && x == -y) || (x > 0 && x == 1 - y)) {
+					int temp = dx;
+					dx = -dy;
+					dy = temp;
+				}
+				x += dx;
+				y += dy;
+
+			}
+			
+			return nodes[i+x,j+y];
+			
+		}
+		
+		public override void Reset() {
+			for (int i = 0; i < width; ++i) {
+				for (int j = 0; j < depth; ++j) {
+					nodes[i,j].Reset();		
+				}
+			}
+		}
+		
+		protected override List<Node> getNeighbors(Node node, int radius = 1) {
+			List<Node> neighbors = new List<Node>();
+			TileNode currentNode = (TileNode)node;
+			
+//			if (currentNode.X - 1 >= 0 && nodes[currentNode.X - 1, currentNode.Z].Walkable) {
+//				neighbors.Add(nodes[currentNode.X - 1, currentNode.Z]);
+//			}
+//			
+//			if (currentNode.X + 1 < width && nodes[currentNode.X + 1, currentNode.Z].Walkable) {
+//				neighbors.Add(nodes[currentNode.X + 1, currentNode.Z]);
+//			}
+//			
+//			if (currentNode.Z - 1 >= 0 && nodes[currentNode.X,currentNode.Z - 1].Walkable) {
+//				neighbors.Add(nodes[currentNode.X, currentNode.Z - 1]);
+//			}
+//			
+//			if (currentNode.Z + 1 < depth && nodes[currentNode.X, currentNode.Z + 1].Walkable) {
+//				neighbors.Add(nodes[currentNode.X, currentNode.Z + 1]);
+//			}
+			
+			for (int i = currentNode.X - radius; i <= currentNode.X + radius; ++i) {
+				for (int j = currentNode.Z - radius; j <= currentNode.Z + radius; ++j) {
+					if (i >= 0 && i < width && j >= 0 && j < depth && nodes[i,j].Walkable && 
+						nodes[i,j] != node) {
+						neighbors.Add(nodes[i,j]);	
+					}
+				}
+			}
+			
+			return neighbors;
+		}
+		
+		/** 
+		 * Get neighbors around the given position, with a given radius, 
+		 * supposed to be used to extend unwalkable areas
+		 */
+		public List<Node> GetNeighbors(int x, int y, int radius = 1) {
+			if (!nodes[x,y].Walkable) {
+				return getNeighbors(nodes[x,y], radius);
+			} else {
+				return null;	
+			}
+		}
+		
+		/** This heuristic returns the manhattan distance between 2 nodes */
+		protected override float heuristic(Node a, Node b) {
+			return diagonalShortcut(a, b);
+		}
+		
+		/** Compute the manhattan heuristic */
+		protected float manhattan(Node a, Node b) {
+			float distance = 
+				Mathf.Abs(b.Position.x - a.Position.x) +  
+				Mathf.Abs(b.Position.z - a.Position.z)
+			;
+			return distance;
+		}
+		
+		/** 
+		 * Compute the diagonal shortcut heuristic, another kind of 
+		 * heuristic  
+		*/
+		protected float diagonalShortcut(Node a, Node b) {
+			float xDist = Mathf.Abs(a.Position.x - b.Position.x);
+			float zDist = Mathf.Abs(a.Position.z - b.Position.z);
+			if(xDist > zDist){
+			   return 1.4f*zDist + (xDist-zDist);
+			} else {
+			   return 1.4f*xDist + (zDist-xDist);
+			}
+			
+		}
+		
+		/** Compute the euclidian distance between two nodes */
+		protected override float euclidian(Node a, Node b) {
+			Vector2 first = new Vector2(a.Position.x, a.Position.z);
+			Vector2 second = new Vector2(b.Position.x, b.Position.z);
+			return Vector2.Distance(first, second);
+			
+		}
+		
+		
+		// TODO: find a way to put all the nodes in 1D array
+		// and then put this method in the parent class
+		public override void drawDebugGraph() {
+			
+			for (int i = 0; i < width; ++i) {
+				for (int j = 0; j < depth; ++j) {
+					List<Node> neighbors = getNeighbors(nodes[i,j]);
+					for (int n = 0; n < neighbors.Count; ++n) {
+						Color color = Color.red;
+						if (nodes[i,j].InClosedSet) {
+							color = Color.blue;	
+						}
+						Debug.DrawLine(nodes[i,j].Position, neighbors[n].Position, color);	
+					}
+				}
+			}
+			
+		}
+			
+	}
+	
+}
