@@ -12,7 +12,7 @@ public class MapGenerationScript : MonoBehaviour {
 	int bot = 0, right = 1;
 	
 	
-	void Start() {
+	void Awake() {
 		Transform t;
 		GameObject obj;
 		
