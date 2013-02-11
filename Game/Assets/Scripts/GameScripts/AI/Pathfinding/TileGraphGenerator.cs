@@ -11,17 +11,13 @@ public class TileGraphGenerator : MonoBehaviour {
 	public int depth = 100;
 	public float height = 1000f;
 	
-	// we assume that the map geometry does not change 
-	protected Vector3 startPos;
-	protected float cellWidth;
-	protected float cellDepth;
-	
-	public int radius = 2;
+	public int radius = 1;
 	public bool drawDebugGraph = false;
 	
 	public TileGraph tileGraph;
 	
-	LayerMask layer, layerFloor, layerObstacles;
+	LayerMask layerFloor, layerObstacles;
+	LayerMask layer;
 
 	void Start() {
 		// setup the layers to detect the floor and the obstacles
@@ -37,7 +33,7 @@ public class TileGraphGenerator : MonoBehaviour {
 	
 	void Update () {
 		if (drawDebugGraph) {
-			//tileGraph.drawDebugGraph();	
+			tileGraph.drawDebugGraph();	
 		}
 	}
 	
@@ -51,9 +47,9 @@ public class TileGraphGenerator : MonoBehaviour {
 		Vector3 size = GetComponent<Renderer>().bounds.size;
 		
 		// consider the mesh as a rectangle
-		startPos = center - size / 2;
-		cellWidth = size.x / width;
-		cellDepth = size.z / depth;
+		Vector3 startPos = center - size / 2;
+		float cellWidth = size.x / width;
+		float cellDepth = size.z / depth;
 		
 		// raycast position
 		Vector3 pos = new Vector3(0,0,0);
@@ -67,6 +63,7 @@ public class TileGraphGenerator : MonoBehaviour {
 					nodes[x,z] = new TileNode(hit.point, x*width+z, x, z);
 					
 					if (hit.transform.gameObject.layer == layerObstacles) {
+						
 						nodes[x,z].Walkable = false;
 					}
 				}
@@ -75,31 +72,6 @@ public class TileGraphGenerator : MonoBehaviour {
 		}
 		
 		tileGraph = new TileGraph(nodes, width, depth, cellWidth, cellDepth, startPos);
-		
-	}
-	
-	/** Rescan the map to detect new obstacles */
-	public void Rescan() {
-		
-		// raycast position
-		Vector3 pos = new Vector3(0,0,0);
-		pos.y = height;
-		
-		for (int x = 0; x < width; x++) {
-			for (int z = 0; z < depth; z++) {
-				pos = startPos + new Vector3(x * cellWidth, height, z * cellDepth);
-				RaycastHit hit;
-				if (Physics.Raycast(pos, -Vector3.up, out hit, Mathf.Infinity, layer)) {
-					tileGraph.setWalkable(x,z,true);
-					if (hit.transform.gameObject.layer == layerObstacles) {
-						tileGraph.setWalkable(x,z,false);
-					}
-				}
-				
-			}
-		}
-		
-		RadiusModifier(radius);
 		
 	}
 	

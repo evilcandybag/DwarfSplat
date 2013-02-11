@@ -25,20 +25,12 @@ public class Follow : MonoBehaviour {
 	 */
 	public float TIME_REPATH = 1;
 	private float lastPath = 0;
-	private Vector3 currentPoint;
 	
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
 		
 		targetPosition = new Vector3(target.position.x, target.position.y, target.position.z);
-		currentPoint = new Vector3(0,0,0);
-	}
-	
-	/* When a new path has been computed */
-	void onCallback(Path newPath) {
-		path = newPath;
-		currentPos = 1;
 	}
 	
 	// Update is called once per frame
@@ -50,24 +42,25 @@ public class Follow : MonoBehaviour {
 			return;
 		}
 		
+		
 		lastPath += Time.deltaTime;
 		
-		// recompute a path only after a delay of 1ms, or when the target moved (also after the delay)
-		if ((target.position != targetPosition && lastPath > TIME_REPATH) || lastPath > TIME_REPATH) {
+		if (target.position != targetPosition && lastPath > TIME_REPATH) {
 			lastPath = 0;
 			targetPosition.Set (target.position.x, target.position.y, target.position.z);
-			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
+			path = graph.AStar(transform.position, target.position);
+			currentPos = 0;
 		}
+		
+		//path = graph.AStar(transform.position, target.position);
 		
 		if (path == null || currentPos >= path.Count) return;
 		
-		currentPoint.Set(path[currentPos].x, transform.position.y, path[currentPos].z);
-		
-		Vector3 direction = (currentPoint - transform.position).normalized;
+		Vector3 direction = (path[currentPos] - transform.position).normalized;
 		direction *= speed * Time.deltaTime;
 		controller.SimpleMove(direction);
 		
-		if (Vector3.Distance(transform.position, currentPoint) < wayPointDistance) {
+		if (Vector3.Distance(transform.position, path[currentPos]) < wayPointDistance) {
 			currentPos++;
 		}
 		
