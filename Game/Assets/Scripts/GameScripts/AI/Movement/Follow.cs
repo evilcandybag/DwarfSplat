@@ -9,10 +9,10 @@ public class Follow : MonoBehaviour {
 	public Transform target;
 	public Transform floor;
 	public float speed = 100;
-	public float wayPointDistance = 0.5f;
+	public float wayPointDistance = 0.3f;
 	
 	protected CharacterController controller;
-	protected Graph graph;
+	protected Graph graph = null;
 	
 	private Vector3 targetPosition;
 	private Path path;
@@ -29,14 +29,20 @@ public class Follow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
-		graph = floor.GetComponent<TileGraphGenerator>().tileGraph;
 		
 		targetPosition = new Vector3(target.position.x, target.position.y, target.position.z);
-		path = graph.AStar(transform.position, target.position);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+		graph = floor.GetComponent<TileGraphGenerator>().tileGraph;
+		if (graph == null) {
+			Debug.Log ("no graph");
+			return;
+		}
+		
+		
 		lastPath += Time.deltaTime;
 		
 		if (target.position != targetPosition && lastPath > TIME_REPATH) {
@@ -45,6 +51,8 @@ public class Follow : MonoBehaviour {
 			path = graph.AStar(transform.position, target.position);
 			currentPos = 0;
 		}
+		
+		//path = graph.AStar(transform.position, target.position);
 		
 		if (path == null || currentPos >= path.Count) return;
 		
