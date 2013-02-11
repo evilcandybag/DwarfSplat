@@ -11,6 +11,7 @@ public class TileGraphGenerator : MonoBehaviour {
 	public int depth = 100;
 	public float height = 1000f;
 	
+	public int radius = 1;
 	public bool drawDebugGraph = false;
 	
 	public TileGraph tileGraph;
@@ -18,7 +19,7 @@ public class TileGraphGenerator : MonoBehaviour {
 	LayerMask layerFloor, layerObstacles;
 	LayerMask layer;
 
-	void Awake() {
+	void Start() {
 		// setup the layers to detect the floor and the obstacles
 		layerFloor = LayerMask.NameToLayer("Floor");
 		layerObstacles = LayerMask.NameToLayer("Obstacles");
@@ -26,7 +27,7 @@ public class TileGraphGenerator : MonoBehaviour {
 		layer = (1 << layerFloor) | (1 << layerObstacles);
 		
 		Scan(); // scan the map
-		RadiusModifier(1); // extend the unwalkable areas
+		RadiusModifier(radius); // extend the unwalkable areas
 
 	}
 	
