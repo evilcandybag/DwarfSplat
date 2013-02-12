@@ -54,6 +54,14 @@ namespace BehaviorTrees
 		public void AddChild(Node child) {
 			children_.Add(child);
 		}
+		/// <summary>Add a collection of children to the end of the sequence.</summary>
+		/// <param name='children'>The collection to add.</param>
+		public void AddChildren(IEnumerable<Node> children) {
+			foreach (Node child in children) {
+				children_.Add(child);
+			}
+		}
+		
 		
 		/// <summary>Removes the specified child.</summary>
 		/// <param name='child'>Node to remove.</param>
