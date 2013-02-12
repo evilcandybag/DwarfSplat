@@ -65,22 +65,6 @@ namespace Pathfinding.Graph {
 			List<Node> neighbors = new List<Node>();
 			TileNode currentNode = (TileNode)node;
 			
-//			if (currentNode.X - 1 >= 0 && nodes[currentNode.X - 1, currentNode.Z].Walkable) {
-//				neighbors.Add(nodes[currentNode.X - 1, currentNode.Z]);
-//			}
-//			
-//			if (currentNode.X + 1 < width && nodes[currentNode.X + 1, currentNode.Z].Walkable) {
-//				neighbors.Add(nodes[currentNode.X + 1, currentNode.Z]);
-//			}
-//			
-//			if (currentNode.Z - 1 >= 0 && nodes[currentNode.X,currentNode.Z - 1].Walkable) {
-//				neighbors.Add(nodes[currentNode.X, currentNode.Z - 1]);
-//			}
-//			
-//			if (currentNode.Z + 1 < depth && nodes[currentNode.X, currentNode.Z + 1].Walkable) {
-//				neighbors.Add(nodes[currentNode.X, currentNode.Z + 1]);
-//			}
-			
 			for (int i = currentNode.X - radius; i <= currentNode.X + radius; ++i) {
 				for (int j = currentNode.Z - radius; j <= currentNode.Z + radius; ++j) {
 					if (i >= 0 && i < width && j >= 0 && j < depth && nodes[i,j].Walkable && 
@@ -143,8 +127,7 @@ namespace Pathfinding.Graph {
 		}
 		
 		
-		// TODO: find a way to put all the nodes in 1D array
-		// and then put this method in the parent class
+		/** Draw the tile graph */
 		public override void drawDebugGraph() {
 			
 			for (int i = 0; i < width; ++i) {
@@ -159,7 +142,6 @@ namespace Pathfinding.Graph {
 					}
 				}
 			}
-			
 		}
 			
 	}
