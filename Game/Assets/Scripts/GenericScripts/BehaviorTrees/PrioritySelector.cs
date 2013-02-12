@@ -6,12 +6,12 @@ namespace BehaviorTrees
 {
 	public class PrioritySelector : Selector
 	{
-		private List<PriorityNode> children_;
+		private HashSet<PriorityNode> children_;
 		private Node runningNode;
 		
 		public PrioritySelector ()
 		{
-			children_ = new List<PriorityNode>();
+			children_ = new HashSet<PriorityNode>();
 		}
 		
 		/// <summary>
@@ -61,8 +61,8 @@ namespace BehaviorTrees
 		/// <param name="prio">The assigned priority</param>
 		/// <returns>A reference to the PriorityNode.</returns>
 		public PriorityNode AddChild(Node child, double prio) {
-			PriorityNode pn = AddChild(child);
-			pn.Prio = prio;
+			PriorityNode pn = new PriorityNode(child,prio);
+			children_.Add(pn);
 			return pn;
 		}
 		
@@ -73,14 +73,6 @@ namespace BehaviorTrees
 			PriorityNode n = children_.First(x => x.Child == child);
 			children_.Remove(n);
 			return n.Child;
-		}
-		/// <summary>Removes the child.</summary>
-		/// <param name='childIx'>Child ix.</param>
-		/// <returns>The removed child Node.</returns>
-		public Node RemoveChild(int childIx) {
-			Node n = children_[childIx].Child;
-			children_.RemoveAt(childIx);
-			return n;
 		}
 		
 		/// <summary>Give the number of child nodes.</summary>
@@ -95,6 +87,9 @@ namespace BehaviorTrees
 		public class PriorityNode {
 			public PriorityNode(Node n) {
 				node = n; 
+			}
+			public PriorityNode(Node n, double prio) {
+				node = n; priority = prio;
 			}
 			
 			private Node node;  
