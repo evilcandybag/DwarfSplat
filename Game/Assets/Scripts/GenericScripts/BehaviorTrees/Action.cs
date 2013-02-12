@@ -6,37 +6,21 @@ namespace BehaviorTrees
 	/// Represents an Action type leaf. This is where all the cool stuff
 	/// happens.
 	/// </summary>
-	public class Action<T> : Leaf
+	public class Action : Leaf
 	{
-		// TODO: don't yet know the type of this...
-		private T task_;
+		private Func<Status> task_;
 		
 		
-		public Action ()
+		public Action (Func<Status> action)
 		{
-			throw new NotImplementedException(); //TODO
+			if (action == null)
+				throw new ArgumentNullException();
+			task_ = action;
 		}
 		
-		/// <summary>
-		/// Sets the task.
-		/// </summary>
-		/// <value>
-		/// The task.
-		/// </value>
-		/// <exception cref='ArgumentNullException'>
-		/// No null values are allowed.
-		/// </exception>
-		public T Task {
-			set {
-				if (value == null) {
-					throw new ArgumentNullException();
-				}
-				task_ = value;
-			}
-		}
 		
 		public override Status Visit() {
-			return Status.FAIL;
+			return task_();
 		}
 		
 		
