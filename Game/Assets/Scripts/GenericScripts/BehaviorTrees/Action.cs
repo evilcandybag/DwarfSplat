@@ -35,8 +35,8 @@ namespace BehaviorTrees
 			}
 		}
 		
-		public Status Visit() {
-			throw new NotImplementedException(); //TODO
+		public override Status Visit() {
+			return Status.FAIL;
 		}
 		
 		

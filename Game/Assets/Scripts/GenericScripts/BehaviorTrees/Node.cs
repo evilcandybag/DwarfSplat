@@ -18,7 +18,7 @@ namespace BehaviorTrees {
 		/// Gets the Status of the Node. Used to determine whether we are 
 		/// allowed to visit a Node or not.
 		/// </summary>
-		private Status State {
+		protected Status State {
 			get {
 				return state_;
 			}

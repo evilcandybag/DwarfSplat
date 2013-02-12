@@ -40,7 +40,7 @@ namespace BehaviorTrees
 		/// Visit the Leaf and perform Test.
 		/// <returns>if Test() then SUCCESS else FAIL</returns>
 		/// </summary>
-		public Status Visit() {
+		public override Status Visit() {
 			return test_() ? Status.SUCCESS : Status.FAIL;
 		}
 	}
