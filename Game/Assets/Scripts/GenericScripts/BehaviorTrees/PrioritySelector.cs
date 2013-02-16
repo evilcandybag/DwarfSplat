@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -6,10 +7,11 @@ namespace BehaviorTrees
 {
 	public class PrioritySelector : Selector
 	{
+		
 		private HashSet<PriorityNode> children_;
 		private Node runningNode;
 		
-		public PrioritySelector ()
+		public PrioritySelector () : base()
 		{
 			children_ = new HashSet<PriorityNode>();
 		}
@@ -26,7 +28,21 @@ namespace BehaviorTrees
 		/// </returns>
 		public override Status Visit() {
 			if (State == Status.RUNNING) {
-				return runningNode.Visit();
+				switch (runningNode.Visit()) {
+				case Status.READY:
+					throw new InvalidOperationException("A node should never return READY when visited!");
+				//If we fail with a running node, we consider the selection to have failed, as we chose a failing option.
+				case Status.FAIL:
+					State = Status.READY;
+					return Status.FAIL; 
+				case Status.RUNNING:
+					return Status.RUNNING;
+				case Status.SUCCESS:
+					State = Status.READY;
+					return Status.SUCCESS;
+				default:
+					throw new InvalidOperationException("Unreachable case.");
+				}
 			} else {
 				var children = children_.OrderByDescending(x => x.Prio);
 				foreach (PriorityNode pc in children)  {
@@ -43,11 +59,15 @@ namespace BehaviorTrees
 						return Status.SUCCESS;
 					}
 				}
+				State = Status.READY;
 				return Status.FAIL;
 			}
 		}
 		
-		/// <summary>Add a new child to the Selector, creating a PriorityNode.</summary>
+		/// <summary>
+		/// Add a new child to the Selector, creating a PriorityNode.
+		/// Take care to always save the return value as that is the only way to change its priority!
+		/// </summary>
 		/// <param name='child'>Child.</param>
 		/// <returns>A reference to the PriorityNode.</returns>
 		public PriorityNode AddChild(Node child) {
@@ -56,7 +76,10 @@ namespace BehaviorTrees
 			return pn;
 		}
 		
-		/// <summary>Add a new child to the Selector, creating a PriorityNode.</summary>
+		/// <summary>
+		/// Add a new child to the Selector, creating a PriorityNode.
+		/// Take care to always save the return value as that is the only way to change its priority!
+		/// </summary>
 		/// <param name='child'>Child.</param>
 		/// <param name="prio">The assigned priority</param>
 		/// <returns>A reference to the PriorityNode.</returns>

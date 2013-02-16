@@ -8,6 +8,13 @@ namespace BehaviorTrees {
 	public abstract class Node {
 		
 		private Status state_;
+		//This just here for debugging purposes....
+		public string name;
+		
+		public Node() {
+			State = Status.READY;
+		}
+
 		
 		/// <summary>
 		/// The status of a node.
