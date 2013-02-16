@@ -17,7 +17,7 @@ public class ProximityMove : MonoBehaviour {
 	private PrioritySelector.PriorityNode towardPrio;
 	
 	
-	private readonly float realClose = 0.5f, kindaClose = 2.0f, farAway = 5.0f;
+	private readonly float realClose = 1.0f, kindaClose = 3.0f, farAway = 5.0f;
 	// Use this for initialization
 	void Start () {
 		mate = buddy.transform;
