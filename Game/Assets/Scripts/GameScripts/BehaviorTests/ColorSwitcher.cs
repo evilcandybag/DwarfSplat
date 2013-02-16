@@ -4,14 +4,22 @@ using BehaviorTrees;
 
 public class ColorSwitcher : MonoBehaviour {
 	
+	public GameObject buddy;
+	private Transform mate; 
+	
 	private bool red = true;
 	private PrioritySelector.PriorityNode redPrio, bluePrio;
 	private PrioritySelector root;
 	private Action redder, bluer;
+	private Decorator close;
+	
+	private readonly float realClose = 1.0f, kindaClose = 3.0f, farAway = 5.0f;
 
+	
 	public float updatespeed;
 	// Use this for initialization
 	void Start () {
+		mate = buddy.transform;
 		updatespeed = 0.05f;
 		root = new PrioritySelector();
 		redder = new Action(Redder);
@@ -20,19 +28,21 @@ public class ColorSwitcher : MonoBehaviour {
 		
 		redPrio = root.AddChild(redder,0.0); bluePrio = root.AddChild(bluer,100.0);
 		
+		close = new ConditionDecorator(root, () => Mathf.Abs(Vector3.Distance(transform.position, mate.position)) > kindaClose);
+			
 		//InvokeRepeating("MyUpdate", .01f,updatespeed);
 		
 	}
 	
 	void MyUpdate() {
-		root.Visit();
+		close.Visit();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//Log("Update");
 		//root.Visit();
-		root.Visit ();
+		close.Visit ();
 	}
 		
 	void Log(string s) {
