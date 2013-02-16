@@ -10,8 +10,7 @@ namespace BehaviorTrees
 	{
 		private Func<Status> task_;
 		
-		
-		public Action (Func<Status> action)
+		public Action (Func<Status> action) : base()
 		{
 			if (action == null)
 				throw new ArgumentNullException();
@@ -20,7 +19,11 @@ namespace BehaviorTrees
 		
 		
 		public override Status Visit() {
-			return task_();
+			Status s = task_();
+			if (s == Status.SUCCESS) {
+				State = Status.READY;
+			}
+			return s;
 		}
 		
 		

@@ -12,7 +12,7 @@ namespace BehaviorTrees
 		
 		private List<Node> children_;
 		
-		public SequenceSelector() 
+		public SequenceSelector() : base()
 		{
 			children_ =  new List<Node>();
 		}
@@ -21,7 +21,12 @@ namespace BehaviorTrees
 			foreach (Node n in nodes) {
 				AddChild(n);
 			}
-		}	
+		}
+		public SequenceSelector(params Node[] nodes) : this() {
+			foreach (Node n in nodes) {
+				AddChild(n);
+			}
+		}
 		
 		/// <summary>
 		/// Visit the Selector's children one by one in sequence until all succeed
@@ -53,6 +58,9 @@ namespace BehaviorTrees
 		/// <param name='child'>Child.</param>
 		public void AddChild(Node child) {
 			children_.Add(child);
+		}
+		public void AddChild(params Node[] children) {
+			AddChildren(children);
 		}
 		/// <summary>Add a collection of children to the end of the sequence.</summary>
 		/// <param name='children'>The collection to add.</param>
