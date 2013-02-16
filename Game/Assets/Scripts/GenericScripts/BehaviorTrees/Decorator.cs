@@ -9,17 +9,15 @@ namespace BehaviorTrees
 	{
 		private Node child_;
 		
-		/// <summary>
-		/// Sets the child Node to decorate.
-		/// </summary>
-		/// <value>
-		/// The child Node to add.
-		/// </value>
-		public Node Child {
-			set {
-				child_ = value;
-			}
+		public Decorator(Node child) : base() {
+			child_ = child;
 		}
+		
+		public Node Child {
+			get {
+				return child_;
+			}
+		}		
 			
 	}
 }
