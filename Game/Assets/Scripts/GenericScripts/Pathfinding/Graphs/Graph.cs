@@ -8,9 +8,12 @@ using Pathfinding.Core;
 
 namespace Pathfinding.Graph {
 	
+	/** Callback when a new path is computed */
+	public delegate void OnPathComputed(Path newPath);
+	
 	abstract public class Graph {
 		
-		public Path AStar(Vector3 start, Vector3 end) {
+		public void AStar(Vector3 start, Vector3 end, OnPathComputed callback) {
 			
 			// Reset all scores and sets membership
 			Reset();
@@ -18,7 +21,7 @@ namespace Pathfinding.Graph {
 			Node startNode = getClosestNode(start);
 			Node endNode = getClosestNode(end);
 			
-			if (startNode == null || endNode == null) return null;
+			if (startNode == null || endNode == null) callback(new Path());
 			
 			PriorityQueue<Node> openSet = new PriorityQueue<Node>();
 			
@@ -44,7 +47,8 @@ namespace Pathfinding.Graph {
 					}
 					
 					path.Reverse();
-					return path;	
+					callback(path);
+					break;
 				}
 				
 				current.InClosedSet = true;
@@ -70,8 +74,6 @@ namespace Pathfinding.Graph {
 				} // end loop neighbors
 				
 			}
-			
-			return path;
 			
 		}
 		
