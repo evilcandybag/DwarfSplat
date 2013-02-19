@@ -9,7 +9,6 @@ namespace BehaviorTrees
 	{
 		
 		private HashSet<PriorityNode> children_;
-		private Node runningNode;
 		
 		public PrioritySelector () : base()
 		{
@@ -28,21 +27,7 @@ namespace BehaviorTrees
 		/// </returns>
 		public override Status Visit() {
 			if (State == Status.RUNNING) {
-				switch (runningNode.Visit()) {
-				case Status.READY:
-					throw new InvalidOperationException("A node should never return READY when visited!");
-				//If we fail with a running node, we consider the selection to have failed, as we chose a failing option.
-				case Status.FAIL:
-					State = Status.READY;
-					return Status.FAIL; 
-				case Status.RUNNING:
-					return Status.RUNNING;
-				case Status.SUCCESS:
-					State = Status.READY;
-					return Status.SUCCESS;
-				default:
-					throw new InvalidOperationException("Unreachable case.");
-				}
+				return VisitRunning();
 			} else {
 				var children = children_.OrderByDescending(x => x.Prio);
 				foreach (PriorityNode pc in children)  {
@@ -69,21 +54,9 @@ namespace BehaviorTrees
 		/// Take care to always save the return value as that is the only way to change its priority!
 		/// </summary>
 		/// <param name='child'>Child.</param>
-		/// <returns>A reference to the PriorityNode.</returns>
-		public PriorityNode AddChild(Node child) {
-			PriorityNode pn = new PriorityNode(child);
-			children_.Add(pn);
-			return pn;
-		}
-		
-		/// <summary>
-		/// Add a new child to the Selector, creating a PriorityNode.
-		/// Take care to always save the return value as that is the only way to change its priority!
-		/// </summary>
-		/// <param name='child'>Child.</param>
 		/// <param name="prio">The assigned priority</param>
 		/// <returns>A reference to the PriorityNode.</returns>
-		public PriorityNode AddChild(Node child, double prio) {
+		public PriorityNode AddChild(Node child, double prio = 1.0) {
 			PriorityNode pn = new PriorityNode(child,prio);
 			children_.Add(pn);
 			return pn;
@@ -103,29 +76,6 @@ namespace BehaviorTrees
 		public int NoChildren(){
 			return children_.Count;
 		}
-		
-		/// <summary>
-		/// A wrapper class for pairing a node with a priority.
-		/// </summary>
-		public class PriorityNode {
-			public PriorityNode(Node n) {
-				node = n; 
-			}
-			public PriorityNode(Node n, double prio) {
-				node = n; priority = prio;
-			}
-			
-			private Node node;  
-			public Node Child {
-				get { return node; }
-			}
-			private double priority;
-			public double Prio {
-				get { return priority; } set { priority = value; } 
-			}
-		}
-		
-		
 		
 	}
 }

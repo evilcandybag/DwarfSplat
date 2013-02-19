@@ -14,7 +14,7 @@ public class ProximityMove : MonoBehaviour {
 	private PrioritySelector colors, movement;
 	private Condition close;
 	private Action red, green, toward, away;
-	private PrioritySelector.PriorityNode towardPrio;
+	private PriorityNode towardPrio;
 	
 	
 	private readonly float realClose = 1.0f, kindaClose = 3.0f, farAway = 5.0f;
