@@ -8,7 +8,7 @@ public class ColorSwitcher : MonoBehaviour {
 	private Transform mate; 
 	
 	private bool red = true;
-	private PrioritySelector.PriorityNode redPrio, bluePrio;
+	private PriorityNode redPrio, bluePrio;
 	private PrioritySelector root;
 	private Action redder, bluer;
 	private Decorator close;
