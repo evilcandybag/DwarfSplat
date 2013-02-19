@@ -21,10 +21,7 @@ namespace Pathfinding.Graph {
 			Node startNode = getClosestNode(start);
 			Node endNode = getClosestNode(end);
 			
-			if (startNode == null || endNode == null) {
-				callback(new Path());
-				return;
-			}
+			if (startNode == null || endNode == null) callback(new Path());
 			
 			PriorityQueue<Node> openSet = new PriorityQueue<Node>();
 			
@@ -51,7 +48,7 @@ namespace Pathfinding.Graph {
 					
 					path.Reverse();
 					callback(path);
-					return;
+					break;
 				}
 				
 				current.InClosedSet = true;
@@ -84,7 +81,7 @@ namespace Pathfinding.Graph {
 		abstract public void Reset();
 		
 		/** Return the closest Node of the graph based on the given Position */
-		abstract protected Node getClosestNode(Vector3 Position, bool loop = true);
+		abstract protected Node getClosestNode(Vector3 Position);
 		
 		/** Return all the neighbors of the given Node */
 		abstract protected List<Node> getNeighbors(Node node, int radius = 1);

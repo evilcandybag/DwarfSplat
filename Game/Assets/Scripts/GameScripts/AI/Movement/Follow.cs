@@ -33,6 +33,12 @@ public class Follow : MonoBehaviour {
 		targetPosition = new Vector3(target.position.x, target.position.y, target.position.z);
 	}
 	
+	/* When a new path has been computed */
+	void onCallback(Path newPath) {
+		path = newPath;
+		currentPos = 0;
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		
@@ -48,11 +54,8 @@ public class Follow : MonoBehaviour {
 		if (target.position != targetPosition && lastPath > TIME_REPATH) {
 			lastPath = 0;
 			targetPosition.Set (target.position.x, target.position.y, target.position.z);
-			path = graph.AStar(transform.position, target.position);
-			currentPos = 0;
+			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
 		}
-		
-		//path = graph.AStar(transform.position, target.position);
 		
 		if (path == null || currentPos >= path.Count) return;
 		
