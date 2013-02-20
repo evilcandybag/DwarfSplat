@@ -25,8 +25,11 @@ namespace Pathfinding.Graph {
 			this.startPos = startPos;
 		}
 		
-		/** Find the closest node to a position which is walkable */
-		protected override Node getClosestNode(Vector3 position) {
+		/** Find the closest node to a position which is walkable 
+		 * The loop variable means that we will keep searching, if we don't 
+		 * find any walkable node the first time.
+		 * */
+		protected override Node getClosestNode(Vector3 position, bool loop = true) {
 			
 			position -= startPos;
 			// only x and z
@@ -37,19 +40,21 @@ namespace Pathfinding.Graph {
 			
 			// spiral looping to find the closest walkable node
 			int x = 0, y = 0;
-			int dx = 0, dy = -1;
-			while (!nodes[i+x,j+y].Walkable) {
-				if (x == y || (x < 0 && x == -y) || (x > 0 && x == 1 - y)) {
-					int temp = dx;
-					dx = -dy;
-					dy = temp;
+			if (loop) {
+				int dx = 0, dy = -1;
+				while (!nodes[i+x,j+y].Walkable) {
+					if (x == y || (x < 0 && x == -y) || (x > 0 && x == 1 - y)) {
+						int temp = dx;
+						dx = -dy;
+						dy = temp;
+					}
+					x += dx;
+					y += dy;
+					 
+					// There may be a little problem with this test when the player is
+					// close to the limit of the map
+					if (!checkBounds(i+x,j+y)) return null;
 				}
-				x += dx;
-				y += dy;
-				 
-				// There may be a little problem with this test when the player is
-				// close to the limit of the map
-				if (!checkBounds(i+x,j+y)) return null;
 			}
 			
 			return nodes[i+x,j+y];
