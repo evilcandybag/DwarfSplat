@@ -33,7 +33,7 @@ namespace Pathfinding.Graph {
 			int i = Mathf.FloorToInt(position.x / cellWidth);
 			int j = Mathf.FloorToInt(position.z / cellDepth);
 			
-			if (i < 0 || i >= width || j < 0 || j >= depth) return null;
+			if (!checkBounds(i,j)) return null;
 			
 			// spiral looping to find the closest walkable node
 			int x = 0, y = 0;
@@ -46,12 +46,21 @@ namespace Pathfinding.Graph {
 				}
 				x += dx;
 				y += dy;
-
+				 
+				// There may be a little problem with this test when the player is
+				// close to the limit of the map
+				if (!checkBounds(i+x,j+y)) return null;
 			}
 			
 			return nodes[i+x,j+y];
 			
 		}
+		
+		protected bool checkBounds(int x, int y) {
+			if (x < 0 || x >= width || y < 0 || y >= depth) return false;
+			return true;
+		}
+					
 		
 		public override void Reset() {
 			for (int i = 0; i < width; ++i) {
