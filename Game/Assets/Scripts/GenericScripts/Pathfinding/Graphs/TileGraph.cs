@@ -61,6 +61,10 @@ namespace Pathfinding.Graph {
 			}
 		}
 		
+		public void setWalkable(int x, int z, bool walkable) {
+			nodes[x,z].Walkable = walkable;
+		}
+		
 		protected override List<Node> getNeighbors(Node node, int radius = 1) {
 			List<Node> neighbors = new List<Node>();
 			TileNode currentNode = (TileNode)node;
