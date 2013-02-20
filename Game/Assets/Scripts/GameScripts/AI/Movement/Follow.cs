@@ -50,10 +50,10 @@ public class Follow : MonoBehaviour {
 			return;
 		}
 		
-		
 		lastPath += Time.deltaTime;
 		
-		if (target.position != targetPosition && lastPath > TIME_REPATH) {
+		// recompute a path only after a delay of 1ms, or when the target moved (also after the delay)
+		if ((target.position != targetPosition && lastPath > TIME_REPATH) || lastPath > TIME_REPATH) {
 			lastPath = 0;
 			targetPosition.Set (target.position.x, target.position.y, target.position.z);
 			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
