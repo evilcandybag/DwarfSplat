@@ -4,7 +4,8 @@ using System.Collections;
 public class MapGenerationScript : MonoBehaviour {
 	
 	
-	public Transform wall;
+	private GameObject wall;
+	WallMeshManagerScript cms;
 	
 	int[,] maze;
 	int size;
@@ -13,24 +14,45 @@ public class MapGenerationScript : MonoBehaviour {
 	
 	
 	void Start() {
-		Transform t;
-		GameObject obj;
+		GameObject tmp;
 		
+		cms = GetComponent<WallMeshManagerScript>();
 		
 		
 		size = 10;
 		
 		generateMaze();
 		for(int i = 0; i < size*size; i++) {
+			wall = CreateMazePart();
 			if (!connectedBot(i)) {
-				t = (Transform) Instantiate(wall, getPosition(i, bot), Quaternion.identity);
-				obj = t.gameObject;
-				obj.transform.Rotate(new Vector3(0,90,0));
+				//tmp = (GameObject) Instantiate(wall, getPosition(i, bot), Quaternion.identity);
+				//tmp.transform.Rotate(new Vector3(0,90,0));
+				wall.transform.position = getPosition(i, bot);
+				wall.transform.rotation = Quaternion.identity;
+				wall.transform.Rotate(new Vector3(0,90,0));
 			}
 			if (!connectedRight(i)) {
-				t = (Transform) Instantiate(wall, getPosition(i, right), Quaternion.identity);
+				//tmp = (GameObject) Instantiate(wall, getPosition(i, right), Quaternion.identity);
+				wall.transform.position = getPosition(i, bot);
+				wall.transform.rotation = Quaternion.identity;
 			}
 		}
+		//Destroy(wall);
+	}
+	
+	private GameObject CreateMazePart() {
+		
+			Vector3 p0 = new Vector3(  -0.5f,	0f,		0.05f );
+			Vector3 p1 = new Vector3(	0.5f, 	0f,		0.05f );
+			Vector3 p2 = new Vector3( 	0.5f, 	0f,	   -0.05f );
+			Vector3 p3 = new Vector3(  -0.5f,	0f, 	   -0.05f );	
+			 
+			Vector3 p4 = new Vector3(  -0.5f,	1f, 		0.05f );
+			Vector3 p5 = new Vector3( 	0.5f, 	1f, 		0.05f );
+			Vector3 p6 = new Vector3( 	0.5f,	1f,       -0.05f );
+			Vector3 p7 = new Vector3(  -0.5f,	1f,       -0.05f );
+			
+			return cms.CreateWallwithVertices(p0,p1,p2,p3,p4,p5,p6,p7);
 	}
 	
 	private Vector3 getPosition(int tile, int placement) {
