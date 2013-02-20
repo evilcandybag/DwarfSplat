@@ -12,12 +12,12 @@ public class InteractCommand : ICommand {
 		
 	}
 
-	bool ICommand.isAllowed() {
+	public bool isAllowed() {
 		//TODO lots of stuffz to check if the movement can be allowed
 		return false;
 	}
 	
-	void ICommand.execute() {
+	public void execute() {
 		
 	}
 }

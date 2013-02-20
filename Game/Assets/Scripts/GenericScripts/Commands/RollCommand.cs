@@ -13,11 +13,11 @@ public class RollCommand : ICommand {
 		this.force = force;
 	}
 	
-	bool ICommand.isAllowed() {
+	public bool isAllowed() {
 		return false;
 	}
 	
-	void ICommand.execute() {
+	public void execute() {
 		
 	}
 }

@@ -11,11 +11,11 @@ public class PickUpCommand : ICommand {
 		item = i;
 	}
 	
-	bool ICommand.isAllowed() {
+	public bool isAllowed() {
 		return false;
 	}
 	
-	void ICommand.execute() {
+	public void execute() {
 		
 	}
 }
