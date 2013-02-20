@@ -84,7 +84,7 @@ namespace Pathfinding.Graph {
 		abstract public void Reset();
 		
 		/** Return the closest Node of the graph based on the given Position */
-		abstract protected Node getClosestNode(Vector3 Position);
+		abstract protected Node getClosestNode(Vector3 Position, bool loop = true);
 		
 		/** Return all the neighbors of the given Node */
 		abstract protected List<Node> getNeighbors(Node node, int radius = 1);

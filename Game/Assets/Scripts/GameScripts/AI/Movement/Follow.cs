@@ -38,7 +38,7 @@ public class Follow : MonoBehaviour {
 	/* When a new path has been computed */
 	void onCallback(Path newPath) {
 		path = newPath;
-		currentPos = 0;
+		currentPos = 1;
 	}
 	
 	// Update is called once per frame
