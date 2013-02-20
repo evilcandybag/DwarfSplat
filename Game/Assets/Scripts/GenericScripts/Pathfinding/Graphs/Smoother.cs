@@ -21,7 +21,7 @@ namespace Pathfinding.Graph {
 			for (int i = 2; i < inputPath.Count - 1; ++i) {				
 				
 				float distance = Vector3.Distance(outputPath[outputPath.Count - 1], inputPath[i]);
-				// be careful of the direction of the ray
+				// be careful with the direction of the ray
 				Vector3 direction = (inputPath[i] - outputPath[outputPath.Count - 1]).normalized;
 				if (Physics.Raycast(outputPath[outputPath.Count - 1], direction, distance, 1 << 8)) {
 					outputPath.Add(inputPath[i - 1]);
