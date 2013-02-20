@@ -21,7 +21,10 @@ namespace Pathfinding.Graph {
 			Node startNode = getClosestNode(start);
 			Node endNode = getClosestNode(end);
 			
-			if (startNode == null || endNode == null) callback(new Path());
+			if (startNode == null || endNode == null) {
+				callback(new Path());
+				return;
+			}
 			
 			PriorityQueue<Node> openSet = new PriorityQueue<Node>();
 			
@@ -48,7 +51,7 @@ namespace Pathfinding.Graph {
 					
 					path.Reverse();
 					callback(path);
-					break;
+					return;
 				}
 				
 				current.InClosedSet = true;

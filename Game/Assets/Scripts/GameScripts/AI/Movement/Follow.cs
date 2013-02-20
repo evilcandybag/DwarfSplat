@@ -25,12 +25,14 @@ public class Follow : MonoBehaviour {
 	 */
 	public float TIME_REPATH = 1;
 	private float lastPath = 0;
+	private Vector3 currentPoint;
 	
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
 		
 		targetPosition = new Vector3(target.position.x, target.position.y, target.position.z);
+		currentPoint = new Vector3(0,0,0);
 	}
 	
 	/* When a new path has been computed */
@@ -59,11 +61,13 @@ public class Follow : MonoBehaviour {
 		
 		if (path == null || currentPos >= path.Count) return;
 		
-		Vector3 direction = (path[currentPos] - transform.position).normalized;
+		currentPoint.Set(path[currentPos].x, transform.position.y, path[currentPos].z);
+		
+		Vector3 direction = (currentPoint - transform.position).normalized;
 		direction *= speed * Time.deltaTime;
 		controller.SimpleMove(direction);
 		
-		if (Vector3.Distance(transform.position, path[currentPos]) < wayPointDistance) {
+		if (Vector3.Distance(transform.position, currentPoint) < wayPointDistance) {
 			currentPos++;
 		}
 		
