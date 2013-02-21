@@ -11,6 +11,9 @@ public class Agent : MonoBehaviour {
 	public float speed = 200;
 	public float wayPointDistance = 0.3f;
 	
+	/* Debugging lines in the editor */
+	public bool drawPath = false;
+	
 	/* Requires a CharacterController to move the agent
 	 * (may change in the future)
 	 */ 
@@ -31,13 +34,9 @@ public class Agent : MonoBehaviour {
 	private Vector3 currentPoint;
 	
 	void Start () {
-		
 		controller = GetComponent<CharacterController>();
-		
-		//targetPosition = new Vector3(target.position.x, target.position.y, target.position.z);
 		currentPoint = new Vector3(0,0,0);
 		targetPosition = transform.position;
-		
 	}
 	
 	/* When a new path has been computed */
@@ -69,7 +68,7 @@ public class Agent : MonoBehaviour {
 			currentPos++;
 		}
 		
-		path.drawDebugPath(Color.green);
+		if (drawPath) path.drawDebugPath(Color.green);
 	}
 	
 	public void MoveTo(Vector3 pos) {
