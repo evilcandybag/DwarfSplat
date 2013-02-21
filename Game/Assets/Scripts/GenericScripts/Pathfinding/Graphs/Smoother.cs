@@ -11,6 +11,8 @@ namespace Pathfinding.Graph {
 	 */
 	public class Smoother {
 		
+		public static LayerMask layerObstacles = LayerMask.NameToLayer("Obstacles");
+		
 		public static Path smoothPath(Path inputPath) {
 			
 			if (inputPath.Count <= 2) return inputPath;
@@ -23,7 +25,7 @@ namespace Pathfinding.Graph {
 				float distance = Vector3.Distance(outputPath[outputPath.Count - 1], inputPath[i]);
 				// be careful with the direction of the ray
 				Vector3 direction = (inputPath[i] - outputPath[outputPath.Count - 1]).normalized;
-				if (Physics.Raycast(outputPath[outputPath.Count - 1], direction, distance, 1 << 8)) {
+				if (Physics.Raycast(outputPath[outputPath.Count - 1], direction, distance, 1 << layerObstacles)) {
 					outputPath.Add(inputPath[i - 1]);
 				}
 			}
