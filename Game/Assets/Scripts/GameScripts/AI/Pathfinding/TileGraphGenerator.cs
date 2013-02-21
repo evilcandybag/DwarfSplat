@@ -7,8 +7,8 @@ using Pathfinding.Graph;
 	
 public class TileGraphGenerator : MonoBehaviour {
 
-	public int width = 100;
-	public int depth = 100;
+	public int width = 50;
+	public int depth = 50;
 	public float height = 1000f;
 	
 	// we assume that the map geometry does not change 
@@ -16,7 +16,7 @@ public class TileGraphGenerator : MonoBehaviour {
 	protected float cellWidth;
 	protected float cellDepth;
 	
-	public int radius = 2;
+	public int radius = 1;
 	public bool drawDebugGraph = false;
 	
 	public TileGraph tileGraph;
