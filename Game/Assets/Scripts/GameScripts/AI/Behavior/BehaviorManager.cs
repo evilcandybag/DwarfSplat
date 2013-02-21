@@ -7,7 +7,7 @@ using BehaviorTrees;
 /// <summary>
 /// Handles a collection of GameObjects(subject to change to a type with some kind of RunAI method).
 /// </summary>
-public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObject : MonoBehaviour {
+public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObject : AbstractAIActor {
 	
 	private IDictionary<TKey,TObject> objects; 
 	
@@ -28,7 +28,7 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	
 	void Periodic() {
 		foreach (KeyValuePair<TKey,TObject> kvp in objects) {
-			//kvp.Value.DOSOMESHIT
+			kvp.Value.RunAI();
 		}
 	}
 	
@@ -69,7 +69,7 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	}
 	
 	public TKey Spawn(TObject proto) {
-		return Spawn (proto, proto.transform.position, proto.transform.rotation);
+		return Spawn (proto, transform.position, proto.transform.rotation);
 	}
 	
 	public TKey Spawn() {
