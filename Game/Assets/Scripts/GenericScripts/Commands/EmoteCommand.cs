@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EmoteCommand : ICommand {
 	
-	public EmoteCommand() {
+	public EmoteCommand(IActor actor, string emote) {
 		
 	}
 	
@@ -12,6 +12,6 @@ public class EmoteCommand : ICommand {
 	}
 	
 	public void execute() {
-		
+		//display emote
 	}
 }
