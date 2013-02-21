@@ -3,13 +3,21 @@ using System.Collections;
 
 public class Workspace : IInteractable {
 
-	// Use this for initialization
-	void Start () {
-	
+	public void interact(IActor dwarf) {
+		if (canInteract(dwarf)) {
+			//make dwarf enter work mode
+		}
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	/**
+	 * only checks if the type of actor is correct, distance etc. must be checked elsewhere
+	 * */
+	public bool canInteract(IActor actor) {
+		if (actor is Dwarf) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

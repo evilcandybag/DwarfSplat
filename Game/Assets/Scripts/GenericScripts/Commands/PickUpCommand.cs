@@ -12,10 +12,11 @@ public class PickUpCommand : ICommand {
 	}
 	
 	public bool isAllowed() {
-		return false;
+		return true;
 	}
 	
 	public void execute() {
-		
+		if(isAllowed())
+			actor.addItem(item);
 	}
 }
