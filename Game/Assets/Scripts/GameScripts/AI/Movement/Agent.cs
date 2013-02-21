@@ -7,12 +7,13 @@ using Pathfinding.Graph;
 public class Agent : MonoBehaviour {
 	
 	/* Public parameters */
-	public Transform floor;
 	public float speed = 200;
 	public float wayPointDistance = 0.3f;
+	public bool smoothPath = false;
 	
 	/* Debugging lines in the editor */
 	public bool drawPath = false;
+	public string floorName = "Floor";
 	
 	/* Requires a CharacterController to move the agent
 	 * (may change in the future)
@@ -42,12 +43,16 @@ public class Agent : MonoBehaviour {
 	/* When a new path has been computed */
 	void onCallback(Path newPath) {
 		path = newPath;
-		currentPos = 1;
+		if (smoothPath) path = Smoother.smoothPath(path);
+		currentPos = 1; // avoid backward movement bug (temp solution)
 	}
 	
 	void Update () {
-		graph = floor.GetComponent<TileGraphGenerator>().tileGraph;
-		if (graph == null) return;
+		if (graph == null) {
+			// graph is cached as soon as possible
+			graph = GameObject.Find(floorName).GetComponent<TileGraphGenerator>().tileGraph;
+			return; // skip the first frame
+		}
 		
 		lastPath += Time.deltaTime;
 		
