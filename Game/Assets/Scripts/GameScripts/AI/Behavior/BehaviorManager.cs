@@ -17,7 +17,7 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	public static readonly float DEFAULT_INTERVAL = 0.1f;
 	
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 		Interval = DEFAULT_INTERVAL;
 		objects = new ConcurrentDictionary<TKey, TObject>();
 		
