@@ -9,6 +9,7 @@ public class Agent : MonoBehaviour {
 	/* Public parameters */
 	public float speed = 200;
 	public float wayPointDistance = 0.3f;
+	private float realWayPointDistance;
 	public bool smoothPath = false;
 	
 	/* Debugging lines in the editor */
@@ -40,6 +41,7 @@ public class Agent : MonoBehaviour {
 		// init positions
 		currentPoint = new Vector3(0,0,0);
 		targetPosition = transform.position;
+
 	}
 	
 	/* When a new path has been computed */
@@ -50,6 +52,10 @@ public class Agent : MonoBehaviour {
 	}
 	
 	void Update () {
+		
+		// scale distance with the size of the agent
+		realWayPointDistance = wayPointDistance * transform.localScale.magnitude;
+		
 		if (graph == null) {
 			// graph is cached as soon as possible
 			graph = GameObject.Find(floorName).GetComponent<TileGraphGenerator>().tileGraph;
@@ -71,7 +77,7 @@ public class Agent : MonoBehaviour {
 		direction *= speed * Time.deltaTime;
 		controller.SimpleMove(direction);
 		
-		if (Vector3.Distance(transform.position, currentPoint) < wayPointDistance) {
+		if (Vector3.Distance(transform.position, currentPoint) < realWayPointDistance) {
 			currentPos++;
 		}
 		
