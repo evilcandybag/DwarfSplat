@@ -1,15 +1,47 @@
 using UnityEngine;
 using System.Collections;
 
-public class Powerup : IItem {
-
-	// Use this for initialization
-	void Start () {
+public abstract class Powerup : IItem {
 	
+	int uses;
+	int maxUses;
+	
+	public Powerup() {
+		maxUses = 1;
+		uses = 1;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public bool hasUses() {
+		if(uses > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
+	
+	public int getMaxUses() {
+		return maxUses;
+	}
+	
+	public int getUsesLeft() {
+		return uses;
+	}
+	
+	public void addUses(int amount) {
+		uses = Mathf.Min(uses+amount, maxUses);
+	}
+	
+	public bool use(IActor user){
+		if(hasUses()) {
+			uses --;
+			powerupEffect(user);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public abstract void powerupEffect(IActor user);
 }

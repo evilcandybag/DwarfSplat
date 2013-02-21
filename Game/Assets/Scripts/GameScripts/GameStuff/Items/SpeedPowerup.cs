@@ -2,14 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class SpeedPowerup : Powerup {
-
-	// Use this for initialization
-	void Start () {
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	override public void powerupEffect(IActor ball) {
+		//either add speed to ball in current direction, or start a timer and increase forces on ball while timer is on.
 	}
 }
