@@ -15,11 +15,11 @@ public class MoveCommand : ICommand {
 	}
 
 	public bool isAllowed() {
-		//TODO lots of stuffz to check if the movement can be allowed
+		//TODO can location be reached? 
 		return false;
 	}
 	
 	public void execute() {
-		
+		//TODO make a path and start the dwarf's movement (jeremy fixez?)
 	}
 }

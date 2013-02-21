@@ -2,14 +2,48 @@ using UnityEngine;
 using System.Collections;
 
 public class Mine : IItem {
-
-	// Use this for initialization
-	void Start () {
 	
+	int uses;
+	int maxUses;
+	
+	public Mine() {
+		maxUses = 1;
+		uses = 1;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	public bool hasUses() {
+		if(uses > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
+	public int getMaxUses() {
+		return maxUses;
+	}
+	
+	public int getUsesLeft() {
+		return uses;
+	}
+	
+	public void addUses(int amount) {
+		uses = Mathf.Min(uses+amount, maxUses);
+	}
+	
+	public bool use(IActor user){
+		if(hasUses()) {
+			uses --;
+			placeMine(user);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	private void placeMine(IActor user) {
+		//make a mine interactable on the position of user
 	}
 }

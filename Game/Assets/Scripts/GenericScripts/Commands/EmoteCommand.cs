@@ -2,7 +2,11 @@ using UnityEngine;
 using System.Collections;
 
 public class EmoteCommand : ICommand {
-
+	
+	public EmoteCommand() {
+		
+	}
+	
 	public bool isAllowed() {
 		return true;
 	}
