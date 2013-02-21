@@ -35,7 +35,9 @@ public class Agent : MonoBehaviour {
 	private Vector3 currentPoint;
 	
 	void Start () {
-		controller = GetComponent<CharacterController>();
+		// avoid having to add a controller by hand from the editor
+		controller = gameObject.AddComponent<CharacterController>();
+		// init positions
 		currentPoint = new Vector3(0,0,0);
 		targetPosition = transform.position;
 	}

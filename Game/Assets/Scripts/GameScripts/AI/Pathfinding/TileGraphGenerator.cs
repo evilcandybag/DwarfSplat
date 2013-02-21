@@ -37,7 +37,7 @@ public class TileGraphGenerator : MonoBehaviour {
 	
 	void Update () {
 		if (drawDebugGraph) {
-			//tileGraph.drawDebugGraph();	
+			tileGraph.drawDebugGraph();	
 		}
 	}
 	
