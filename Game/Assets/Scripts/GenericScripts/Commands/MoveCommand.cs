@@ -5,21 +5,30 @@ public class MoveCommand : ICommand {
 	
 	IActor actor;
 	Vector3 location;
-	int speed;
+	
+	int speed; //1 => slow, 2 => normal, 3 => run
 	
 	public MoveCommand(IActor actor, Vector3 location, int speed) {
 		this.actor = actor;
 		this.location = location;
-		this.speed = speed;
+		
+		if(speed < 1)
+			this.speed = 1;
+		else if(speed > 3)
+			this.speed = 3;
+		else
+			this.speed = speed;
 		
 	}
 
 	public bool isAllowed() {
 		//TODO can location be reached? 
-		return false;
+		return true;
 	}
 	
 	public void execute() {
-		//TODO make a path and start the dwarf's movement (jeremy fixez?)
+		if(isAllowed()) {
+			actor.getComponent<MovementAgent>().MoveTo(location, speed*100);
+		}
 	}
 }

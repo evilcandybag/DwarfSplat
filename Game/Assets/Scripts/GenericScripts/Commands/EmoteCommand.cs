@@ -12,6 +12,7 @@ public class EmoteCommand : ICommand {
 	}
 	
 	public void execute() {
-		//display emote
+		//cancel old emote if there is one
+		//display new emote
 	}
 }
