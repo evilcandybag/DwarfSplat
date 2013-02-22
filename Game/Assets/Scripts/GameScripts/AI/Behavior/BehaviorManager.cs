@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using BehaviorTrees;
 
 /// <summary>
@@ -19,7 +18,7 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	// Use this for initialization
 	void Start () {
 		Interval = DEFAULT_INTERVAL;
-		objects = new ConcurrentDictionary<TKey, TObject>();
+		objects = new Dictionary<TKey, TObject>();
 		
 		
 		//TODO: is InvokeRepeating or Update() the way to go here?
