@@ -28,7 +28,7 @@ public class MoveCommand : ICommand {
 	
 	public void execute() {
 		if(isAllowed()) {
-			actor.getComponent<MovementAgent>().MoveTo(location, speed*100);
+			//actor.GetComponent<MovementAgent>().MoveTo(location, speed*100);
 		}
 	}
 }

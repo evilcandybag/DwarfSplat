@@ -13,7 +13,7 @@ public class Follow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		GetComponent<Agent>().MoveTo(target.transform.position);
+		GetComponent<MovementAgent>().MoveTo(target.transform.position);
 		
 	}
 	

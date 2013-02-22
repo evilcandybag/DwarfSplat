@@ -4,7 +4,7 @@ using System.Collections;
 using Pathfinding.Core;
 using Pathfinding.Graph;
 
-public class Agent : MonoBehaviour {
+public class MovementAgent : MonoBehaviour {
 	
 	/* Public parameters */
 	public float speed = 200;
