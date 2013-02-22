@@ -4,7 +4,7 @@ using System.Collections;
 public class MapGenerationScript : MonoBehaviour {
 	
 	
-	private GameObject wall;
+	GameObject wall;
 	WallMeshManagerScript cms;
 	
 	int[,] maze;
@@ -12,19 +12,18 @@ public class MapGenerationScript : MonoBehaviour {
 	
 	int bot = 0, right = 1;
 	
-	
 	void Start() {
-		GameObject tmp;
+	//	GameObject tmp;
 		
 		cms = GetComponent<WallMeshManagerScript>();
-		
 		
 		size = 10;
 		
 		generateMaze();
 		for(int i = 0; i < size*size; i++) {
-			wall = CreateMazePart();
+			
 			if (!connectedBot(i)) {
+				wall = CreateMazePart();
 				//tmp = (GameObject) Instantiate(wall, getPosition(i, bot), Quaternion.identity);
 				//tmp.transform.Rotate(new Vector3(0,90,0));
 				wall.transform.position = getPosition(i, bot);
@@ -32,8 +31,9 @@ public class MapGenerationScript : MonoBehaviour {
 				wall.transform.Rotate(new Vector3(0,90,0));
 			}
 			if (!connectedRight(i)) {
+				wall = CreateMazePart();
 				//tmp = (GameObject) Instantiate(wall, getPosition(i, right), Quaternion.identity);
-				wall.transform.position = getPosition(i, bot);
+				wall.transform.position = getPosition(i, right);
 				wall.transform.rotation = Quaternion.identity;
 			}
 		}
@@ -42,17 +42,18 @@ public class MapGenerationScript : MonoBehaviour {
 	
 	private GameObject CreateMazePart() {
 		
-			Vector3 p0 = new Vector3(  -0.5f,	0f,		0.05f );
-			Vector3 p1 = new Vector3(	0.5f, 	0f,		0.05f );
-			Vector3 p2 = new Vector3( 	0.5f, 	0f,	   -0.05f );
-			Vector3 p3 = new Vector3(  -0.5f,	0f, 	   -0.05f );	
-			 
-			Vector3 p4 = new Vector3(  -0.5f,	1f, 		0.05f );
-			Vector3 p5 = new Vector3( 	0.5f, 	1f, 		0.05f );
-			Vector3 p6 = new Vector3( 	0.5f,	1f,       -0.05f );
-			Vector3 p7 = new Vector3(  -0.5f,	1f,       -0.05f );
-			
-			return cms.CreateWallwithVertices(p0,p1,p2,p3,p4,p5,p6,p7);
+		// The size of the wall part will be (1,1,0.1)
+		Vector3 p0 = new Vector3(  -0.5f,	-0.5f,		0.05f );
+		Vector3 p1 = new Vector3(	0.5f, 	-0.5f,		0.05f );
+		Vector3 p2 = new Vector3( 	0.5f, 	-0.5f,	   -0.05f );
+		Vector3 p3 = new Vector3(  -0.5f,	-0.5f, 	-0.05f );	
+		 
+		Vector3 p4 = new Vector3(  -0.5f,	0.5f, 	0.05f );
+		Vector3 p5 = new Vector3( 	0.5f, 	0.5f, 	0.05f );
+		Vector3 p6 = new Vector3( 	0.5f,	0.5f,    -0.05f );
+		Vector3 p7 = new Vector3(  -0.5f,	0.5f,    -0.05f );
+		
+		return cms.CreateWallwithVertices(p0,p1,p2,p3,p4,p5,p6,p7);
 	}
 	
 	private Vector3 getPosition(int tile, int placement) {
@@ -156,6 +157,6 @@ public class MapGenerationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }

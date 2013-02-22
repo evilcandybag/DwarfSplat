@@ -10,6 +10,12 @@ public class WallMeshManagerScript : MonoBehaviour {
 	
 	// Set the material in the editor
 	public Material wallMaterial;
+	
+	ArrayList arrayList;
+	
+	void Start(){
+		arrayList = new ArrayList();
+	}
 
 	// This method is based on the box script at this wiki: http://wiki.unity3d.com/index.php/ProceduralPrimitives
 	// Though this method uses vertex points instead of lengths. Since this is the method where the walls are created
@@ -194,6 +200,18 @@ public class WallMeshManagerScript : MonoBehaviour {
 			// Considered Vector3 p0 = obj.transform.TransformPoint(ver[tri[i]]); also
 			wallPart.transform.position = obj.transform.position;
 			wallPart.transform.rotation = obj.transform.rotation;
+			arrayList.Add(wallPart);
+		}
+		StartCoroutine(Wait(2.0f));		
+	}
+	
+	// Wait a little bit before removing destroyed wall parts
+	private IEnumerator Wait(float seconds ) {
+
+        yield return new WaitForSeconds(seconds);
+					
+		foreach(GameObject g in arrayList){
+			Destroy(g);	
 		}
 	}
 	
@@ -391,14 +409,4 @@ public class WallMeshManagerScript : MonoBehaviour {
 		}
     } 
 
-    private IEnumerator Wait(float seconds)
-
-    {
-        Debug.Log("waiting");
-
-        yield return new WaitForSeconds(seconds);
-
-        Debug.Log("wait end");
-
-    }
 }
