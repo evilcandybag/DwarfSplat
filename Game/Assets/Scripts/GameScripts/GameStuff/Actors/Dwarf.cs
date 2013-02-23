@@ -43,6 +43,10 @@ public class Dwarf : AbstractAIActor {
 	public override void RunAI(){
 		behavior.Run();
 	}
+	
+	public void RunEmotes() {
+	}
+	
 	//TODO: dunno if this is the right way to go about it or if we should use commands for that shit
 	public IInteractable Bed { get { return bed_;} }
 	public IInteractable Workplace { get { return work_;} }
