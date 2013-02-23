@@ -11,18 +11,17 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	private IDictionary<TKey,TObject> objects; 
 	
 	private TObject proto;
+	private int frameCounter = 0; 
 	
 	public float Interval;
 	public static readonly float DEFAULT_INTERVAL = 0.1f;
+	public static readonly int UPDATE_FREQ = 10;
 	
 	// Use this for initialization
 	protected virtual void Start () {
 		Interval = DEFAULT_INTERVAL;
 		objects = new Dictionary<TKey, TObject>();
 		
-		
-		//TODO: is InvokeRepeating or Update() the way to go here?
-		InvokeRepeating("Periodic",0.1f,Interval);
 	}
 	
 	void Periodic() {
@@ -32,8 +31,11 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	protected virtual void Update () {
+		if (frameCounter == 0) {
+			Periodic();
+		}
+		frameCounter = (frameCounter + 1) % UPDATE_FREQ;
 	}
 	
 	/// <summary>
