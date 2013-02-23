@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class AbstractAIActor : MonoBehaviour, IAgent, IActor
 {
 	public abstract void RunAI();
-	IItem inventory;
+	private IItem inventory;
 	
 	public IItem[] getInventory() {
 		
