@@ -5,25 +5,34 @@ using UnityEngine;
 /// <summary>
 /// Behavior utilities for the DwarfSplat game.
 /// </summary>
-public abstract class BehaviorUtils
+public class DwarfBehavior
 {
 	public static readonly int WALKSPEED = 1;
 	
-	public static Node CreateBehaviorTree(Dorf d) {
-		PrioritySelector root = new PrioritySelector();
+	private PrioritySelector root;
+	private PriorityNode flee_,work_,sleep_;
+	
+	public PriorityNode Flee { get { return flee_;} }
+	public PriorityNode Work { get { return work_;} }
+	public PriorityNode Sleep { get { return sleep_;} }
+	
+	public DwarfBehavior(Dwarf d) {
+		root = new PrioritySelector();
 		
-		root.AddChild(CreateFleeBehavior(d),Double.MaxValue);
+		flee_ = root.AddChild(CreateFleeBehavior(d),Double.MaxValue);
 		
-		root.AddChild(CreateInteractionBehavior(d, d.Workplace),50.0);
+		work_ = root.AddChild(CreateInteractionBehavior(d, d.Workplace, Dwarf.Status.WORK),50.0);
 		
-		root.AddChild(CreateInteractionBehavior(d, d.Bed));
+		sleep_ = root.AddChild(CreateInteractionBehavior(d, d.Bed, Dwarf.Status.SLEEP));
 		
-		
-		return root;
 	}
 	
-	private static Node CreateFleeBehavior(Dorf d) {	
-		ConditionDecorator ifballsee = new ConditionDecorator(d.CanSeeBall);
+	public void Run() {
+		root.Visit();
+	}
+	
+	private static Node CreateFleeBehavior(Dwarf d) {	
+		ConditionDecorator ifballsee = new ConditionDecorator(() => false);
 		
 		
 		//TODO: this shit aint done yet!
@@ -32,7 +41,7 @@ public abstract class BehaviorUtils
 		return ifballsee;
 	}
 	
-	private static Node CreateInteractionBehavior(Dorf d, IInteractable i) {
+	private static Node CreateInteractionBehavior(Dwarf d, IInteractable i, Dwarf.Status s) {
 		
 		Condition findWork = new Condition(() => {
 			//TODO: what check here? Maybe an action to get a work-place?
@@ -53,6 +62,7 @@ public abstract class BehaviorUtils
 		BehaviorTrees.Action work = new BehaviorTrees.Action(() => {
 			//TODO: replace null value with some kind of interactable variable from d.
 			var ic = new InteractCommand(d,null);
+			d.state = s;
 			if (ic.isAllowed()) {
 				ic.execute();
 				return Node.Status.RUNNING;
