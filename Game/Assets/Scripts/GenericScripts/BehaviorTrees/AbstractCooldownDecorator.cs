@@ -14,6 +14,10 @@ namespace BehaviorTrees
 			this.cooldown = cooldown;
 		}
 		
+		public AbstractCooldownDecorator (double cooldown, Node child) : base (child) {
+			this.cooldown = cooldown;
+		}
+		
 		public override Node.Status Visit() {
 			double time = GetTime();
 			if (time < lastActivate + cooldown) {
