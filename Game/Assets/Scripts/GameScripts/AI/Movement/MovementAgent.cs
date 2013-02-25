@@ -87,4 +87,9 @@ public class MovementAgent : MonoBehaviour {
 	public void MoveTo(Vector3 pos) {
 		targetPosition = pos;
 	}
+	
+	public void MoveTo(Vector3 pos, int newSpeed) {
+		MoveTo(pos);
+		speed = newSpeed;
+	}
 }
