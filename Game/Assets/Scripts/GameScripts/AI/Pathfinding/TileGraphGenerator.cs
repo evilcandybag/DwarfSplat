@@ -78,15 +78,33 @@ public class TileGraphGenerator : MonoBehaviour {
 		
 	}
 	
-	/** Rescan the map to detect new obstacles */
+	/** Rescan the ENTIRE map to detect new obstacles */
 	public void Rescan() {
+		Rescan(0, 0, width, depth);
+	}
+	
+	/** Rescan a specific part of the map to detect new or gone obstacles */
+	public void Rescan(Vector3 bottomLeft, Vector3 topRight) {
 		
-		// raycast position
-		Vector3 pos = new Vector3(0,0,0);
+		TileNode bl = tileGraph.GetNode(bottomLeft);
+		TileNode tr = tileGraph.GetNode(topRight);
+		
+		if (bl == null || tr == null) return;
+		
+		Rescan(bl.X, bl.Z, tr.X, tr.Z);
+		
+	}
+	
+	/** Rescan a specific part of the map to detect new or gone obstacles 
+	 *  Uses tiles coordinates
+	 * */
+	public void Rescan(int startX, int startZ, int endX, int endZ) {
+	
+		Vector3 pos = new Vector3(0,0,0); // raycast position
 		pos.y = height;
 		
-		for (int x = 0; x < width; x++) {
-			for (int z = 0; z < depth; z++) {
+		for (int x = startX; x < endX; x++) {
+			for (int z = startZ; z < endZ; z++) {
 				pos = startPos + new Vector3(x * cellWidth, height, z * cellDepth);
 				RaycastHit hit;
 				if (Physics.Raycast(pos, -Vector3.up, out hit, Mathf.Infinity, layer)) {
@@ -95,24 +113,32 @@ public class TileGraphGenerator : MonoBehaviour {
 						tileGraph.setWalkable(x,z,false);
 					}
 				}
-				
 			}
 		}
 		
-		RadiusModifier(radius);
+		RadiusModifier(startX, startZ, endX, endZ, radius);
 		
 	}
 	
 	/** 
 	 * Extend the unwalkable areas with the given radius
+	 * for the ENTIRE MAP
 	 */
-	public void RadiusModifier(int radius = 0) {
+	public void RadiusModifier(int r = 0) {
+		RadiusModifier(0, 0, width, depth, r);
+	}
+	
+	/** 
+	 * Extend the unwalkable areas with the given radius
+	 * for the given position and dimensions
+	 */
+	public void RadiusModifier(int startX, int startZ, int endX, int endZ, int r = 0) {
 		
 		List<Node> newObstacles = new List<Node>();
 		
-		for (int x = 0; x < width; x++) {
-			for (int z = 0; z < depth; z++) {
-				List<Node> neighbors = tileGraph.GetNeighbors(x, z, radius);
+		for (int x = startX; x < endX; x++) {
+			for (int z = startZ; z < endZ; z++) {
+				List<Node> neighbors = tileGraph.GetNeighbors(x, z, r);
 				if (neighbors != null) {
 					newObstacles.AddRange(neighbors);
 				}
