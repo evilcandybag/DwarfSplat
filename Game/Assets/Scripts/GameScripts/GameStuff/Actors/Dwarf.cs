@@ -6,6 +6,7 @@ public class Dwarf : AbstractAIActor {
 	
 	private IInteractable bed_, work_;
 	private DwarfBehavior behavior;
+	private DwarfEmotes emotes;
 	public Status state;
 	
 	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.1, FLEE_RATE = 0.8;
@@ -20,6 +21,7 @@ public class Dwarf : AbstractAIActor {
 	// Use this for initialization
 	void Start () {
 		behavior = new DwarfBehavior(this);
+		emotes = new DwarfEmotes(this);
 	}
 	
 	// Update is called once per frame
@@ -45,6 +47,7 @@ public class Dwarf : AbstractAIActor {
 	}
 	
 	public void RunEmotes() {
+		emotes.Run();
 	}
 	
 	//TODO: dunno if this is the right way to go about it or if we should use commands for that shit
