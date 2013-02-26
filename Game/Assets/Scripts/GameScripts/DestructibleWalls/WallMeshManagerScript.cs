@@ -11,11 +11,11 @@ public class WallMeshManagerScript : MonoBehaviour {
 	// Set the material in the editor
 	public Material wallMaterial;
 	
-	ArrayList arrayList;
+	//ArrayList arrayList;
 	
-	void Start(){
+	/*void Start(){
 		arrayList = new ArrayList();
-	}
+	}*/
 
 	// This method is based on the box script at this wiki: http://wiki.unity3d.com/index.php/ProceduralPrimitives
 	// Though this method uses vertex points instead of lengths. Since this is the method where the walls are created
@@ -160,11 +160,14 @@ public class WallMeshManagerScript : MonoBehaviour {
 		//wallMaterial = Resources.Load("WallMaterial", typeof(Material)) as Material;
 		
 		wall.renderer.material = wallMaterial;
-		wall.AddComponent<MeshCollider>();
+		//wall.AddComponent<MeshCollider>();
+		wall.AddComponent<BoxCollider>();
 		// We can add this script when the ball gets the powerups that makes it able to destroy walls
 		wall.AddComponent("WallCollisionScript");
 		// Change so that the force of the ball decides how many meshes a wall should be destroyed in
 		wall.AddComponent("SubdivideMeshScript");
+		
+		//wall.GetComponent<MeshCollider>().convex = true;
 		
 		return wall;
 	}
@@ -175,7 +178,7 @@ public class WallMeshManagerScript : MonoBehaviour {
 	// the wall looks like that it is crushed in different pieces. It also moves each wall
 	// part so that it is at the right position in world space.
 	public void CreateCrushedWallWrapper(GameObject obj) {
-		
+		ArrayList arrayList = new ArrayList();
 		Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
 		int[] tri = mesh.triangles;
 		Vector3[] ver = mesh.vertices;
@@ -202,14 +205,18 @@ public class WallMeshManagerScript : MonoBehaviour {
 			wallPart.transform.rotation = obj.transform.rotation;
 			arrayList.Add(wallPart);
 		}
-		StartCoroutine(Wait(2.0f));		
+		StartCoroutine(Wait(5.0f, arrayList));		
 	}
 	
 	// Wait a little bit before removing destroyed wall parts
-	private IEnumerator Wait(float seconds ) {
+	private IEnumerator Wait(float seconds, ArrayList arrayList ) {
 
         yield return new WaitForSeconds(seconds);
-					
+		
+		/*for (t = 0.0; t < duration; t += Time.deltaTime) {
+    		renderer.material.color = Color.Lerp (colorStart, colorEnd, t/duration);
+  		}*/
+		
 		foreach(GameObject g in arrayList){
 			Destroy(g);	
 		}
@@ -340,9 +347,75 @@ public class WallMeshManagerScript : MonoBehaviour {
 		
 		wallPart.renderer.material = wallMaterial;
 		wallPart.AddComponent<MeshCollider>();
-		//wall.GetComponent<MeshCollider>().convex = true; //<-- if I want them to collide with each other
+		wallPart.GetComponent<MeshCollider>().convex = true; //<-- if I want them to collide with each other
+		
+		//wallPart.AddComponent("SubdivideMeshScript");
+		//wallPart.AddComponent("WallCollisionScript");
+		
 		
 		return wallPart;
+	}
+	
+	public void MyCrush(GameObject obj){
+		ArrayList arrayList = new ArrayList();
+		
+		Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
+		int[] tri = mesh.triangles;
+		Vector3[] ver = mesh.vertices;
+		ArrayList newTri = new ArrayList();
+		for(int i = 12; i<18; i++){
+			newTri.Add(tri[i]);	
+		}
+		for(int k = 36; k<tri.Length; k++){
+			newTri.Add(tri[k]);	
+		}
+		tri = newTri.ToArray(typeof(int)) as int[];
+		
+		/*foreach(int n in tri){
+			print(n);	
+		}*/
+		
+		print("tri leng: " + tri.Length);
+		
+		GameObject wallPart;
+		
+		// start -> diagonal up -> left
+		for(int b = 0; b<tri.Length; b+=6){
+			
+			Vector3 p0 = ver[tri[b]];
+			Vector3 p4 = ver[tri[b+2]];
+			Vector3 p5 = ver[tri[b+1]];
+			Vector3 p1 = new Vector3(p5.x+0.01f, p5.y+0.01f, p5.z+0.01f);
+			Vector3 p2 = new Vector3(p5.x+0.02f, p5.y+0.02f, p5.z-0.1f);
+			Vector3 p3 = new Vector3(p0.x+0.01f, p0.y+0.01f, p0.z-0.1f);
+			Vector3 p6 = new Vector3(p2.x+0.01f, p2.y+0.01f, p2.z+0.01f);
+			Vector3 p7 = new Vector3(p4.x+0.01f, p4.y+0.01f, p4.z-0.1f);
+			
+			wallPart = CreateCrushedWall(p0, p1, p2, p3, p4, p5, p6, p7);
+			wallPart.transform.position = obj.transform.position;
+			wallPart.transform.rotation = obj.transform.rotation;
+			arrayList.Add(wallPart);
+		}
+		// OBS THE SAME RIGHT NOW!
+		// start -> right -> up
+		for(int g = 3; g<tri.Length; g+=6){
+			Vector3 p0 = ver[tri[g]];
+			Vector3 p4 = ver[tri[g+2]];
+			Vector3 p5 = ver[tri[g+1]];
+			Vector3 p1 = new Vector3(p5.x+0.01f, p5.y+0.01f, p5.z+0.01f);
+			Vector3 p2 = new Vector3(p5.x+0.02f, p5.y+0.02f, p5.z-0.1f);
+			Vector3 p3 = new Vector3(p0.x+0.01f, p0.y+0.01f, p0.z-0.1f);
+			Vector3 p6 = new Vector3(p2.x+0.01f, p2.y+0.01f, p2.z+0.01f);
+			Vector3 p7 = new Vector3(p4.x+0.01f, p4.y+0.01f, p4.z-0.1f);
+			
+			wallPart = CreateCrushedWall(p0, p1, p2, p3, p4, p5, p6, p7);
+			wallPart.transform.position = obj.transform.position;
+			wallPart.transform.rotation = obj.transform.rotation;
+			arrayList.Add(wallPart);
+		}
+		
+		StartCoroutine(Wait(5.0f, arrayList));	
+		
 	}
 	
 	
@@ -404,7 +477,7 @@ public class WallMeshManagerScript : MonoBehaviour {
 			
 		}
 		else{
-			StartCoroutine(Wait(3.0f));
+			//StartCoroutine(Wait(3.0f));
 			flag = true;
 		}
     } 
