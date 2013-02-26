@@ -15,11 +15,18 @@ public class InteractCommand : ICommand {
 	}
 
 	public bool isAllowed() {
-		//TODO lots of stuffz to check if the movement can be allowed
-		return false;
+		//TODO lots of stuffz to check if the interaction can be allowed
+		if (interactable != null && actor != null) {
+			if (actor is MonoBehavior && Vector3.Distance(((MonoBehaviour) actor).transform.localPosition, 
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public void execute() {
-		
+		if (isAllowed()) {
+			interactable.interact(actor);
+		}
 	}
 }

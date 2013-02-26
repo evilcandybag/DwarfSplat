@@ -35,4 +35,8 @@ public class Ball : MonoBehaviour, IActor {
 	public void addInteractable(IInteractable i) {
 		//do nothing, ball does not use interactables
 	}
+	
+	public Vector3 getLocation() {
+		return this.transform.localPosition;
+	}
 }

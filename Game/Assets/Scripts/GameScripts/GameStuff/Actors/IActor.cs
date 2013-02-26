@@ -11,6 +11,6 @@ public interface IActor {
 	
 	void addInteractable(IInteractable interactable);
 	
-	Vector3 getLocation();
+	Vector3 getPosition();
 	
 }
