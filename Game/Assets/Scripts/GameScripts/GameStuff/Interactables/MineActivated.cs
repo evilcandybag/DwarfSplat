@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class MineActivated : MonoBehaviour, IInteractable {
 	
@@ -7,7 +8,7 @@ public class MineActivated : MonoBehaviour, IInteractable {
 		return true;
 	}
 	
-	public void interact(IActor actor) {
+	public void interact(IActor actor, Action<Result> callback) {
 		if (canInteract(actor)) {
 			//Explode
 		}
