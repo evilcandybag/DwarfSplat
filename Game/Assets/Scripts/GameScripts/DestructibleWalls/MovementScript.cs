@@ -9,24 +9,22 @@ public class MovementScript : MonoBehaviour {
 	
 	public float moveSpeed = 2;
 	public float rotateSpeed = 10;
+
 	
 	void FixedUpdate () 
 	{		
 		if (Input.GetKey (KeyCode.LeftArrow)){
-	    	rigidbody.AddForce (Vector3.left * 25);
+	    	rigidbody.AddForce (Vector3.left * 70);
+			//transform.rot
 		}
 		if (Input.GetKey (KeyCode.RightArrow)){
-	   	 	rigidbody.AddForce (Vector3.right * 25);
+	   	 	rigidbody.AddForce (Vector3.right * 70);
 		}
 		if (Input.GetKey (KeyCode.UpArrow)){
-	    	rigidbody.AddForce (Vector3.forward * 25);
+	    	rigidbody.AddForce (Vector3.forward * 70);
 		}
 		if (Input.GetKey (KeyCode.DownArrow)){
-	   	 	rigidbody.AddForce (-Vector3.forward * 25);
-		}
-		if (Input.GetKey (KeyCode.Space)){
-	   	 	transform.position = new Vector3(4f, 3f, -16f);
-		}
-		
+	   	 	rigidbody.AddForce (-Vector3.forward *70);
+		}		
 	}
 }

@@ -16,9 +16,22 @@ public class WallCollisionScript : MonoBehaviour {
 		if(collision.contacts[0].otherCollider.name.Equals("Cube")) {
 					
 			Vector3 contactPoint = collision.contacts[0].point;
-			GameObject go = GameObject.Find("emptyMapStuff");
+			/*GameObject go = GameObject.Find("emptyMapStuff");
 			WallMeshManagerScript meshManager = (WallMeshManagerScript) go.GetComponent<WallMeshManagerScript>();			
 			meshManager.CreateCrushedWallWrapper(this.gameObject);
+			Destroy(this.gameObject);*/
+			
+			SubdivideMeshScript sms = GetComponent<SubdivideMeshScript>();
+			
+			Vector3 a = contactPoint;
+			
+			sms.MySubdivide(false);
+			
+			GameObject go = GameObject.Find("emptyMapStuff");
+			WallMeshManagerScript meshManager = (WallMeshManagerScript) go.GetComponent<WallMeshManagerScript>();			
+			//meshManager.CreateCrushedWallWrapper(this.gameObject);
+			//Destroy(this.gameObject);
+			meshManager.MyCrush(this.gameObject);
 			Destroy(this.gameObject);
 		}
     }	
