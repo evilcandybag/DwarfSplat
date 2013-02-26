@@ -27,7 +27,7 @@ public class InteractCommand : ICommand {
 	
 	public void execute() {
 		if (isAllowed()) {
-			interactable.interact(actor);
+			interactable.interact(actor, callback);
 		}
 	}
 }
