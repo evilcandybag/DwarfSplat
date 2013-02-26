@@ -26,7 +26,7 @@ public class MovementAgent : MonoBehaviour {
 	private Vector3 targetPosition;
 	private Path path;
 	private int currentPos = 0;
-	
+
 	/* 
 	 * Refresh interval for the path
 	 * It prevents the path to be recomputed too often, and during 
@@ -36,7 +36,8 @@ public class MovementAgent : MonoBehaviour {
 	private float lastPath = 0;
 	private Vector3 currentPoint;
 	
-	private Action<Result> callback;
+	/** Callback after the agent reached the target */
+	private Action<Result> endCallback;
 	private Result result;
 	
 	void Start () {
@@ -51,8 +52,12 @@ public class MovementAgent : MonoBehaviour {
 	/* When a new path has been computed */
 	void onCallback(Path newPath) {
 		path = newPath;
-		if (smoothPath) path = Smoother.smoothPath(path);
-		currentPos = 1; // avoid backward movement bug (temp solution)
+		if (path.Count == 0) {
+			endCallback(Result.FAIL);
+		} else {
+			if (smoothPath) path = Smoother.smoothPath(path);
+			currentPos = 1; // avoid backward movement bug (temp solution)
+		}
 	}
 	
 	void Update () {
@@ -68,34 +73,39 @@ public class MovementAgent : MonoBehaviour {
 		
 		lastPath += Time.deltaTime;
 		
-		if (lastPath > TIME_REPATH && Vector3.Distance(transform.position, targetPosition) > 0.3) {
+		// update the path every TIME_REPATH
+		if (lastPath > TIME_REPATH && Vector3.Distance(transform.position, targetPosition) > realWayPointDistance) {
 			lastPath = 0;
 			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
 		}
 		
-		if (path == null || currentPos >= path.Count) return;
+		if (path.Count == 0 || currentPos >= path.Count) return;
 		
+		// set the target y to be the same as the agent
 		currentPoint.Set(path[currentPos].x, transform.position.y, path[currentPos].z);
 		
+		// move agent
 		Vector3 direction = (currentPoint - transform.position).normalized;
 		direction *= speed * Time.deltaTime;
 		controller.SimpleMove(direction);
 		
+		// if close enough to the next way point
 		if (Vector3.Distance(transform.position, currentPoint) < realWayPointDistance) {
 			currentPos++;
-			
+		}
+		
+		// reached the end position?
+		if (currentPos == path.Count-1) {
+			endCallback(Result.SUCCESS);
+			targetPosition = transform.position;
 		}
 		
 		if (drawPath) path.drawDebugPath(Color.green);
 	}
 	
-	public void MoveTo(Vector3 pos) {
-		targetPosition = pos;
-	}
-	
 	public void MoveTo(Vector3 pos, int newSpeed, Action<Result> callback) {
-		MoveTo(pos);
+		targetPosition = pos;
 		speed = newSpeed;
-		this.callback = callback;
+		endCallback = callback;
 	}
 }
