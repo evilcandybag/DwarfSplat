@@ -71,4 +71,8 @@ public class Dwarf : AbstractAIActor {
 	public void WorkCallback(Result res) {
 		this.workResult = res;
 	}
+	
+	public Vector3 getPosition() {
+		return this.transform.localPosition;
+	}
 }
