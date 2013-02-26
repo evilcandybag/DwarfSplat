@@ -9,6 +9,8 @@ public class Dwarf : AbstractAIActor {
 	private DwarfEmotes emotes;
 	public Status state;
 	
+	public Result moveResult,sleepResult,workResult;
+	
 	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.1, FLEE_RATE = 0.8;
 	
 	public enum Status {
@@ -22,6 +24,8 @@ public class Dwarf : AbstractAIActor {
 	void Start () {
 		behavior = new DwarfBehavior(this);
 		emotes = new DwarfEmotes(this);
+		moveResult = Result.SUCCESS; sleepResult = Result.SUCCESS; 
+		workResult = Result.SUCCESS;
 	}
 	
 	// Update is called once per frame
@@ -58,4 +62,13 @@ public class Dwarf : AbstractAIActor {
 	public IInteractable Bed { get { return bed_;} }
 	public IInteractable Workplace { get { return work_;} }
 	
+	public void MovementCallback(Result res) {
+		this.moveResult = res;
+	}
+	public void SleepCallback(Result res) {
+		this.sleepResult = res;
+	}
+	public void WorkCallback(Result res) {
+		this.workResult = res;
+	}
 }
