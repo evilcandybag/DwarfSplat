@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 using Pathfinding.Core;
 using Pathfinding.Graph;
@@ -34,6 +35,9 @@ public class MovementAgent : MonoBehaviour {
 	public float TIME_REPATH = 1;
 	private float lastPath = 0;
 	private Vector3 currentPoint;
+	
+	private Action<Result> callback;
+	private Result result;
 	
 	void Start () {
 		// avoid having to add a controller by hand from the editor
@@ -79,6 +83,7 @@ public class MovementAgent : MonoBehaviour {
 		
 		if (Vector3.Distance(transform.position, currentPoint) < realWayPointDistance) {
 			currentPos++;
+			
 		}
 		
 		if (drawPath) path.drawDebugPath(Color.green);
@@ -88,8 +93,9 @@ public class MovementAgent : MonoBehaviour {
 		targetPosition = pos;
 	}
 	
-	public void MoveTo(Vector3 pos, int newSpeed) {
+	public void MoveTo(Vector3 pos, int newSpeed, Action<Result> callback) {
 		MoveTo(pos);
 		speed = newSpeed;
+		this.callback = callback;
 	}
 }

@@ -1,14 +1,16 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class MoveCommand : ICommand {
 	
 	IActor actor;
 	Vector3 location;
+	Action<Result> callback;
 	
 	int speed; //1 => slow, 2 => normal, 3 => run
 	
-	public MoveCommand(IActor actor, Vector3 location, int speed) {
+	public MoveCommand(IActor actor, Vector3 location, int speed, Action<Result> callback) {
 		this.actor = actor;
 		this.location = location;
 		
@@ -19,6 +21,8 @@ public class MoveCommand : ICommand {
 		else
 			this.speed = speed;
 		
+		this.callback = callback;
+		
 	}
 
 	public bool isAllowed() {
@@ -28,7 +32,7 @@ public class MoveCommand : ICommand {
 	
 	public void execute() {
 		if(isAllowed()) {
-			//actor.GetComponent<MovementAgent>().MoveTo(location, speed*100);
+			actor.GetComponent<MovementAgent>().MoveTo(location, speed*100, callback);
 		}
 	}
 }
