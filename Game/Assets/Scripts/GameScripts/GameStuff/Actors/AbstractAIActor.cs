@@ -35,5 +35,9 @@ public abstract class AbstractAIActor : MonoBehaviour, IAgent, IActor
 			return false;
 		}
 	}
+	
+	public void addInteractable(IInteractable i) {
+		//do nothing
+	}
 }
 
