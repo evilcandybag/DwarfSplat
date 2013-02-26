@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class DwarfBehavior
 {
-	public static readonly int WALKSPEED = 1;
+	public static readonly int WALKSPEED = 2;
 	
 	private PrioritySelector root;
 	private PriorityNode flee_,work_,sleep_;
@@ -50,9 +50,10 @@ public class DwarfBehavior
 		
 		BehaviorTrees.Action goToWork = new BehaviorTrees.Action(() => {
 			//TODO: replace vector param with location of workplace!
-			var mc = new MoveCommand(d,new Vector3(),WALKSPEED);
+			var mc = new MoveCommand(d,new Vector3(),WALKSPEED,d.MovementCallback);
 			if (mc.isAllowed()) {
 				mc.execute();
+				d.state = Dwarf.Status.IDLE;
 				return Node.Status.RUNNING;
 			} else {
 				return Node.Status.FAIL;
@@ -61,7 +62,7 @@ public class DwarfBehavior
 		
 		BehaviorTrees.Action work = new BehaviorTrees.Action(() => {
 			//TODO: replace null value with some kind of interactable variable from d.
-			var ic = new InteractCommand(d,null);
+			var ic = new InteractCommand(d,i,d.WorkCallback);
 			d.state = s;
 			if (ic.isAllowed()) {
 				ic.execute();
