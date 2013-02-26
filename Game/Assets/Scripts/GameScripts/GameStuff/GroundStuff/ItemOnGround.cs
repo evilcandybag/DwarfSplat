@@ -21,6 +21,7 @@ public class ItemOnGround : MonoBehaviour {
 				ICommand command = new PickUpCommand(a, item);
 				command.execute();
 				Destroy(this);
+				//comment be here
 				break;
 			}
 		}
