@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
-public class Bed : IInteractable {
+public class Bed : MonoBehaviour, IInteractable {
 
-	public void interact(IActor dwarf) {
+	public void interact(IActor dwarf, Action<Result> callback) {
 		if (canInteract(dwarf)) {
 			//make dwarf enter sleep mode
 		}
@@ -19,5 +20,9 @@ public class Bed : IInteractable {
 		else {
 			return false;
 		}
+	}
+	
+	public Vector3 getPosition() {
+		return this.transform.localPosition;
 	}
 }

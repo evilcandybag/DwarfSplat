@@ -39,5 +39,9 @@ public abstract class AbstractAIActor : MonoBehaviour, IAgent, IActor
 	public void addInteractable(IInteractable i) {
 		//do nothing
 	}
+	
+	public Vector3 getPosition() {
+		return this.transform.localPosition;
+	}
 }
 
