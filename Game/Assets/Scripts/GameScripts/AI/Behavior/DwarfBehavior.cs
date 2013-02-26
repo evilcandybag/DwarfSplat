@@ -21,9 +21,9 @@ public class DwarfBehavior
 		
 		flee_ = root.AddChild(CreateFleeBehavior(d),Double.MaxValue);
 		
-		work_ = root.AddChild(CreateInteractionBehavior(d, d.Workplace, Dwarf.Status.WORK),50.0);
+		work_ = root.AddChild(CreateInteractionBehavior(d, d.Workplace, Dwarf.Status.WORK,d.WorkCallback),50.0);
 		
-		sleep_ = root.AddChild(CreateInteractionBehavior(d, d.Bed, Dwarf.Status.SLEEP));
+		sleep_ = root.AddChild(CreateInteractionBehavior(d, d.Bed, Dwarf.Status.SLEEP, d.SleepCallback));
 		
 	}
 	
@@ -41,12 +41,7 @@ public class DwarfBehavior
 		return ifballsee;
 	}
 	
-	private static Node CreateInteractionBehavior(Dwarf d, IInteractable i, Dwarf.Status s) {
-		
-		Condition findWork = new Condition(() => {
-			//TODO: what check here? Maybe an action to get a work-place?
-			return false;
-		});
+	private static Node CreateInteractionBehavior(Dwarf d, IInteractable i, Dwarf.Status s,Action<Result> callback) {
 		
 		BehaviorTrees.Action goToWork = new BehaviorTrees.Action(() => {
 			//TODO: replace vector param with location of workplace!
@@ -62,7 +57,7 @@ public class DwarfBehavior
 		
 		BehaviorTrees.Action work = new BehaviorTrees.Action(() => {
 			//TODO: replace null value with some kind of interactable variable from d.
-			var ic = new InteractCommand(d,i,d.WorkCallback);
+			var ic = new InteractCommand(d,i,callback);
 			d.state = s;
 			if (ic.isAllowed()) {
 				ic.execute();
@@ -73,7 +68,7 @@ public class DwarfBehavior
 		});
 		
 		
-		SequenceSelector root = new SequenceSelector(findWork,goToWork,work);
+		SequenceSelector root = new SequenceSelector(goToWork,work);
 		return root;
 	}
 	
