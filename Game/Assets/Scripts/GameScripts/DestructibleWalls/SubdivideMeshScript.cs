@@ -23,12 +23,14 @@ public class SubdivideMeshScript : MonoBehaviour {
 	//bool middle = false;
 	
 	void Update () {
-		if(Input.GetKeyDown("1"))
+		/*if(Input.GetKeyDown("1"))			
 			Subdivide(false);
 		if(Input.GetKeyDown("2"))
 			Subdivide(true);
 		if(Input.GetKeyDown("x"))
-			CopyMesh(originalMesh, mesh);
+			CopyMesh(originalMesh, mesh);*/
+		
+		
 		
 	}
 	
@@ -64,8 +66,7 @@ public class SubdivideMeshScript : MonoBehaviour {
 			
 			Applymesh();
 			mesh.RecalculateNormals();
-			
-			Debug.Log(verts.Length);
+
 		}
 		
 		originalMesh = new Mesh();
@@ -73,7 +74,7 @@ public class SubdivideMeshScript : MonoBehaviour {
 	}
 	
 	void Subdivide(bool center){
-		
+
 		verts = mesh.vertices;
 		trigs = mesh.triangles;
 		uvs = mesh.uv;
@@ -91,8 +92,9 @@ public class SubdivideMeshScript : MonoBehaviour {
 		nn.AddRange(norms);
 		
 		if(!center){
+			Debug.Log("Before: " + nt.Count);
 			for(int i = 2; i < trigs.Length; i+=3){
-						
+
 				int p0trigwho = trigs[i-2];
 				int p1trigwho = trigs[i-1];
 				int p2trigwho = trigs[i];
@@ -155,13 +157,16 @@ public class SubdivideMeshScript : MonoBehaviour {
 	 
 				nt.Add(p2modtrigwho);
 				nt.Add(p1modtrigwho);
-				nt.Add(p2trigwho);	
+				nt.Add(p2trigwho);
+				Debug.Log("in: " + nt.Count);
 			}
+			Debug.Log("After: " + nt.Count);
 		}
 		else{
 			
 			for(int ii = 2; ii < trigs.Length; ii+=3) {
- 
+ 				
+
 				int p0trigwhomi = trigs[ii-2];
 				int p1trigwhomi = trigs[ii-1];
 				int p2trigwhomi = trigs[ii];
@@ -254,5 +259,108 @@ public class SubdivideMeshScript : MonoBehaviour {
 		toMesh.normals=fromMesh.normals;
 		toMesh.uv=fromMesh.uv;
 		toMesh.triangles=fromMesh.triangles;
-	}	
+	}
+	
+	public void MySubdivide(bool center){
+
+		verts = mesh.vertices;
+		trigs = mesh.triangles;
+		uvs = mesh.uv;
+		norms = mesh.normals;
+		
+		Debug.Log("enter subdividing: " + verts.Length);
+		
+		ArrayList nv = new ArrayList();
+		nv.AddRange(verts);
+		ArrayList nt = new ArrayList();
+		nt.AddRange(trigs);
+		ArrayList nu = new ArrayList();
+		nu.AddRange(uvs);
+		ArrayList nn = new ArrayList();
+		nn.AddRange(norms);
+		
+		if(!center){
+			Debug.Log("Before: " + nt.Count);
+			for(int i = 14; i < 18; i+=3){
+				// i < trigs.Length
+				int p0trigwho = trigs[i-2];
+				int p1trigwho = trigs[i-1];
+				int p2trigwho = trigs[i];
+	 
+				int p0trigwhere = i-2;
+				int p1trigwhere = i-1;
+				int p2trigwhere = i;
+	 
+				Vector3 p0 = verts[p0trigwho];
+				Vector3 p1 = verts[p1trigwho];
+				Vector3 p2 = verts[p2trigwho];
+	 
+				Vector3 pn0 = norms[p0trigwho];
+				Vector3 pn1 = norms[p1trigwho];
+				Vector3 pn2  = norms[p2trigwho];
+	 
+				Vector2 pu0  = uvs[p0trigwho];
+				Vector2 pu1  = uvs[p1trigwho];
+				Vector2 pu2 = uvs[p2trigwho];
+	 			
+				Vector3 p0mod  = (p0+p1)/2;	
+				Vector3 p1mod  = (p1+p2)/2;
+				Vector3 p2mod  = (p0+p2)/2;
+				
+	 
+				Vector3 pn0mod = ((pn0+pn1)/2).normalized;	
+				Vector3 pn1mod = ((pn1+pn2)/2).normalized;
+				Vector3 pn2mod  = ((pn0+pn2)/2).normalized;
+	 
+				Vector2 pu0mod  = (pu0+pu1)/2;	
+				Vector2 pu1mod  = (pu1+pu2)/2;
+				Vector2 pu2mod = (pu0+pu2)/2;
+	 
+				int p0modtrigwho = nv.Count;
+				int p1modtrigwho = nv.Count+1;
+				int p2modtrigwho = nv.Count+2;
+	 
+				nv.Add(p0mod);
+				nv.Add(p1mod);
+				nv.Add(p2mod);
+	 
+				nn.Add(pn0mod);
+				nn.Add(pn1mod);
+				nn.Add(pn2mod);
+	 
+				nu.Add(pu0mod);
+				nu.Add(pu1mod);
+				nu.Add(pu2mod);
+				
+				nt[p0trigwhere] = p0trigwho;
+				nt[p1trigwhere] = p0modtrigwho;
+				nt[p2trigwhere] = p2modtrigwho;
+	 
+				nt.Add(p0modtrigwho);
+				nt.Add(p1modtrigwho);
+				nt.Add(p2modtrigwho);
+	 
+				nt.Add(p0modtrigwho);
+				nt.Add(p1trigwho);
+				nt.Add(p1modtrigwho);
+	 
+				nt.Add(p2modtrigwho);
+				nt.Add(p1modtrigwho);
+				nt.Add(p2trigwho);
+				Debug.Log("in: " + nt.Count);
+			}
+			Debug.Log("After: " + nt.Count);
+		}
+		
+		verts = nv.ToArray(typeof(Vector3)) as Vector3[];
+		norms = nn.ToArray(typeof(Vector3)) as Vector3[];
+		uvs = nu.ToArray(typeof(Vector2)) as Vector2[];
+		trigs = nt.ToArray(typeof(int)) as int[];
+	 
+		//Applyuvs();
+		Applymesh();
+		//mesh.RecalculateNormals();
+
+		Debug.Log("exit subdividing: "+verts.Length);
+	}
 }
