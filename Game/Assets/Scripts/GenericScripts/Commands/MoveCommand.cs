@@ -4,13 +4,13 @@ using System;
 
 public class MoveCommand : ICommand {
 	
-	IActor actor;
+	AbstractAIActor actor;
 	Vector3 location;
 	Action<Result> callback;
 	
 	int speed; //1 => slow, 2 => normal, 3 => run
 	
-	public MoveCommand(IActor actor, Vector3 location, int speed, Action<Result> callback) {
+	public MoveCommand(AbstractAIActor actor, Vector3 location, int speed, Action<Result> callback) {
 		this.actor = actor;
 		this.location = location;
 		
