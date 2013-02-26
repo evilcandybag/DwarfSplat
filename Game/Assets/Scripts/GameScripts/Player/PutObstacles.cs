@@ -23,12 +23,14 @@ public class PutObstacles : MonoBehaviour {
 				//Vector3 hitPos = Camera.main.WorldToScreenPoint(hit.point);
 				hit.point.Set(hit.point.x, 1, hit.point.z);
 				Vector3 newWall = new Vector3(hit.point.x, 1, hit.point.z);
-				Instantiate(wall, newWall, Quaternion.identity);
-			
+				
 				// TODO: better way to find the width of an object? 
 				Vector3 size = wall.GetComponent<Renderer>().bounds.size;
-				// Rescan(Vector3 bottomLeft, Vector3 topRight)
-				gen.Rescan(newWall , newWall + size);
+				if (gen.IsWalkable(newWall, newWall + size)) {
+					Instantiate(wall, newWall, Quaternion.identity);
+					// Rescan(Vector3 bottomLeft, Vector3 topRight)	
+					gen.Rescan(newWall , newWall + size);
+				}
 			}
 		}
 		

@@ -37,7 +37,7 @@ public class MovementAgent : MonoBehaviour {
 	private Vector3 currentPoint;
 	
 	/** Callback after the agent reached the target */
-	private Action<Result> endCallback;
+	private Action<Result> endCallback = null;
 	private Result result;
 	
 	void Start () {
@@ -53,7 +53,7 @@ public class MovementAgent : MonoBehaviour {
 	void onCallback(Path newPath) {
 		path = newPath;
 		if (path.Count == 0) {
-			endCallback(Result.FAIL);
+			if (endCallback != null) endCallback(Result.FAIL);
 		} else {
 			if (smoothPath) path = Smoother.smoothPath(path);
 			currentPos = 1; // avoid backward movement bug (temp solution)
@@ -79,7 +79,7 @@ public class MovementAgent : MonoBehaviour {
 			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
 		}
 		
-		if (path.Count == 0 || currentPos >= path.Count) return;
+		if (path == null || path.Count == 0 || currentPos >= path.Count) return;
 		
 		// set the target y to be the same as the agent
 		currentPoint.Set(path[currentPos].x, transform.position.y, path[currentPos].z);
@@ -96,15 +96,19 @@ public class MovementAgent : MonoBehaviour {
 		
 		// reached the end position?
 		if (currentPos == path.Count-1) {
-			endCallback(Result.SUCCESS);
+			if (endCallback != null) endCallback(Result.SUCCESS);
 			targetPosition = transform.position;
 		}
 		
 		if (drawPath) path.drawDebugPath(Color.green);
 	}
 	
+	public void MoveTo(Vector3 pos) {
+		targetPosition = pos;	
+	}
+	
 	public void MoveTo(Vector3 pos, int newSpeed, Action<Result> callback) {
-		targetPosition = pos;
+		MoveTo(pos);
 		speed = newSpeed;
 		endCallback = callback;
 	}

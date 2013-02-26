@@ -108,9 +108,9 @@ public class TileGraphGenerator : MonoBehaviour {
 				pos = startPos + new Vector3(x * cellWidth, height, z * cellDepth);
 				RaycastHit hit;
 				if (Physics.Raycast(pos, -Vector3.up, out hit, Mathf.Infinity, layer)) {
-					tileGraph.setWalkable(x,z,true);
+					tileGraph.SetWalkable(x,z,true);
 					if (hit.transform.gameObject.layer == layerObstacles) {
-						tileGraph.setWalkable(x,z,false);
+						tileGraph.SetWalkable(x,z,false);
 					}
 				}
 			}
@@ -151,4 +151,18 @@ public class TileGraphGenerator : MonoBehaviour {
 		
 	}
 	
+	/** Check if an area is walkabe or not */
+	public bool IsWalkable(Vector3 bottomLeft, Vector3 topRight) {
+		TileNode bl = tileGraph.GetNode(bottomLeft);
+		TileNode tr = tileGraph.GetNode(topRight);
+		
+		if (bl == null || tr == null) return false;
+		
+		for (int x = bl.X; x < tr.X; x++)
+			for (int z = bl.Z; z < tr.Z; z++)
+				if (!tileGraph.IsWalkable(x,z))
+					return false;
+		
+		return true;
+	}
 }
