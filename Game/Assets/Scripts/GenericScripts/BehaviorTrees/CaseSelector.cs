@@ -3,14 +3,16 @@ using System.Collections.Generic;
 
 namespace BehaviorTrees
 {
-	public abstract class AbstractCaseSelector<TKey> : Selector
+	public class CaseSelector<TKey> : Selector
 	{
 		
 		private Dictionary<TKey,Node> children;
+		private Func<TKey> getKey;
 		
-		public AbstractCaseSelector ()
+		public CaseSelector (Func<TKey> getKey)
 		{
 			children = new Dictionary<TKey, Node>();
+			this.getKey = getKey;
 		}
 		
 		public void AddChild(TKey key, Node child){
@@ -23,7 +25,7 @@ namespace BehaviorTrees
 			}
 			Node n;
 			bool exists;
-			exists = children.TryGetValue(FetchKey(),out n);
+			exists = children.TryGetValue(getKey(),out n);
 			if (exists) {
 				Status s = n.Visit();
 				switch (s) {
@@ -43,14 +45,6 @@ namespace BehaviorTrees
 				return Status.FAIL;
 			}
 		}
-		
-		/// <summary>
-		/// Fetches the key for choosing a node from some kind of state.
-		/// </summary>
-		/// <returns>
-		/// The key.
-		/// </returns>
-		protected abstract TKey FetchKey();
 	}
 }
 
