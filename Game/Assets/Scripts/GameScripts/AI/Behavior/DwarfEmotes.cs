@@ -1,6 +1,6 @@
 using System;
 using BehaviorTrees;
-using BehaviorTrees.Unity;
+using UnityEngine;
 /// <summary>
 /// Behavior tree wrapper for handling emotes and sounds for dwarves. 
 /// </summary>
@@ -11,7 +11,7 @@ public class DwarfEmotes
 	
 	public DwarfEmotes (Dwarf d)
 	{
-		root = new UnityCooldownDecorator(COOLDOWN);
+		root = new CooldownDecorator(COOLDOWN,() => Time.time);
 	}
 	
 	public void Run() {

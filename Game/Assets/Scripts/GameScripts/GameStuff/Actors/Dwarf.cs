@@ -11,7 +11,9 @@ public class Dwarf : AbstractAIActor {
 	
 	public Result moveResult,sleepResult,workResult;
 	
-	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.1, FLEE_RATE = 0.8;
+	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.1, FLEE_RATE = 0.8,
+		DISTANCE_FAR = 10, DISTANCE_CLOSE = 5;
+	
 	
 	public enum Status {
 		SLEEP,
@@ -71,8 +73,13 @@ public class Dwarf : AbstractAIActor {
 	public void WorkCallback(Result res) {
 		this.workResult = res;
 	}
+	public void FleeCallback(Result res) {
+		this.workResult = res;
+	}
 	
-	public Vector3 getPosition() {
-		return this.transform.localPosition;
+	public bool IsBallClose(){
+		//TODO: we need to be able to get the ball here lol
+		float dist = Vector3.Distance(transform.position,new Vector3());
+		return dist < ((state == Status.FLEE) ? DISTANCE_FAR : DISTANCE_CLOSE);
 	}
 }

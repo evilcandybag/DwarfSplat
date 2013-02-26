@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class PickUpCommand : ICommand {
 
@@ -16,7 +17,9 @@ public class PickUpCommand : ICommand {
 	}
 	
 	public void execute() {
-		if(isAllowed())
+		if(isAllowed()) {
 			actor.addItem(item);
+			
+		}
 	}
 }
