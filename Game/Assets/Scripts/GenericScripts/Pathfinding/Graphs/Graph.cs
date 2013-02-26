@@ -48,7 +48,6 @@ namespace Pathfinding.Graph {
 						current = parentPath[current];
 						path.Add(current.Position);
 					}
-					
 					path.Reverse();
 					callback(path);
 					return;
