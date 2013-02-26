@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class InteractCommand : ICommand {
 	
 	IActor actor;
 	IInteractable interactable;
+	Action<Result> callback;
 	
-	public InteractCommand(IActor actor, IInteractable interactable) {
+	public InteractCommand(IActor actor, IInteractable interactable, Action<Result> callback) {
 		this.actor = actor;
 		this.interactable = interactable;
-		
+		this.callback = callback;
 	}
 
 	public bool isAllowed() {

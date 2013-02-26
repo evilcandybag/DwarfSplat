@@ -8,4 +8,7 @@ public interface IActor {
 	bool addItem(IItem item);
 	
 	bool useItem(IItem item);
+	
+	void addInteractable(IInteractable interactable);
+	
 }

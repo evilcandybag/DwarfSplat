@@ -31,4 +31,8 @@ public class Ball : MonoBehaviour, IActor {
 		inventory = item;
 		return true;
 	}
+	
+	public void addInteractable(IInteractable i) {
+		//do nothing, ball does not use interactables
+	}
 }
