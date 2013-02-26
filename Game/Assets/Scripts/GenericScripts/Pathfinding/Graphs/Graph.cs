@@ -21,7 +21,7 @@ namespace Pathfinding.Graph {
 			Node startNode = getClosestNode(start);
 			Node endNode = getClosestNode(end);
 			
-			if (startNode == null || endNode == null) {
+			if (startNode == null || endNode == null || start == end) {
 				callback(new Path());
 				return;
 			}
@@ -48,7 +48,6 @@ namespace Pathfinding.Graph {
 						current = parentPath[current];
 						path.Add(current.Position);
 					}
-					
 					path.Reverse();
 					callback(path);
 					return;
