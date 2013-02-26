@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ItemOnGround : IInteractable {
+public class ItemOnGround : MonoBehaviour, IInteractable {
 	IItem item;
 	
 	public ItemOnGround(IItem item, Vector3 position) {
@@ -17,6 +17,10 @@ public class ItemOnGround : IInteractable {
 			ICommand command = new PickUpCommand(actor, item);
 			command.execute();
 		}
+	}
+	
+	public Vector3 getPosition() {
+		return this.transform.localPosition;
 	}
 	
 }

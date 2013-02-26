@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Workspace : IInteractable {
+public class Workspace : MonoBehaviour, IInteractable {
 
 	public void interact(IActor dwarf) {
 		if (canInteract(dwarf)) {
@@ -19,5 +19,9 @@ public class Workspace : IInteractable {
 		else {
 			return false;
 		}
+	}
+	
+	public Vector3 getPosition() {
+		return this.transform.localPosition;
 	}
 }
