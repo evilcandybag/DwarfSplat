@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MineActivated : IInteractable {
+public class MineActivated : MonoBehaviour, IInteractable {
 	
 	public bool canInteract(IActor actor) {
 		return true;
@@ -11,5 +11,9 @@ public class MineActivated : IInteractable {
 		if (canInteract(actor)) {
 			//Explode
 		}
+	}
+	
+	public Vector3 getPosition() {
+		return this.transform.localPosition;
 	}
 }

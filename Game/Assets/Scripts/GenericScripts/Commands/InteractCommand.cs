@@ -8,6 +8,8 @@ public class InteractCommand : ICommand {
 	IInteractable interactable;
 	Action<Result> callback;
 	
+	public static float minimalDistance = 0.5f;
+	
 	public InteractCommand(IActor actor, IInteractable interactable, Action<Result> callback) {
 		this.actor = actor;
 		this.interactable = interactable;
@@ -17,11 +19,10 @@ public class InteractCommand : ICommand {
 	public bool isAllowed() {
 		//TODO lots of stuffz to check if the interaction can be allowed
 		if (interactable != null && actor != null) {
-			if (actor is MonoBehavior && Vector3.Distance(((MonoBehaviour) actor).transform.localPosition, 
-			return true;
+			if (Vector3.Distance(actor.getPosition(), interactable.getPosition()) < minimalDistance)
+				return true;
 		}
-		else
-			return false;
+		return false;
 	}
 	
 	public void execute() {
