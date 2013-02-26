@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class DwarfBehavior
 {
-	public static readonly int WALKSPEED = 2;
+	public static readonly int WALKSPEED = 2, RUNSPEED = 3;
 	
 	private PrioritySelector root;
 	private PriorityNode flee_,work_,sleep_;
@@ -32,10 +32,23 @@ public class DwarfBehavior
 	}
 	
 	private static Node CreateFleeBehavior(Dwarf d) {	
-		ConditionDecorator ifballsee = new ConditionDecorator(() => false);
+		Condition ifballsee = new Condition(() => false);
 		
+		SequenceSelector seq = new SequenceSelector();
 		
-		//TODO: this shit aint done yet!
+		ConditionDecorator ballclose = new ConditionDecorator(d.IsBallClose);
+		
+		BehaviorTrees.Action run = new BehaviorTrees.Action(() => {
+			//TODO: flight location?
+			var mc = new MoveCommand(d, new Vector3(), RUNSPEED,d.FleeCallback);
+			if (mc.isAllowed()) {
+				mc.execute();
+				d.state = Dwarf.Status.FLEE; //TODO set this shit somewhere else, plox
+				return Node.Status.RUNNING;
+			} else {
+				return Node.Status.FAIL;
+			}
+		});
 		
 		
 		return ifballsee;
@@ -44,11 +57,10 @@ public class DwarfBehavior
 	private static Node CreateInteractionBehavior(Dwarf d, IInteractable i, Dwarf.Status s,Action<Result> callback) {
 		
 		BehaviorTrees.Action goToWork = new BehaviorTrees.Action(() => {
-			//TODO: replace vector param with location of workplace!
-			var mc = new MoveCommand(d,new Vector3(),WALKSPEED,d.MovementCallback);
+			var mc = new MoveCommand(d,i.getPosition(),WALKSPEED,d.MovementCallback);
 			if (mc.isAllowed()) {
 				mc.execute();
-				d.state = Dwarf.Status.IDLE;
+				d.state = Dwarf.Status.IDLE; //TODO set this shit somewhere else, plox
 				return Node.Status.RUNNING;
 			} else {
 				return Node.Status.FAIL;
@@ -56,10 +68,9 @@ public class DwarfBehavior
 		});
 		
 		BehaviorTrees.Action work = new BehaviorTrees.Action(() => {
-			//TODO: replace null value with some kind of interactable variable from d.
 			var ic = new InteractCommand(d,i,callback);
-			d.state = s;
 			if (ic.isAllowed()) {
+				d.state = s;
 				ic.execute();
 				return Node.Status.RUNNING;
 			} else {
