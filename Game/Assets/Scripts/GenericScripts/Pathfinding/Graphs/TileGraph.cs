@@ -87,8 +87,12 @@ namespace Pathfinding.Graph {
 			}
 		}
 		
-		public void setWalkable(int x, int z, bool walkable) {
+		public void SetWalkable(int x, int z, bool walkable) {
 			nodes[x,z].Walkable = walkable;
+		}
+		
+		public bool IsWalkable(int x, int z) {
+			return nodes[x,z].Walkable;	
 		}
 		
 		protected override List<Node> getNeighbors(Node node, int radius = 1) {
