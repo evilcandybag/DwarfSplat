@@ -26,7 +26,7 @@ public class MoveCommand : ICommand {
 	}
 
 	public bool isAllowed() {
-		//TODO can location be reached? 
+		//TODO can location be reached? can the dwarf move? Atm: yes!
 		return true;
 	}
 	
