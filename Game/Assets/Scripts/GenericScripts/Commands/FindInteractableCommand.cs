@@ -17,23 +17,15 @@ public class FindInteractableCommand : ICommand {
 			
 			if (count > 1) {
 				int nr = (new System.Random(count)).Next();
-				
-				Bed[] beds = InteractableController.getInteractableController().getAllBeds().ToArray();
-				
-				interactable = beds[nr];
-				
+				interactable = InteractableController.getInteractableController().getAllBeds()[nr];;
 			}
 		}
 		else if(type.Equals(InteractableController.InteractableType.WORKSPACE)) {
 			int count = InteractableController.getInteractableController().getAllWorkspaces().Count;
 			
 			if (count > 1){
-			
 				int nr = (new System.Random(count)).Next();
-				
-				Workspace[] workspaces = InteractableController.getInteractableController().getAllWorkspaces().ToArray();
-				
-				interactable = workspaces[nr];
+				interactable = InteractableController.getInteractableController().getAllWorkspaces()[nr];
 			}
 		}
 		else
