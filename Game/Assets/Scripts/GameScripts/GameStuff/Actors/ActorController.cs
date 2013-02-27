@@ -21,22 +21,22 @@ public class ActorController : MonoBehaviour {
 		return ac;
 	}
 	
-	public void createBall(Vector3 position) {
+	public void addBall(Ball b) {
 	
 	}
 	
-	public void createDwarf(Vector3 position) {
-		/*Dwarf dwarf = new Dwarf();
-		Instantiate(dwarf);
-		dwarf.transform.position = position;*/
+	public void addDwarf(Dwarf d) {
+		dwarfActors.Add(d);
 	}
 	
 	public void destoyActor(IActor a) {
 		allActors.Remove(a);
 		
 		if (a is Dwarf) {
-			dwarfActors.Remove((Dwarf) a);
-			Destroy((Dwarf) a);
+			Dwarf d = a as Dwarf;
+			dwarfActors.Remove(d);
+			d.Manager.Decommission(d);
+			Destroy(d);
 		}
 		else if (a is Ball) {
 			ballActors.Remove((Ball) a);

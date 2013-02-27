@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using BehaviorTrees;
 
 /// <summary>
@@ -8,9 +9,12 @@ using BehaviorTrees;
 /// </summary>
 public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObject : AbstractAIActor {
 	
-	private IDictionary<TKey,TObject> objects; 
+	private IDictionary<TKey,TObject> objects;
+	public IDictionary<TKey,TObject> Objects {
+		get { return objects; }
+	}
 	
-	private TObject proto;
+	public GameObject proto;
 	private int frameCounter = 0; 
 	
 	public float Interval;
@@ -53,29 +57,38 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	/// <param name='rot'>
 	/// The desired rotation of the newly Spawned object.
 	/// </param>
-	public void Spawn(TObject proto, TKey key, Vector3 pos, Quaternion rot) {
-		TObject o = Instantiate(proto, pos, rot) as TObject; 
+	public virtual TObject Spawn(GameObject proto, TKey key, Vector3 pos, Quaternion rot) {
+		GameObject o = Instantiate(proto, pos, rot) as GameObject; 
 		
-		objects.Add(key,o);
+		TObject obj = o.GetComponent<TObject>();
+		objects.Add(key,obj);
+		return obj;
 	}
 	/// <summary>
 	/// Spawn a ****GameObject**** with the given properties if there is a
 	/// unique key to assign, otherwise return null.
 	/// </summary>
-	public TKey Spawn (TObject proto, Vector3 pos,Quaternion rot) {
+	public TKey Spawn (GameObject proto, Vector3 pos,Quaternion rot) {
 		TKey k = GetUniqueKey();
 		if (k != null) 
 			Spawn(proto,k,pos,rot);
 		return k;
 	}
 	
-	public TKey Spawn(TObject proto) {
+	public TKey Spawn(GameObject proto) {
 		return Spawn (proto, transform.position, proto.transform.rotation);
 	}
 	
 	public TKey Spawn() {
 		return Spawn (proto);
 	}
+	
+	public void Decommission(TObject o) {
+		foreach(var item in objects.Where(kvp => kvp.Value == o).ToList()) {
+    		objects.Remove(item.Key);
+		}
+	}
+
 	
 	/// <summary>
 	/// Get a unique value of type TKey to be used when storing.
