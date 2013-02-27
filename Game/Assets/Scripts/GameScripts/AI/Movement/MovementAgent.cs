@@ -97,8 +97,11 @@ public class MovementAgent : MonoBehaviour {
 		
 		// reached the end position?
 		if (currentPos == path.Count-1) {
-			if (endCallback != null) endCallback(Result.SUCCESS);
-			targetPosition = transform.position;
+			if (endCallback != null) {
+				endCallback(Result.SUCCESS); 
+				endCallback = null;
+			}
+			//targetPosition = transform.position;
 		}
 		
 		if (drawPath) path.drawDebugPath(Color.green);
