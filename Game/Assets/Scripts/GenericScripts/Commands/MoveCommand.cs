@@ -32,8 +32,6 @@ public class MoveCommand : ICommand {
 	
 	public void execute() {
 		if(isAllowed()) {
-			Debug.Log("actor is "+ (actor == null));
-			Debug.Log("getcomponent is "+ (actor.GetComponent<MovementAgent>() == null));
 			actor.GetComponent<MovementAgent>().MoveTo(location, speed*100, callback);
 		}
 	}
