@@ -29,6 +29,7 @@ public class DwarfBehavior
 	
 	public void Run() {
 		root.Visit();
+		Debug.Log("Work: " + Work.Prio + " Sleep: " + Sleep.Prio);
 	}
 	
 	private static Node CreateFleeBehavior(Dwarf d) {	
@@ -50,7 +51,7 @@ public class DwarfBehavior
 			});
 			if (mc.isAllowed()) {
 				mc.execute();
-				d.state = Dwarf.Status.FLEE; //TODO set this shit somewhere else, plox
+				d.State = Dwarf.Status.FLEE; //TODO set this shit somewhere else, plox
 				return Node.Status.RUNNING;
 			} else {
 				return Node.Status.FAIL;
@@ -84,13 +85,15 @@ public class DwarfBehavior
 		
 		BehaviorTrees.Action goToWork = new BehaviorTrees.Action();
 		goToWork.Task = () => {
+			Debug.Log("GOTOWORK: " + s);
 			var mc = new MoveCommand(d,i.getPosition(),WALKSPEED,(res) => {
 				goToWork.Free();
 				d.MovementCallback(res);
 			});
 			if (mc.isAllowed()) {
 				mc.execute();
-				d.state = Dwarf.Status.IDLE; //TODO set this shit somewhere else, plox
+				d.moveResult = Result.RUNNING;
+				d.State = Dwarf.Status.IDLE; //TODO set this shit somewhere else, plox
 				return Node.Status.RUNNING;
 			} else {
 				return Node.Status.FAIL;
@@ -99,12 +102,14 @@ public class DwarfBehavior
 		
 		BehaviorTrees.Action work = new BehaviorTrees.Action();
 		work.Task = () => {
+			
+			Debug.Log("WORK: " + s);
 			var ic = new InteractCommand(d,i,(res) => {
 				work.Free();
 				callback(res);
 			});
 			if (ic.isAllowed()) {
-				d.state = s;
+				d.State = s;
 				ic.execute();
 				return Node.Status.RUNNING;
 			} else {

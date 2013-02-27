@@ -5,8 +5,10 @@ using System;
 public class Workspace : MonoBehaviour, IInteractable {
 
 	public void interact(IActor dwarf, Action<Result> callback) {
-		if (canInteract(dwarf)) {
-			//make dwarf enter work mode
+		if (canInteract(dwarf) && dwarf is Dwarf) {
+			Dwarf d = dwarf as Dwarf;
+			d.State = Dwarf.Status.WORK;
+			
 		}
 	}
 	
