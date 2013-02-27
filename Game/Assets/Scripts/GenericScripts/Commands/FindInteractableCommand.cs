@@ -5,11 +5,10 @@ using System;
 public class FindInteractableCommand : ICommand {
 	
 	IInteractable interactable;
-	IActor actor;
 	Action<IInteractable> foundInteractable;
 	
-	public FindInteractableCommand(IActor actor, InteractableController.InteractableType type, Action<IInteractable> action) {
-		this.actor = actor;
+	public FindInteractableCommand(InteractableController.InteractableType type, Action<IInteractable> action) {
+		
 		this.foundInteractable = action;
 		
 		if (type.Equals(InteractableController.InteractableType.BED)) {
