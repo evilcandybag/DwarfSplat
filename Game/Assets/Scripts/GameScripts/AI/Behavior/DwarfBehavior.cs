@@ -21,9 +21,9 @@ public class DwarfBehavior
 		
 		flee_ = root.AddChild(CreateFleeBehavior(d),Double.MaxValue);
 		
-		work_ = root.AddChild(CreateInteractionBehavior(d, d.Workplace, Dwarf.Status.WORK,d.WorkCallback),50.0);
+		work_ = root.AddChild(CreateInteractionBehavior(d, Dwarf.Status.WORK,d.WorkCallback),50.0);
 		
-		sleep_ = root.AddChild(CreateInteractionBehavior(d, d.Bed, Dwarf.Status.SLEEP, d.SleepCallback));
+		sleep_ = root.AddChild(CreateInteractionBehavior(d, Dwarf.Status.SLEEP, d.SleepCallback));
 		
 	}
 	
@@ -32,15 +32,22 @@ public class DwarfBehavior
 	}
 	
 	private static Node CreateFleeBehavior(Dwarf d) {	
-		Condition ifballsee = new Condition(() => false);
+		Condition ifballsee = new Condition(d.CanSeeBall);
 		
 		SequenceSelector seq = new SequenceSelector();
 		
 		ConditionDecorator ballclose = new ConditionDecorator(d.IsBallClose);
 		
-		BehaviorTrees.Action run = new BehaviorTrees.Action(() => {
+		BehaviorTrees.Action run = new BehaviorTrees.Action();
+		run.Task = () => {
 			//TODO: flight location?
-			var mc = new MoveCommand(d, new Vector3(), RUNSPEED,d.FleeCallback);
+			if(run.State == Node.Status.RUNNING)
+				return Node.Status.RUNNING;
+			
+			var mc = new MoveCommand(d, new Vector3(), RUNSPEED,(res) => {
+				run.Free();
+				d.FleeCallback(res);
+			});
 			if (mc.isAllowed()) {
 				mc.execute();
 				d.state = Dwarf.Status.FLEE; //TODO set this shit somewhere else, plox
@@ -48,16 +55,39 @@ public class DwarfBehavior
 			} else {
 				return Node.Status.FAIL;
 			}
-		});
+		};
 		
+		ballclose.SetChild(seq);
+		seq.AddChild(ifballsee, run);
 		
-		return ifballsee;
+		return ballclose;
 	}
 	
-	private static Node CreateInteractionBehavior(Dwarf d, IInteractable i, Dwarf.Status s,Action<Result> callback) {
+	private static Node CreateInteractionBehavior(Dwarf d, Dwarf.Status s, Action<Result> callback) {
 		
-		BehaviorTrees.Action goToWork = new BehaviorTrees.Action(() => {
-			var mc = new MoveCommand(d,i.getPosition(),WALKSPEED,d.MovementCallback);
+		IInteractable i = null;
+		InteractableController.InteractableType type;
+		switch (s) {
+		case Dwarf.Status.WORK:
+			type = InteractableController.InteractableType.WORKSPACE;
+			break;
+		case Dwarf.Status.SLEEP:
+			type = InteractableController.InteractableType.BED;
+			break;
+		default:
+			throw new NotImplementedException("No case implemented for status: " + s);
+		}
+		
+		FindInteractableCommand c = new FindInteractableCommand(
+				type, (interactable) => { i = interactable; });
+		c.execute();
+		
+		BehaviorTrees.Action goToWork = new BehaviorTrees.Action();
+		goToWork.Task = () => {
+			var mc = new MoveCommand(d,i.getPosition(),WALKSPEED,(res) => {
+				goToWork.Free();
+				d.MovementCallback(res);
+			});
 			if (mc.isAllowed()) {
 				mc.execute();
 				d.state = Dwarf.Status.IDLE; //TODO set this shit somewhere else, plox
@@ -65,10 +95,14 @@ public class DwarfBehavior
 			} else {
 				return Node.Status.FAIL;
 			}
-		});
+		};
 		
-		BehaviorTrees.Action work = new BehaviorTrees.Action(() => {
-			var ic = new InteractCommand(d,i,callback);
+		BehaviorTrees.Action work = new BehaviorTrees.Action();
+		work.Task = () => {
+			var ic = new InteractCommand(d,i,(res) => {
+				work.Free();
+				callback(res);
+			});
 			if (ic.isAllowed()) {
 				d.state = s;
 				ic.execute();
@@ -76,7 +110,7 @@ public class DwarfBehavior
 			} else {
 				return Node.Status.FAIL;
 			}
-		});
+		};
 		
 		
 		SequenceSelector root = new SequenceSelector(goToWork,work);
