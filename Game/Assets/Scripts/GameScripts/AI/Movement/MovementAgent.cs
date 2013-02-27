@@ -71,7 +71,7 @@ public class MovementAgent : MonoBehaviour {
 	void Update () {
 		
 		// scale distance with the size of the agent
-		realWayPointDistance = wayPointDistance * transform.localScale.magnitude;
+		realWayPointDistance = wayPointDistance;// * transform.localScale.magnitude;
 		
 		if (graph == null) {
 			// graph is cached as soon as possible
@@ -79,10 +79,11 @@ public class MovementAgent : MonoBehaviour {
 			return; // skip the first frame
 		}
 		
+		
 		lastPath += Time.deltaTime;
 		
 		// update the path every TIME_REPATH
-		if (lastPath > TIME_REPATH && Vector3.Distance(transform.position, targetPosition) > realWayPointDistance) {
+		if (lastPath > TIME_REPATH) {
 			lastPath = 0;
 			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
 		}
