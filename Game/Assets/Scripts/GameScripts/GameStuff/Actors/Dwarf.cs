@@ -4,7 +4,7 @@ using BehaviorTrees;
 
 public class Dwarf : AbstractAIActor {
 	
-	private IInteractable bed_, work_;
+	//private IInteractable bed_, work_;
 	private DwarfBehavior behavior;
 	private DwarfEmotes emotes;
 	public Status state;
@@ -14,6 +14,11 @@ public class Dwarf : AbstractAIActor {
 	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.1, FLEE_RATE = 0.8,
 		DISTANCE_FAR = 10, DISTANCE_CLOSE = 5;
 	
+	private DwarfManager manager_;
+	public DwarfManager Manager {
+		get { return manager_; }
+		set { manager_ = value; }
+	}
 	
 	public enum Status {
 		SLEEP,
@@ -28,6 +33,7 @@ public class Dwarf : AbstractAIActor {
 		emotes = new DwarfEmotes(this);
 		moveResult = Result.SUCCESS; sleepResult = Result.SUCCESS; 
 		workResult = Result.SUCCESS;
+
 	}
 	
 	// Update is called once per frame
@@ -61,8 +67,8 @@ public class Dwarf : AbstractAIActor {
 	}
 	
 	//TODO: dunno if this is the right way to go about it or if we should use commands for that shit
-	public IInteractable Bed { get { return bed_;} }
-	public IInteractable Workplace { get { return work_;} }
+	//public IInteractable Bed { get { return bed_;} }
+	//public IInteractable Workplace { get { return work_;} }
 	
 	public void MovementCallback(Result res) {
 		this.moveResult = res;
@@ -78,8 +84,20 @@ public class Dwarf : AbstractAIActor {
 	}
 	
 	public bool IsBallClose(){
-		//TODO: we need to be able to get the ball here lol
-		float dist = Vector3.Distance(transform.position,new Vector3());
-		return dist < ((state == Status.FLEE) ? DISTANCE_FAR : DISTANCE_CLOSE);
+		foreach (Ball b in ActorController.getActorController().getBallActors()) {
+			float dist = Vector3.Distance(transform.position,b.transform.position);
+			if (dist < ((state == Status.FLEE) ? DISTANCE_FAR : DISTANCE_CLOSE))
+				return true;
+		}
+		return false;
+	}
+	
+	public bool CanSeeBall() {
+		LayerMask obstacles = LayerMask.NameToLayer("Obstacles");
+		foreach (Ball b in ActorController.getActorController().getBallActors()) {
+			if ( Physics.Linecast(transform.position, b.transform.position, 1 << obstacles))
+				return false;
+		}
+		return true;
 	}
 }
