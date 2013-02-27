@@ -10,26 +10,28 @@ public class FindInteractableCommand : ICommand {
 	public FindInteractableCommand(InteractableController.InteractableType type, Action<IInteractable> action) {
 		
 		this.foundInteractable = action;
-		
-		if (type.Equals(InteractableController.InteractableType.BED)) {
+		int count;
+		switch (type) {
+		case InteractableController.InteractableType.BED:
+			count = InteractableController.Instance.getAllBeds().Count;
 			
-			int count = InteractableController.getInteractableController().getAllBeds().Count;
-			
-			if (count > 1) {
-				int nr = (new System.Random(count)).Next();
-				interactable = InteractableController.getInteractableController().getAllBeds()[nr];;
+			if (count > 0) {
+				int nr = (int) (UnityEngine.Random.value * count);
+				interactable = InteractableController.getInteractableController().getAllBeds()[nr];
 			}
-		}
-		else if(type.Equals(InteractableController.InteractableType.WORKSPACE)) {
-			int count = InteractableController.getInteractableController().getAllWorkspaces().Count;
+			break;
+		case InteractableController.InteractableType.WORKSPACE:
+			count = InteractableController.Instance.getAllWorkspaces().Count;
 			
-			if (count > 1){
-				int nr = (new System.Random(count)).Next();
-				interactable = InteractableController.getInteractableController().getAllWorkspaces()[nr];
+			if (count > 0){
+				int nr = (int) (UnityEngine.Random.value * count);;
+				interactable = InteractableController.Instance.getAllWorkspaces()[nr];
 			}
-		}
-		else
+			break;
+		default:
 			interactable = null;
+			break;
+		}
 	}
 	
 	public bool isAllowed() {
