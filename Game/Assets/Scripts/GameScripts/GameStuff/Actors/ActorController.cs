@@ -26,7 +26,9 @@ public class ActorController : MonoBehaviour {
 	}
 	
 	public void createDwarf(Vector3 position) {
-	
+		/*Dwarf dwarf = new Dwarf();
+		Instantiate(dwarf);
+		dwarf.transform.position = position;*/
 	}
 	
 	public void destoyActor(IActor a) {
