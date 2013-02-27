@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class InteractableController : MonoBehaviour {
+public class InteractableController {
 	
 	
 	public enum InteractableType {BED, WORKSPACE};
@@ -29,11 +29,11 @@ public class InteractableController : MonoBehaviour {
 		
 		if (i is Bed) {
 			allBeds.Remove((Bed) i);
-			Destroy((Bed) i);
+			Object.Destroy((Bed) i);
 		}
 		else if (i is Workspace) {
 			allWorkspaces.Remove((Workspace) i);
-			Destroy ((Workspace) i);
+			Object.Destroy ((Workspace) i);
 		}
 		
 	}
