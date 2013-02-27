@@ -7,7 +7,14 @@ public class Dwarf : AbstractAIActor {
 	//private IInteractable bed_, work_;
 	private DwarfBehavior behavior;
 	private DwarfEmotes emotes;
-	public Status state;
+	public Status state_;
+	public Status State {
+		get { return state_; }
+		set {
+			Debug.Log("Changed state to: " + value);
+			state_ = value; 
+		}
+	}
 	
 	public Result moveResult,sleepResult,workResult;
 	
@@ -19,6 +26,7 @@ public class Dwarf : AbstractAIActor {
 		get { return manager_; }
 		set { manager_ = value; }
 	}
+	
 	
 	public enum Status {
 		SLEEP,
@@ -38,7 +46,7 @@ public class Dwarf : AbstractAIActor {
 	
 	// Update is called once per frame
 	void Update () {
-		switch (state) {
+		switch (State) {
 		case Status.SLEEP:
 			behavior.Sleep.Prio -= Time.deltaTime * SLEEP_RATE * AI_SCALE;
 			break;
@@ -86,7 +94,7 @@ public class Dwarf : AbstractAIActor {
 	public bool IsBallClose(){
 		foreach (Ball b in ActorController.getActorController().getBallActors()) {
 			float dist = Vector3.Distance(transform.position,b.transform.position);
-			if (dist < ((state == Status.FLEE) ? DISTANCE_FAR : DISTANCE_CLOSE))
+			if (dist < ((State == Status.FLEE) ? DISTANCE_FAR : DISTANCE_CLOSE))
 				return true;
 		}
 		return false;
