@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class InteractableController {
 	
@@ -8,12 +9,14 @@ public class InteractableController {
 	
 	private static InteractableController ic;
 
-	public List<IInteractable> allInteractables;
+	public List<IInteractable> allInteractables {
+		get { throw new System.NotImplementedException();}
+	}
+	
 	public List<Bed> allBeds;
 	public List<Workspace> allWorkspaces;
 	
 	private InteractableController() {
-		allInteractables = new List<IInteractable>();
 		allBeds = new List<Bed>();
 		allWorkspaces = new List<Workspace>();
 	}
@@ -22,6 +25,10 @@ public class InteractableController {
 		if (ic==null)
 			ic = new InteractableController();
 		return ic;
+	}
+	
+	public static InteractableController Instance {
+		get { return InteractableController.getInteractableController(); }
 	}
 	
 	public void destoyInteractable(IInteractable i) {
@@ -39,12 +46,12 @@ public class InteractableController {
 	}
 	
 	
-	public void createBed(Vector3 position) {
-	
+	public void addBed(Bed bed) {
+		allBeds.Add(bed);
 	}
 	
-	public void createWorkspace(Vector3 position) {
-	
+	public void addWorkspace(Workspace work) {
+		allWorkspaces.Add(work);
 	}
 	
 	public List<IInteractable> getAllInteractables() {
