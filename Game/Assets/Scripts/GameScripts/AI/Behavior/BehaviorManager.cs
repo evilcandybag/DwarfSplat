@@ -27,10 +27,13 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	public static readonly float DEFAULT_INTERVAL = 0.1f;
 	public static readonly int UPDATE_FREQ = 60;
 	
-	// Use this for initialization
-	protected virtual void Start () {
-		Interval = DEFAULT_INTERVAL;
+	void Awake() {
 		objects = new Dictionary<TKey, TObject>();
+	}
+	
+	// Use this for initialization
+	public virtual void Start () {
+		Interval = DEFAULT_INTERVAL;
 		
 	}
 	
@@ -64,10 +67,9 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	/// The desired rotation of the newly Spawned object.
 	/// </param>
 	public virtual TObject Spawn(GameObject proto, TKey key, Vector3 pos, Quaternion rot) {
-		GameObject o = Instantiate(proto, pos, rot) as GameObject; 
 		
-		TObject obj = o.GetComponent<TObject>();
-		Debug.Log ((obj == null) + ", " + (o == null));
+		TObject obj = InstantiationUtils.GetNewInstance<TObject>(proto,pos,rot);
+		Debug.Log ((obj == null) + ", " + (proto == null) + ", " + (objects == null));
 		objects.Add(key,obj);
 		return obj;
 	}
