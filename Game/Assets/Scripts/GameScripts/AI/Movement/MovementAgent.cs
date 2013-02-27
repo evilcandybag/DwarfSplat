@@ -32,6 +32,8 @@ public class MovementAgent : MonoBehaviour {
 	 * It prevents the path to be recomputed too often, and during 
 	 * this time the AI does not get stuck, it keep moving
 	 */
+	private static float id = 0;
+	public int repathRate = 60;
 	public float TIME_REPATH = 1;
 	private float lastPath = 0;
 	private Vector3 currentPoint;
@@ -45,7 +47,10 @@ public class MovementAgent : MonoBehaviour {
 		controller = gameObject.AddComponent<CharacterController>();
 		// init positions
 		currentPoint = new Vector3(0,0,0);
-		//targetPosition = transform.position;
+		
+		id++;
+		lastPath = id/repathRate;
+		//lastPath = UnityEngine.Random.Range(0,TIME_REPATH*10)/10; // random offset
 
 	}
 	
@@ -53,7 +58,10 @@ public class MovementAgent : MonoBehaviour {
 	void onCallback(Path newPath) {
 		path = newPath;
 		if (path.Count == 0) {
-			if (endCallback != null) endCallback(Result.FAIL);
+			if (endCallback != null) {
+				endCallback(Result.FAIL);
+				endCallback = null;
+			}
 		} else {
 			if (smoothPath) path = Smoother.smoothPath(path);
 			currentPos = 1; // avoid backward movement bug (temp solution)
@@ -63,7 +71,7 @@ public class MovementAgent : MonoBehaviour {
 	void Update () {
 		
 		// scale distance with the size of the agent
-		realWayPointDistance = wayPointDistance;// * transform.localScale.magnitude;
+		realWayPointDistance = wayPointDistance * transform.localScale.magnitude;
 		
 		if (graph == null) {
 			// graph is cached as soon as possible
@@ -71,11 +79,10 @@ public class MovementAgent : MonoBehaviour {
 			return; // skip the first frame
 		}
 		
-		
 		lastPath += Time.deltaTime;
 		
 		// update the path every TIME_REPATH
-		if (lastPath > TIME_REPATH) {
+		if (lastPath > TIME_REPATH && Vector3.Distance(transform.position, targetPosition) > realWayPointDistance) {
 			lastPath = 0;
 			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
 		}
@@ -98,10 +105,9 @@ public class MovementAgent : MonoBehaviour {
 		// reached the end position?
 		if (currentPos == path.Count-1) {
 			if (endCallback != null) {
-				endCallback(Result.SUCCESS); 
+				endCallback(Result.SUCCESS);
 				endCallback = null;
 			}
-			//targetPosition = transform.position;
 		}
 		
 		if (drawPath) path.drawDebugPath(Color.green);
@@ -117,10 +123,4 @@ public class MovementAgent : MonoBehaviour {
 		endCallback = callback;
 	}
 	
-	/** Set an offset to divide the computation of the path 
-	 * 	between all the agent.
-	 * */
-	public void SetOffset(float offset) {
-		lastPath += offset;	
-	}
 }
