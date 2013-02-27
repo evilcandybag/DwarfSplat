@@ -15,7 +15,7 @@ public class MovementAgent : MonoBehaviour {
 	
 	/* Debugging lines in the editor */
 	public bool drawPath = false;
-	public string floorName = "Floor";
+	public string scriptsName = "Scripts";
 	
 	/* Requires a CharacterController to move the agent
 	 * (may change in the future)
@@ -67,7 +67,7 @@ public class MovementAgent : MonoBehaviour {
 		
 		if (graph == null) {
 			// graph is cached as soon as possible
-			graph = GameObject.Find(floorName).GetComponent<TileGraphGenerator>().tileGraph;
+			graph = GameObject.Find(scriptsName).GetComponent<TileGraphGenerator>().tileGraph;
 			return; // skip the first frame
 		}
 		
@@ -111,5 +111,12 @@ public class MovementAgent : MonoBehaviour {
 		MoveTo(pos);
 		speed = newSpeed;
 		endCallback = callback;
+	}
+	
+	/** Set an offset to divide the computation of the path 
+	 * 	between all the agent.
+	 * */
+	public void SetOffset(float offset) {
+		lastPath += offset;	
 	}
 }
