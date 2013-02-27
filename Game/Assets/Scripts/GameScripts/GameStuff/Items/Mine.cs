@@ -44,6 +44,6 @@ public class Mine : IItem {
 	}
 	
 	private void placeMine(IActor user) {
-		//make a mine interactable on the position of user
+		GroundStuffController.getGroundStuffController().createMine(user.getPosition());
 	}
 }
