@@ -10,13 +10,12 @@ public class TileGraphGenerator : MonoBehaviour {
 	public int width = 50;
 	public int depth = 50;
 	public float height = 1000f;
-	public string floorName = "Ground";
-	
+
 	// we assume that the map geometry does not change 
 	protected Vector3 startPos;
 	protected float cellWidth;
 	protected float cellDepth;
-	protected GameObject floor;
+	public Transform floor;
 	
 	public int radius = 1;
 	public bool drawDebugGraph = false;
@@ -32,7 +31,6 @@ public class TileGraphGenerator : MonoBehaviour {
 		
 		layer = (1 << layerFloor) | (1 << layerObstacles);
 		
-		floor = GameObject.Find(floorName);
 		Scan(); // scan the map
 		RadiusModifier(radius); // extend the unwalkable areas
 

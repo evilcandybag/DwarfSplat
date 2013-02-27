@@ -116,7 +116,7 @@ namespace Pathfinding.Graph {
 		 * supposed to be used to extend unwalkable areas
 		 */
 		public List<Node> GetNeighbors(int x, int y, int radius = 1) {
-			if (!nodes[x,y].Walkable) {
+			if (nodes[x,y] != null && !nodes[x,y].Walkable) {
 				return getNeighbors(nodes[x,y], radius);
 			} else {
 				return null;	
