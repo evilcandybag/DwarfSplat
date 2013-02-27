@@ -12,7 +12,7 @@ public class Dwarf : AbstractAIActor {
 	public Result moveResult,sleepResult,workResult;
 	
 	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.1, FLEE_RATE = 0.8,
-		DISTANCE_FAR = 10, DISTANCE_CLOSE = 5;
+		DISTANCE_FAR = 10, DISTANCE_CLOSE = 5, AI_SCALE = 40;
 	
 	private DwarfManager manager_;
 	public DwarfManager Manager {
@@ -40,16 +40,16 @@ public class Dwarf : AbstractAIActor {
 	void Update () {
 		switch (state) {
 		case Status.SLEEP:
-			behavior.Sleep.Prio -= Time.deltaTime * SLEEP_RATE;
+			behavior.Sleep.Prio -= Time.deltaTime * SLEEP_RATE * AI_SCALE;
 			break;
 		case Status.WORK:
-			behavior.Sleep.Prio += Time.deltaTime * WORK_RATE;
+			behavior.Sleep.Prio += Time.deltaTime * WORK_RATE * AI_SCALE;
 			break;
 		case Status.FLEE:
-			behavior.Sleep.Prio += Time.deltaTime * FLEE_RATE;
+			behavior.Sleep.Prio += Time.deltaTime * FLEE_RATE * AI_SCALE;
 			break;
 		default:
-			behavior.Sleep.Prio += Time.deltaTime * IDLE_RATE;
+			behavior.Sleep.Prio += Time.deltaTime * IDLE_RATE * AI_SCALE;
 			break;
 		}
 	}
