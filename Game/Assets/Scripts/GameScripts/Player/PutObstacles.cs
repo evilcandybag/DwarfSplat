@@ -25,11 +25,11 @@ public class PutObstacles : MonoBehaviour {
 				
 				// TODO: better way to find the width of an object? 
 				Vector3 size = wall.GetComponent<Renderer>().bounds.size;
-				if (gen.IsWalkable(newWall, newWall + size)) {
+				//if (gen.IsWalkable(newWall, newWall + size)) {
 					Instantiate(wall, newWall, Quaternion.identity);
 					// Rescan(Vector3 bottomLeft, Vector3 topRight)	
 					gen.Rescan(newWall , newWall + size);
-				}
+				//}
 			}
 		}
 		

@@ -65,8 +65,8 @@ namespace Pathfinding.Graph {
 		public TileNode GetNode(Vector3 position) {
 			position -= startPos;
 			// only x and z
-			int i = Mathf.FloorToInt(position.x / cellWidth);
-			int j = Mathf.FloorToInt(position.z / cellDepth);
+			int i = Mathf.FloorToInt(position.x / (float)cellWidth);
+			int j = Mathf.FloorToInt(position.z / (float)cellDepth);
 			
 			if (!checkBounds(i,j)) return null;
 			
