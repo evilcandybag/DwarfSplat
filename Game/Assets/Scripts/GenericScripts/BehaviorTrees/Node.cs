@@ -25,13 +25,17 @@ namespace BehaviorTrees {
 		/// Gets the Status of the Node. Used to determine whether we are 
 		/// allowed to visit a Node or not.
 		/// </summary>
-		protected Status State {
+		public Status State {
 			get {
 				return state_;
 			}
-			set {
+			protected set {
 				state_ = value;
 			}
+		}
+		
+		public void Free() {
+			this.state_ = Status.READY;
 		}
 		
 		/// <summary>
