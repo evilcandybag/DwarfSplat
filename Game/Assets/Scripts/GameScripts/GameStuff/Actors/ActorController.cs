@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ActorController : MonoBehaviour {
+public class ActorController {
 	
 	private static ActorController ac;
 		
@@ -36,11 +36,11 @@ public class ActorController : MonoBehaviour {
 			Dwarf d = a as Dwarf;
 			dwarfActors.Remove(d);
 			d.Manager.Decommission(d);
-			Destroy(d);
+			Object.Destroy(d);
 		}
 		else if (a is Ball) {
 			ballActors.Remove((Ball) a);
-			Destroy ((Ball) a);
+			Object.Destroy ((Ball) a);
 		}
 		
 	}
