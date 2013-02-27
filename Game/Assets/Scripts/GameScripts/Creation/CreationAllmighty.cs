@@ -4,7 +4,8 @@ using System.Collections;
 public class CreationAllmighty : MonoBehaviour {
 	
 	public GameObject dwarf;
-	public Transform bed;
+	public GameObject bed;
+	public GameObject workspace;
 	
 	ICommand command;
 	// Use this for initialization
