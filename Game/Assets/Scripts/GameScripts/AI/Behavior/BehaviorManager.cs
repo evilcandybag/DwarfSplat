@@ -14,12 +14,18 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 		get { return objects; }
 	}
 	
+	private bool runAI_;
+	public bool Run {
+		get { return runAI_;}
+		set { runAI_ = value; }
+	}
+	
 	public GameObject proto;
 	private int frameCounter = 0; 
 	
 	public float Interval;
 	public static readonly float DEFAULT_INTERVAL = 0.1f;
-	public static readonly int UPDATE_FREQ = 10;
+	public static readonly int UPDATE_FREQ = 60;
 	
 	// Use this for initialization
 	protected virtual void Start () {
@@ -36,7 +42,7 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	
 	// Update is called once per frame
 	protected virtual void Update () {
-		if (frameCounter == 0) {
+		if (runAI_ && frameCounter == 0) {
 			Periodic();
 		}
 		frameCounter = (frameCounter + 1) % UPDATE_FREQ;
@@ -61,6 +67,7 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 		GameObject o = Instantiate(proto, pos, rot) as GameObject; 
 		
 		TObject obj = o.GetComponent<TObject>();
+		Debug.Log ((obj == null) + ", " + (o == null));
 		objects.Add(key,obj);
 		return obj;
 	}
@@ -73,6 +80,10 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 		if (k != null) 
 			Spawn(proto,k,pos,rot);
 		return k;
+	}
+	
+	public TKey Spawn(Vector3 location) {
+		return Spawn (this.proto, location, this.proto.transform.rotation);
 	}
 	
 	public TKey Spawn(GameObject proto) {
