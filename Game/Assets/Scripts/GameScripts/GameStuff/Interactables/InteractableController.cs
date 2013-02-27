@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class InteractableController : MonoBehaviour {
 	
+	
+	public enum InteractableType {BED, WORKSPACE};
+	
 	private static InteractableController ic;
 
 	public List<IInteractable> allInteractables;
