@@ -10,11 +10,13 @@ public class TileGraphGenerator : MonoBehaviour {
 	public int width = 50;
 	public int depth = 50;
 	public float height = 1000f;
+	public string floorName = "Ground";
 	
 	// we assume that the map geometry does not change 
 	protected Vector3 startPos;
 	protected float cellWidth;
 	protected float cellDepth;
+	protected GameObject floor;
 	
 	public int radius = 1;
 	public bool drawDebugGraph = false;
@@ -30,6 +32,7 @@ public class TileGraphGenerator : MonoBehaviour {
 		
 		layer = (1 << layerFloor) | (1 << layerObstacles);
 		
+		floor = GameObject.Find(floorName);
 		Scan(); // scan the map
 		RadiusModifier(radius); // extend the unwalkable areas
 
@@ -47,8 +50,8 @@ public class TileGraphGenerator : MonoBehaviour {
 		TileNode[,] nodes = new TileNode[width, depth];
 		
 		// maybe not the proper way (use the MeshFilter component ?)
-		Vector3 center = GetComponent<Renderer>().bounds.center;
-		Vector3 size = GetComponent<Renderer>().bounds.size;
+		Vector3 center = floor.GetComponent<Renderer>().bounds.center;
+		Vector3 size = floor.GetComponent<Renderer>().bounds.size;
 		
 		// consider the mesh as a rectangle
 		startPos = center - size / 2;
