@@ -5,12 +5,11 @@ public class PutObstacles : MonoBehaviour {
 	
 	public Transform wall;
 	
-	public Transform floor;
 	private TileGraphGenerator gen;
 	
 	// Use this for initialization
 	void Start () {
-		gen = floor.GetComponent<TileGraphGenerator>();
+		gen = GameObject.Find("Scripts").GetComponent<TileGraphGenerator>();
 	}
 	
 	// Update is called once per frame
