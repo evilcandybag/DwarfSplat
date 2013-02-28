@@ -36,6 +36,7 @@ namespace BehaviorTrees
 		/// The status of the first READY or newly finished RUNNING child tree. 
 		/// </returns>
 		public override Status Visit() { //TODO: this might not be the correct behaviour. Check book!
+			
 			foreach (Node child in children_) {
 				switch (child.Visit()) {
 				case Status.READY:
@@ -44,7 +45,7 @@ namespace BehaviorTrees
 					State = Status.RUNNING;
 					return State;
 				case Status.FAIL:
-					State = Status.FAIL;
+					State = Status.READY;
 					return Status.FAIL;
 				}
 			}
@@ -52,6 +53,10 @@ namespace BehaviorTrees
 			//now ready to start again. 
 			State = Status.READY;
 			return Status.SUCCESS;
+		}
+		private void FreeChildren() {
+			foreach (Node n in children_)
+				n.Free();
 		}
 		
 		/// <summary>Add a new child to the Selector.</summary>
