@@ -32,6 +32,8 @@ public class MovementAgent : MonoBehaviour {
 	 * It prevents the path to be recomputed too often, and during 
 	 * this time the AI does not get stuck, it keep moving
 	 */
+	private static float id = 0;
+	public int repathRate = 60;
 	public float TIME_REPATH = 1;
 	private float lastPath = 0;
 	private Vector3 currentPoint;
@@ -46,6 +48,9 @@ public class MovementAgent : MonoBehaviour {
 		// init positions
 		currentPoint = new Vector3(0,0,0);
 		//targetPosition = transform.position;
+		id++;
+		lastPath = id/repathRate;
+		//lastPath = UnityEngine.Random.Range(0,TIME_REPATH*10)/10; // random offset
 
 	}
 	
