@@ -165,11 +165,9 @@ public class WallMeshManagerScript : MonoBehaviour {
 		//wall.AddComponent<MeshCollider>();
 		wall.AddComponent<BoxCollider>();
 		// We can add this script when the ball gets the powerups that makes it able to destroy walls
-		wall.AddComponent("WallCollisionScript");
+		//wall.AddComponent("WallCollisionScript");
 		// Change so that the force of the ball decides how many meshes a wall should be destroyed in
-		wall.AddComponent("SubdivideMeshScript");
-		
-		//wall.GetComponent<MeshCollider>().convex = true;
+		//wall.AddComponent("SubdivideMeshScript");
 	 
 		wall.layer = LayerMask.NameToLayer("Obstacles");
 			
@@ -377,7 +375,7 @@ public class WallMeshManagerScript : MonoBehaviour {
 		}
 		
 		// Wait five secons and then remove the wall parts
-		StartCoroutine(Wait(5.0f, arrayList));	
+		StartCoroutine(Wait(2.5f, arrayList));	
 		
 	}
 	

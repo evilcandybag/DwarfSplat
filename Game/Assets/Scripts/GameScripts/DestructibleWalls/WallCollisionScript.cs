@@ -29,6 +29,9 @@ public class WallCollisionScript : MonoBehaviour {
 			// Crush this wall
 			meshManager.CrushWallWrapper(this.gameObject);			
 			
+			// EXPLOTION OMFG!!!! ITS SO COOL
+			go.GetComponent<ExplotionScript>().Explode(this.gameObject.transform.position);
+			
 			Destroy(this.gameObject);
 		}
     }	

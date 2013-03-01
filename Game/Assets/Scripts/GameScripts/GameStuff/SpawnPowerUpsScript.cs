@@ -17,7 +17,7 @@ public class SpawnPowerUpsScript : MonoBehaviour {
 	public float y_min;
 	public float y_max;
 	
-	float spawnPeriod = 5f;
+	float spawnPeriod = 2f;
 	float nextSpawnTime;
 	
 	void Start () {
@@ -41,7 +41,7 @@ public class SpawnPowerUpsScript : MonoBehaviour {
 	}
 	
 	void removePowerUp(GameObject powerUpToRemove){
-		StartCoroutine(Wait(10.0f, powerUpToRemove));
+		StartCoroutine(Wait(20.0f, powerUpToRemove));
 	}
 	
 	private IEnumerator Wait(float seconds, GameObject g) {

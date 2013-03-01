@@ -47,6 +47,6 @@ public class RotationMasterScript : MonoBehaviour {
 		GUI.Label(new Rect(45, 235, 1000, 20), "Slow camera");
 		GUI.Label(new Rect(45, 270, 1000, 20), "Near view");
 		GUI.Label(new Rect(45, 360, 1000, 20), "Far view");
-		GUI.Label(new Rect(20, 20, 1000, 20), "Use arrow keys to tilt the world and move the ball,\nadjust different camera properties by using the sliders on the left.", myStyle);		
+		//GUI.Label(new Rect(20, 20, 1000, 20), "Use arrow keys to tilt the world and move the ball,\nadjust different camera properties by using the sliders on the left.", myStyle);		
     }
 }

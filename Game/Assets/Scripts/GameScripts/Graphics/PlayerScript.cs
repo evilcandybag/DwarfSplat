@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour {
 			isDown = true;
 
 		}
-		else if(Input.GetKey ("left")){
+		if(Input.GetKey ("left")){
 			rigidbody.AddForce(6,0,0);
 			tiltHorizontal = -1;
 			isDown = true;

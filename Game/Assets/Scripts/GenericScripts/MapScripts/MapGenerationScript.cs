@@ -17,7 +17,7 @@ public class MapGenerationScript : MonoBehaviour {
 		
 		cms = GetComponent<WallMeshManagerScript>();
 		
-		size = 10;
+		size = 20;
 		
 		generateMaze();
 		for(int i = 0; i < size*size; i++) {
@@ -41,7 +41,7 @@ public class MapGenerationScript : MonoBehaviour {
 		}
 		
 		GameObject go = GameObject.Find("emptyCreationStuff");
-		go.GetComponent<TileGraphGenerator>().Scan();
+		//go.GetComponent<TileGraphGenerator>().Scan();
 		//Destroy(wall);
 	}
 	
