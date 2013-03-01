@@ -47,6 +47,8 @@ namespace BehaviorTrees
 			case Result.SUCCESS:
 				State = Node.Status.READY;
 				return Status.SUCCESS;
+			default:
+				throw new InvalidOperationException("UNREACHABLE!");
 			}
 		}
 		

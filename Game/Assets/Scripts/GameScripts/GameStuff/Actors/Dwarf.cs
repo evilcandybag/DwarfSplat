@@ -81,8 +81,6 @@ public class Dwarf : AbstractAIActor {
 	
 	public void MovementCallback(Result res) {
 		this.moveResult = res;
-		switch (res) {
-			case Result.
 	}
 	public void SleepCallback(Result res) {
 		this.sleepResult = res;
