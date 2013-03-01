@@ -9,7 +9,7 @@ namespace BehaviorTrees
 	public class Action : Leaf
 	{
 		private Func<Status> task_;
-		public Result callbackResult;
+		private Result callbackResult;
 		
 		
 		public Action () : base() {}
@@ -35,6 +35,10 @@ namespace BehaviorTrees
 				}
 				task_ = value;
 			}
+		}
+		
+		public void ResultCallback(Result res) {
+			this.callbackResult = res;
 		}
 		
 		private Status CheckCallbackState() {
