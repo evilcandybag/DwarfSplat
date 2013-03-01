@@ -24,17 +24,19 @@ public class MapGenerationScript : MonoBehaviour {
 			
 			if (!connectedBot(i)) {
 				wall = CreateMazePart();
+				wall.layer = LayerMask.NameToLayer("Obstacles");
 				//tmp = (GameObject) Instantiate(wall, getPosition(i, bot), Quaternion.identity);
 				//tmp.transform.Rotate(new Vector3(0,90,0));
 				wall.transform.position = getPosition(i, bot);
 				wall.transform.rotation = Quaternion.identity;
-				wall.transform.Rotate(new Vector3(0,90,0));
 			}
 			if (!connectedRight(i)) {
 				wall = CreateMazePart();
+				wall.layer = LayerMask.NameToLayer("Obstacles");
 				//tmp = (GameObject) Instantiate(wall, getPosition(i, right), Quaternion.identity);
 				wall.transform.position = getPosition(i, right);
 				wall.transform.rotation = Quaternion.identity;
+				wall.transform.Rotate(new Vector3(0,90,0));
 			}
 		}
 		//Destroy(wall);
