@@ -46,13 +46,19 @@ public class TileGraphGenerator : MonoBehaviour {
 	public void Scan() {
 		
 		TileNode[,] nodes = new TileNode[width, depth];
+	
 		
 		// maybe not the proper way (use the MeshFilter component ?)
+		/*
 		Vector3 center = floor.GetComponent<Renderer>().bounds.center;
 		Vector3 size = floor.GetComponent<Renderer>().bounds.size;
+		*/
+		
+		Vector3 size = floor.GetComponent<Terrain>().terrainData.size;
 		
 		// consider the mesh as a rectangle
-		startPos = center - size / 2;
+		startPos = floor.transform.position;
+		//startPos = center - size / 2;
 		cellWidth = size.x / width;
 		cellDepth = size.z / depth;
 		
