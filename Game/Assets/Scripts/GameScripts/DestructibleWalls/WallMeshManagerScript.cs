@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 /// <summary>
 /// Manages the creation of all the walls as well as the destruction of them
 /// Julia Adamsson 2013
@@ -10,13 +11,14 @@ public class WallMeshManagerScript : MonoBehaviour {
 	
 	// Set the material in the editor
 	public Material wallMaterial;
+	// All whole walls are in this list
+	public ArrayList wallList;
 	
-	//ArrayList arrayList;
-	
-	/*void Start(){
-		arrayList = new ArrayList();
-	}*/
+	void Awake(){
+		wallList = new ArrayList();
+	}
 
+	// Used to create the whole walls
 	// This method is based on the box script at this wiki: http://wiki.unity3d.com/index.php/ProceduralPrimitives
 	// Though this method uses vertex points instead of lengths. Since this is the method where the walls are created
 	// the first time, it would be a point to just specify a length, since the points are in local space.
@@ -168,60 +170,12 @@ public class WallMeshManagerScript : MonoBehaviour {
 		wall.AddComponent("SubdivideMeshScript");
 		
 		//wall.GetComponent<MeshCollider>().convex = true;
-		
+	 
+		wall.layer = LayerMask.NameToLayer("Obstacles");
+			
+		wallList.Add(wall);
 		return wall;
 	}
-
-	// When the ball collides with the wall this methos is called. It iterated through
-	// all triangles that mesh built up of and calls CreateCrushedWall with the vertices
-	// that forms each triangle. Thus making of new object of each triangle so that
-	// the wall looks like that it is crushed in different pieces. It also moves each wall
-	// part so that it is at the right position in world space.
-	public void CreateCrushedWallWrapper(GameObject obj) {
-		ArrayList arrayList = new ArrayList();
-		Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
-		int[] tri = mesh.triangles;
-		Vector3[] ver = mesh.vertices;
-		
-		GameObject wallPart;
-		
-		for(int i = 0; i < tri.Length; i += 3) {			
-			Vector3 p0 = ver[tri[i]];
-			Vector3 p1 = ver[tri[i+1]];
-			Vector3 p2 = ver[tri[i+2]];
-			// The rest of the vertices are supposed to be using the same point in space
-			// but I'm moving them a little bit since I'm making a box that looks like a triangle
-			Vector3 p3 = new Vector3(p0.x + 0.01f, p0.y + 0.01f, p0.z + 1f);
-			Vector3 p4 = new Vector3(p1.x + 0.01f, p1.y + 0.01f, p1.z + 1f);
-			Vector3 p5 = new Vector3(p2.x + 0.01f, p2.y + 0.01f, p2.z + 0.9f);
-			Vector3 p6 = new Vector3(p2.x + 0.01f, p2.y + 0.01f, p2.z + 1f);
-			Vector3 p7 = new Vector3(p2.x + 0.01f, p2.y + 0.01f, p2.z + 1.1f);
-					
-			wallPart = CreateCrushedWall(p0, p1, p2, p3, p4, p5, p6, p7);
-			
-			// To get th wall part at the right position in worldspace
-			// Considered Vector3 p0 = obj.transform.TransformPoint(ver[tri[i]]); also
-			wallPart.transform.position = obj.transform.position;
-			wallPart.transform.rotation = obj.transform.rotation;
-			arrayList.Add(wallPart);
-		}
-		StartCoroutine(Wait(5.0f, arrayList));		
-	}
-	
-	// Wait a little bit before removing destroyed wall parts
-	private IEnumerator Wait(float seconds, ArrayList arrayList ) {
-
-        yield return new WaitForSeconds(seconds);
-		
-		/*for (t = 0.0; t < duration; t += Time.deltaTime) {
-    		renderer.material.color = Color.Lerp (colorStart, colorEnd, t/duration);
-  		}*/
-		
-		foreach(GameObject g in arrayList){
-			Destroy(g);	
-		}
-	}
-	
 
 	// This is almost the same script as CreateWallwithVertices, but here I add a rigidbody and not all scripts etc. is added.
 	private GameObject CreateCrushedWall(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Vector3 p5, Vector3 p6, Vector3 p7) {
@@ -349,20 +303,30 @@ public class WallMeshManagerScript : MonoBehaviour {
 		wallPart.AddComponent<MeshCollider>();
 		wallPart.GetComponent<MeshCollider>().convex = true; //<-- if I want them to collide with each other
 		
+		// If time, the wall parts can be destroyed as well.
 		//wallPart.AddComponent("SubdivideMeshScript");
 		//wallPart.AddComponent("WallCollisionScript");
-		
 		
 		return wallPart;
 	}
 	
-	public void MyCrush(GameObject obj){
-		ArrayList arrayList = new ArrayList();
+	// When the ball collides with a whole wall, this method is callaed from WallCollisionScript
+	// It iterates through the triangles on the front side of the wall and calls
+	// CreateCrushedWall to split the wall in these
+	public void CrushWallWrapper(GameObject obj){
 		
+		// ArrayList to store the crushed parts
+		ArrayList arrayList = new ArrayList();
+
 		Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
 		int[] tri = mesh.triangles;
 		Vector3[] ver = mesh.vertices;
 		ArrayList newTri = new ArrayList();
+		
+		// These two for-loops makes sure we only get the front triangles.
+		// This is not general! It requires that that the wall has 8 triangles
+		// on the front side. In WallCollisionScript, SubdivideMeshScript is
+		// called first to make sure there are 8 triangles on the front side.
 		for(int i = 12; i<18; i++){
 			newTri.Add(tri[i]);	
 		}
@@ -371,14 +335,12 @@ public class WallMeshManagerScript : MonoBehaviour {
 		}
 		tri = newTri.ToArray(typeof(int)) as int[];
 		
-		/*foreach(int n in tri){
-			print(n);	
-		}*/
-		
-		print("tri leng: " + tri.Length);
-		
 		GameObject wallPart;
 		
+		// These for-loops takes the three vertices of each triangle on the
+		// front side and makes a five new veritces of these, and these
+		// eight vertices are then used to make a wall part
+		// OBS THE SAME RIGHT NOW! seems to work, could be merged
 		// start -> diagonal up -> left
 		for(int b = 0; b<tri.Length; b+=6){
 			
@@ -414,13 +376,112 @@ public class WallMeshManagerScript : MonoBehaviour {
 			arrayList.Add(wallPart);
 		}
 		
+		// Wait five secons and then remove the wall parts
 		StartCoroutine(Wait(5.0f, arrayList));	
 		
 	}
 	
+	// Wait a little bit before removing destroyed wall parts
+	private IEnumerator Wait(float seconds, ArrayList arrayList ) {
+		
+		float alhpa = 0.1f;
+		
+        yield return new WaitForSeconds(seconds);			
+		
+		foreach(GameObject g in arrayList){
+			
+			/*Color color = g.renderer.material.color;
+			color.a -= 10000f;
+			g.renderer.material.color = color;*/
+			
+			Destroy(g);
+		}
+	}
+	
+	// To call method X? and tell at what vertices the destroyed wall stood
+	// This method could be done better, a bit to many declarations.. but it works :)
+	public Vector3[] RemovedWallPos(GameObject removedWall){
+		
+		Vector3[] allVerts = removedWall.GetComponent<MeshFilter>().mesh.vertices;
+		Vector3[] theVerts = new Vector3[2];
+		
+		// Adding vertices p0 and p2
+		theVerts[0] = allVerts[0];
+		theVerts[1] = allVerts[2];
+		Vector3 p0 = removedWall.transform.position;
+		Vector3 p2 = removedWall.transform.position;
+		wallList.Remove(removedWall);
+		
+		int wallRot = (int) (removedWall.transform.rotation.eulerAngles.y);
+
+		if(wallRot == 90){
+			print ("yes");
+			p0.x += theVerts[0].z;
+			p0.z += theVerts[0].x;
+			p2.x += theVerts[1].z;
+			p2.z += theVerts[1].x;
+		}
+		else{
+			p0.x += theVerts[0].x;
+			p0.z += theVerts[0].z;
+			p2.x += theVerts[1].x;
+			p2.z += theVerts[1].z;
+		}
+		
+		theVerts[0] = p0;
+		theVerts[1] = p2;
+		
+		// Call Jeremys method here!! or something maybe in wallcollision. well see
+		
+		return theVerts;
+	}
+	
+	/*void OnDrawGizmos(){
+		Gizmos.DrawLine(points[0], points[1]);
+	}*/
+	
 	
 	
 	/*********************OLD METHODS********************************/
+	
+	// Replaced by CrushWallWrapper
+	// When the ball collides with the wall this methos is called. It iterated through
+	// all triangles that mesh built up of and calls CreateCrushedWall with the vertices
+	// that forms each triangle. Thus making of new object of each triangle so that
+	// the wall looks like that it is crushed in different pieces. It also moves each wall
+	// part so that it is at the right position in world space.
+	public void CreateCrushedWallWrapper(GameObject obj) {
+		ArrayList arrayList = new ArrayList();
+		Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
+		int[] tri = mesh.triangles;
+		Vector3[] ver = mesh.vertices;
+		
+		GameObject wallPart;
+		
+		for(int i = 0; i < tri.Length; i += 3) {			
+			Vector3 p0 = ver[tri[i]];
+			Vector3 p1 = ver[tri[i+1]];
+			Vector3 p2 = ver[tri[i+2]];
+			// The rest of the vertices are supposed to be using the same point in space
+			// but I'm moving them a little bit since I'm making a box that looks like a triangle
+			Vector3 p3 = new Vector3(p0.x + 0.01f, p0.y + 0.01f, p0.z + 1f);
+			Vector3 p4 = new Vector3(p1.x + 0.01f, p1.y + 0.01f, p1.z + 1f);
+			Vector3 p5 = new Vector3(p2.x + 0.01f, p2.y + 0.01f, p2.z + 0.9f);
+			Vector3 p6 = new Vector3(p2.x + 0.01f, p2.y + 0.01f, p2.z + 1f);
+			Vector3 p7 = new Vector3(p2.x + 0.01f, p2.y + 0.01f, p2.z + 1.1f);
+					
+			wallPart = CreateCrushedWall(p0, p1, p2, p3, p4, p5, p6, p7);
+			
+			// To get th wall part at the right position in worldspace
+			// Considered Vector3 p0 = obj.transform.TransformPoint(ver[tri[i]]); also
+			wallPart.transform.position = obj.transform.position;
+			wallPart.transform.rotation = obj.transform.rotation;
+			arrayList.Add(wallPart);
+		}
+		StartCoroutine(Wait(5.0f, arrayList));		
+	}
+	
+	
 	
 	bool flag = true;
 	

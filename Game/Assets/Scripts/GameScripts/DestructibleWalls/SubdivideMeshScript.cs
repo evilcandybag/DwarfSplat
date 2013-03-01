@@ -268,7 +268,7 @@ public class SubdivideMeshScript : MonoBehaviour {
 		uvs = mesh.uv;
 		norms = mesh.normals;
 		
-		Debug.Log("enter subdividing: " + verts.Length);
+		//Debug.Log("enter subdividing: " + verts.Length);
 		
 		ArrayList nv = new ArrayList();
 		nv.AddRange(verts);
@@ -280,7 +280,6 @@ public class SubdivideMeshScript : MonoBehaviour {
 		nn.AddRange(norms);
 		
 		if(!center){
-			Debug.Log("Before: " + nt.Count);
 			for(int i = 14; i < 18; i+=3){
 				// i < trigs.Length
 				int p0trigwho = trigs[i-2];
@@ -347,9 +346,7 @@ public class SubdivideMeshScript : MonoBehaviour {
 				nt.Add(p2modtrigwho);
 				nt.Add(p1modtrigwho);
 				nt.Add(p2trigwho);
-				Debug.Log("in: " + nt.Count);
 			}
-			Debug.Log("After: " + nt.Count);
 		}
 		
 		verts = nv.ToArray(typeof(Vector3)) as Vector3[];
@@ -361,6 +358,6 @@ public class SubdivideMeshScript : MonoBehaviour {
 		Applymesh();
 		//mesh.RecalculateNormals();
 
-		Debug.Log("exit subdividing: "+verts.Length);
+		//Debug.Log("exit subdividing: "+verts.Length);
 	}
 }
