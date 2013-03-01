@@ -6,6 +6,8 @@ namespace BehaviorTrees
 	/// A wrapper class for pairing a node with a priority.
 	/// </summary>
 	public class PriorityNode {
+		
+		public string name;
 		/// <summary>
 		/// Construct a priority node with prio 1.
 		/// </summary>

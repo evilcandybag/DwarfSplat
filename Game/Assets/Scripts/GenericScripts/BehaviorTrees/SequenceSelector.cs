@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace BehaviorTrees
 {
@@ -36,7 +37,7 @@ namespace BehaviorTrees
 		/// The status of the first READY or newly finished RUNNING child tree. 
 		/// </returns>
 		public override Status Visit() { //TODO: this might not be the correct behaviour. Check book!
-			
+			LogChildren();
 			foreach (Node child in children_) {
 				switch (child.Visit()) {
 				case Status.READY:
@@ -44,19 +45,33 @@ namespace BehaviorTrees
 				case Status.RUNNING:
 					State = Status.RUNNING;
 					return State;
-				case Status.FAIL:
+				case Status.FAIL: //we fail one, all fail and we start over.
+					FreeChildren();
 					State = Status.READY;
 					return Status.FAIL;
+				case Status.SUCCESS:
+					State = Node.Status.RUNNING;
+					break;
 				}
 			}
 			//We reached the end of the List with all successes. Hooray! We are
 			//now ready to start again. 
+			FreeChildren();
 			State = Status.READY;
 			return Status.SUCCESS;
 		}
 		private void FreeChildren() {
 			foreach (Node n in children_)
 				n.Free();
+		}
+		
+		private void LogChildren() {
+			string s = "SeqSel: ";
+			foreach (Node n in children_) {
+				s += n.name + ", " + n.State + ";;;";
+			}
+			s += "" + State;
+			Debug.Log(s);
 		}
 		
 		/// <summary>Add a new child to the Selector.</summary>

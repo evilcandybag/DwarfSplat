@@ -9,6 +9,8 @@ namespace BehaviorTrees
 	public class Action : Leaf
 	{
 		private Func<Status> task_;
+		public Result callbackResult;
+		
 		
 		public Action () : base() {}
 		
@@ -35,10 +37,31 @@ namespace BehaviorTrees
 			}
 		}
 		
+		private Status CheckCallbackState() {
+			switch (callbackResult) {
+			case Result.RUNNING:
+				return Status.RUNNING;
+			case Result.FAIL:
+				State = Node.Status.READY;
+				return Status.FAIL;
+			case Result.SUCCESS:
+				State = Node.Status.READY;
+				return Status.SUCCESS;
+			}
+		}
+		
 		public override Status Visit() {
+			if (State == Status.RUNNING) {
+				return CheckCallbackState();
+			}
 			Status s = task_();
-			if (s == Status.SUCCESS) {
-				State = Status.READY;
+			switch (s) {
+			case Status.RUNNING:
+				State = Node.Status.RUNNING;
+				break;
+			default: 
+				State = Node.Status.READY;
+				break;
 			}
 			return s;
 		}
