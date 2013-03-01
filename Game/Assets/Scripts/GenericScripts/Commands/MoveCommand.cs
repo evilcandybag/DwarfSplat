@@ -32,7 +32,7 @@ public class MoveCommand : ICommand {
 	
 	public void execute() {
 		if(isAllowed()) {
-			actor.GetComponent<MovementAgent>().MoveTo(location, speed*100, callback);
+			actor.GetComponent<MovementAgent>().MoveTo(location, speed*50, callback);
 		}
 	}
 }

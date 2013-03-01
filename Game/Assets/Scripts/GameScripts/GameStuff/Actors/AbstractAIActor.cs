@@ -41,7 +41,7 @@ public abstract class AbstractAIActor : MonoBehaviour, IAgent, IActor
 	}
 	
 	public Vector3 getPosition() {
-		return this.transform.localPosition;
+		return this.transform.position;
 	}
 }
 
