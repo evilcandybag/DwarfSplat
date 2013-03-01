@@ -13,35 +13,47 @@ namespace Pathfinding.Graph {
 	
 	abstract public class Graph {
 		
+		protected PriorityQueue<Node> pq;
+		protected Dictionary<Node, Node> parentPath;
+		protected HashSet<Node> openSetHash;
+		protected HashSet<Node> closedSetHash;
+		
+		public Graph() {
+			pq = new PriorityQueue<Node>();
+			parentPath = new Dictionary<Node, Node>();
+			openSetHash = new HashSet<Node>();
+			closedSetHash = new HashSet<Node>();
+		}
+		
 		public void AStar(Vector3 start, Vector3 end, OnPathComputed callback) {
 			
-			// Reset all scores and sets membership
-			Reset();
+			// Reset all 
+			parentPath.Clear();
+			pq.Clear();
+			openSetHash.Clear();
+			closedSetHash.Clear();
+			Path path = new Path();
 			
 			Node startNode = getClosestNode(start);
 			Node endNode = getClosestNode(end);
 			
 			if (startNode == null || endNode == null || start == end) {
-				callback(new Path());
+				callback(path);
 				return;
-			}
+			}			
 			
-			PriorityQueue<Node> openSet = new PriorityQueue<Node>();
-			
-			openSet.Push(startNode); startNode.InOpenSet = true;
-			
-			Dictionary<Node, Node> parentPath = new Dictionary<Node, Node>();
+			pq.Push(startNode);
+			openSetHash.Add(startNode);
 			
 			startNode.GScore = 0;
 			startNode.FScore = startNode.GScore + heuristic(startNode, endNode);
 			
-			Path path = new Path();
 			Node current = startNode;
 			
-			while (openSet.Count() > 0) {
-				current = openSet.Pop(); // automatically do the remove part
-				current.InOpenSet = false;
-
+			while (pq.Count() > 0) {
+				current = pq.Pop(); // automatically do the remove part
+				openSetHash.Remove(current);
+				
 				if (current.Id == endNode.Id) {
 					path.Add(current.Position);
 					while (parentPath.ContainsKey(current)) {
@@ -53,30 +65,27 @@ namespace Pathfinding.Graph {
 					return;
 				}
 				
-				current.InClosedSet = true;
+				closedSetHash.Add(current);
 				
 				List<Node> neighbors = getNeighbors(current);
 				
 				for (int i = 0; i < neighbors.Count; ++i) {
 					Node neighbor = neighbors[i];
-					if (neighbor.InClosedSet) continue;
+					if (closedSetHash.Contains(neighbor)) continue;
 					
 					float gAttempt = current.GScore + euclidian(current, neighbor);
 					
-					if (!neighbor.InOpenSet || gAttempt <= neighbor.GScore) {
+					if (!openSetHash.Contains(neighbor) || gAttempt <= neighbor.GScore) {
 						parentPath[neighbor] = current;
 						neighbor.GScore = gAttempt;
 						neighbor.FScore = neighbor.GScore + heuristic(neighbor, endNode);
-						if (!neighbor.InOpenSet) {
-							openSet.Push(neighbor);
-							neighbor.InOpenSet = true;
+						if (!openSetHash.Contains(neighbor)) {
+							pq.Push(neighbor);
+							openSetHash.Add(neighbor);
 						}
 					}
-					
 				} // end loop neighbors
-				
 			}
-			
 		}
 		
 		/** Re-initialize all the nodes of the graph */
