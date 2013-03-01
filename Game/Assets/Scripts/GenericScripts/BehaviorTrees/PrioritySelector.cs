@@ -15,6 +15,16 @@ namespace BehaviorTrees
 			children_ = new HashSet<PriorityNode>();
 		}
 		
+		//Some debug printing for your pleasure.
+		private void LogChildren() {
+			string s = "PriorítyNode: ";
+			foreach (PriorityNode n in children_) {
+				string pr = (n.Prio > 1000) ? "LOTS" : "" + n.Prio;
+				s += n.name + " " + pr + ", " + n.Child.State + ";;;";
+			}
+			s += "" + State;
+			Debug.Log(s);
+		}
 		/// <summary>
 		/// Visit the Selector's children in priority order. 
 		/// SUCCEESS on the first succeeding child.
