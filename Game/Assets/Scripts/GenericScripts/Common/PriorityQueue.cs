@@ -72,6 +72,10 @@ namespace Pathfinding.Common {
 		public int Count() {
 			return list.Count;
 		}
+		
+		public void Clear() {
+			list.Clear();	
+		}
 	
 		public override string ToString () {
 			string res = "";
