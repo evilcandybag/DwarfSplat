@@ -88,9 +88,7 @@ public class DwarfBehavior
 		BehaviorTrees.Action goToWork = new BehaviorTrees.Action();
 		goToWork.Task = () => {
 			Debug.Log("GOTOWORK: " + s);
-			var mc = new MoveCommand(d,i.getPosition(),WALKSPEED,(res) => {
-				
-			});
+			var mc = new MoveCommand(d,i.getPosition(),WALKSPEED, goToWork.ResultCallback);
 			if (mc.isAllowed()) {
 				mc.execute();
 				d.moveResult = Result.RUNNING;
