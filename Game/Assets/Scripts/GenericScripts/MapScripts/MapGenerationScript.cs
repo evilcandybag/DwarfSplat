@@ -39,6 +39,9 @@ public class MapGenerationScript : MonoBehaviour {
 				wall.transform.Rotate(new Vector3(0,90,0));
 			}
 		}
+		
+		GameObject go = GameObject.Find("emptyCreationStuff");
+		go.GetComponent<TileGraphGenerator>().Scan();
 		//Destroy(wall);
 	}
 	

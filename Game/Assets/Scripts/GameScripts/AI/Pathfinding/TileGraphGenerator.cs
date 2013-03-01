@@ -25,15 +25,7 @@ public class TileGraphGenerator : MonoBehaviour {
 	LayerMask layer, layerFloor, layerObstacles;
 
 	void Start() {
-		// setup the layers to detect the floor and the obstacles
-		layerFloor = LayerMask.NameToLayer("Floor");
-		layerObstacles = LayerMask.NameToLayer("Obstacles");
 		
-		layer = (1 << layerFloor) | (1 << layerObstacles);
-		
-		Scan(); // scan the map
-		RadiusModifier(radius); // extend the unwalkable areas
-
 	}
 	
 	void Update () {
@@ -44,7 +36,12 @@ public class TileGraphGenerator : MonoBehaviour {
 	
 	/** Scan the map with a raycast */
 	public void Scan() {
+		// setup the layers to detect the floor and the obstacles
+		layerFloor = LayerMask.NameToLayer("Floor");
+		layerObstacles = LayerMask.NameToLayer("Obstacles");
 		
+		layer = (1 << layerFloor) | (1 << layerObstacles);
+
 		TileNode[,] nodes = new TileNode[width, depth];
 	
 		
@@ -82,7 +79,7 @@ public class TileGraphGenerator : MonoBehaviour {
 		}
 		
 		tileGraph = new TileGraph(nodes, width, depth, cellWidth, cellDepth, startPos);
-		
+		RadiusModifier(radius); // extend the unwalkable areas
 	}
 	
 	/** Rescan the ENTIRE map to detect new obstacles */

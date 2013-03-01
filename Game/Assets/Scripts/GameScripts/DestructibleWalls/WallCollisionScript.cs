@@ -16,7 +16,7 @@ public class WallCollisionScript : MonoBehaviour {
 		if(collision.contacts[0].otherCollider.name.Equals("Cube")) {
 					
 			Vector3 contactPoint = collision.contacts[0].point;
-			GameObject go = GameObject.Find("emptyMapStuff");
+			GameObject go = GameObject.Find("emptyCreationStuff");
 			WallMeshManagerScript meshManager = (WallMeshManagerScript) go.GetComponent<WallMeshManagerScript>();
 			SubdivideMeshScript sms = GetComponent<SubdivideMeshScript>();
 			

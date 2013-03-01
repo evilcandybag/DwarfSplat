@@ -44,7 +44,12 @@ public class MovementAgent : MonoBehaviour {
 	
 	void Start () {
 		// avoid having to add a controller by hand from the editor
-		controller = gameObject.AddComponent<CharacterController>();
+		if (gameObject.GetComponent<CharacterController>() == null) {
+			controller = gameObject.AddComponent<CharacterController>();
+		}
+		else {
+			controller = gameObject.GetComponent<CharacterController>();
+		}
 		// init positions
 		currentPoint = new Vector3(0,0,0);
 		//targetPosition = transform.position;
