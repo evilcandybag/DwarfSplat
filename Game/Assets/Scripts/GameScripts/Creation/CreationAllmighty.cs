@@ -14,15 +14,12 @@ public class CreationAllmighty : MonoBehaviour {
 		ActorController ac = ActorController.getActorController();
 		InteractableController ic = InteractableController.getInteractableController();
 		
-		GameObject dwarfy = Instantiate(dwarf,new Vector3(1f,0.5f,1f), Quaternion.identity) as GameObject;
-		GameObject bedy = Instantiate(bed,new Vector3(-0.75f,0.26f,-0.75f), Quaternion.identity) as GameObject;
+		Dwarf dwarfy = InstantiationUtils.GetNewInstance<Dwarf>(dwarf, new Vector3(1.0f, 1f, 2.0f));
+		Bed bedy = InstantiationUtils.GetNewInstance<Bed>(bed, new Vector3(-0.75f,0.26f,-0.75f));
 		
-		Dwarf dwarfy2 = dwarfy.GetComponent<Dwarf>();
-		Bed bedy2 = bedy.GetComponent<Bed>();
-		
-		command = new MoveCommand(dwarfy2, new Vector3(-0.75f,0.5f,-0.75f),2,(Result) => {
+		command = new MoveCommand(dwarfy, new Vector3(-0.75f,0.5f,-0.75f),2,(Result) => {
 														if (Result.Equals(Result.SUCCESS)) {
-															ICommand command2 = new InteractCommand(dwarfy2, bedy2, (result) => {Debug.Log("Result bedy: ");});
+															ICommand command2 = new InteractCommand(dwarfy, bedy, (result) => {Debug.Log("Result bedy: ");});
 															Debug.Log("Result: "+Result);
 															command2.execute();
 														}
