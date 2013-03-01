@@ -7,6 +7,11 @@ public class Bed : MonoBehaviour, IInteractable {
 	public void interact(IActor dwarf, Action<Result> callback) {
 		if (canInteract(dwarf)) {
 			//make dwarf enter sleep mode
+			Debug.Log("Dwarf now sleeping <3");
+			callback(Result.RUNNING);
+		}
+		else {
+			callback(Result.FAIL);
 		}
 	}
 	
@@ -23,6 +28,6 @@ public class Bed : MonoBehaviour, IInteractable {
 	}
 	
 	public Vector3 getPosition() {
-		return this.transform.localPosition;
+		return this.transform.position;
 	}
 }
