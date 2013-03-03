@@ -62,11 +62,17 @@ public class MovementAgent : MonoBehaviour {
 	/* When a new path has been computed */
 	void onCallback(Path newPath) {
 		path = newPath;
+		currentPos = 0;
 		if (path.Count == 0) {
-			if (endCallback != null) endCallback(Result.FAIL);
+			if (endCallback != null) {
+				endCallback(Result.FAIL);
+				endCallback = null;
+			}
 		} else {
 			if (smoothPath) path = Smoother.smoothPath(path);
-			currentPos = 1; // avoid backward movement bug (temp solution)
+			if (path.Count >= 2) {
+				currentPos = 2; // avoid backward movement
+			}
 		}
 	}
 	
