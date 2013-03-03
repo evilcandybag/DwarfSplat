@@ -69,7 +69,6 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	public virtual TObject Spawn(GameObject proto, TKey key, Vector3 pos, Quaternion rot) {
 		
 		TObject obj = InstantiationUtils.GetNewInstance<TObject>(proto,pos,rot);
-		Debug.Log ((obj == null) + ", " + (proto == null) + ", " + (objects == null));
 		objects.Add(key,obj);
 		return obj;
 	}
