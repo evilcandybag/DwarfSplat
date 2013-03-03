@@ -41,7 +41,7 @@ public class MapGenerationScript : MonoBehaviour {
 		}
 		
 		GameObject go = GameObject.Find("emptyCreationStuff");
-		//go.GetComponent<TileGraphGenerator>().Scan();
+		go.GetComponent<TileGraphGenerator>().Scan();
 		//Destroy(wall);
 	}
 	
@@ -158,6 +158,7 @@ public class MapGenerationScript : MonoBehaviour {
 				unmadeNodes = new ArrayList();
 			}
 		}
+		
 	}
 	
 	// Update is called once per frame
