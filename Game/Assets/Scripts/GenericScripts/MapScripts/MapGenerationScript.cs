@@ -8,7 +8,7 @@ public class MapGenerationScript : MonoBehaviour {
 	WallMeshManagerScript cms;
 	
 	int[,] maze;
-	int size;
+	public int size;
 	
 	int bot = 0, right = 1;
 	
@@ -17,7 +17,7 @@ public class MapGenerationScript : MonoBehaviour {
 		
 		cms = GetComponent<WallMeshManagerScript>();
 		
-		size = 20;
+	//	size = 20;
 		
 		generateMaze();
 		for(int i = 0; i < size*size; i++) {
