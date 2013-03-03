@@ -104,6 +104,7 @@ public class MovementAgent : MonoBehaviour {
 		// move agent
 		Vector3 direction = (currentPoint - transform.position).normalized;
 		direction *= speed * Time.deltaTime;
+		//transform.Translate(direction);
 		controller.SimpleMove(direction);
 		
 		// if close enough to the next way point
@@ -117,14 +118,13 @@ public class MovementAgent : MonoBehaviour {
 				endCallback(Result.SUCCESS); 
 				endCallback = null;
 			}
-			//targetPosition = transform.position;
 		}
 		
 		if (drawPath) path.drawDebugPath(Color.green);
 	}
 	
 	public void MoveTo(Vector3 pos) {
-		targetPosition = pos;	
+		targetPosition = pos;
 	}
 	
 	public void MoveTo(Vector3 pos, int newSpeed, Action<Result> callback) {

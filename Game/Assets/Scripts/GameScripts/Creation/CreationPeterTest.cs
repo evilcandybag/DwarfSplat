@@ -6,6 +6,7 @@ public class CreationPeterTest : MonoBehaviour {
 	public GameObject dwarf;
 	public GameObject bed;
 	public GameObject work;
+	public int numberOfDwarfs = 3;
 	private DwarfManager manager;
 	
 	// Use this for initialization
@@ -20,7 +21,7 @@ public class CreationPeterTest : MonoBehaviour {
 			InteractableController.Instance.addWorkspace(arbeit);
 		}
 		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < numberOfDwarfs; i++) {
 		float x1 = Random.value*20f, x2 = Random.value*20f;
 			manager.Spawn(new Vector3(-10f+x1,0.5f,-10f+x2));
 		}
