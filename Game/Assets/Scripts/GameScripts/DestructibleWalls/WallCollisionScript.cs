@@ -29,10 +29,12 @@ public class WallCollisionScript : MonoBehaviour {
 			// Crush this wall
 			meshManager.CrushWallWrapper(this.gameObject);			
 			
-			// EXPLOTION OMFG!!!! ITS SO COOL
+			// EXPLOTION OMFG!!!! ITS SO COOL - SHIT YAH!
 			go.GetComponent<ExplotionScript>().Explode(this.gameObject.transform.position);
 			
 			Destroy(this.gameObject);
+			
+			go.GetComponent<TileGraphGenerator>().Rescan();
 		}
     }	
 }
