@@ -14,7 +14,7 @@ public class CreationAllmighty : MonoBehaviour {
 		ActorController ac = ActorController.getActorController();
 		InteractableController ic = InteractableController.getInteractableController();
 		
-		Dwarf dwarfy = InstantiationUtils.GetNewInstance<Dwarf>(dwarf, new Vector3(1.0f, 2f, 2.0f));
+		Dwarf dwarfy = InstantiationUtils.GetNewInstance<Dwarf>(dwarf, new Vector3(1.5f, 1f, 2.5f));
 		Bed bedy = InstantiationUtils.GetNewInstance<Bed>(bed, new Vector3(-0.75f,0.26f,-0.75f));
 		
 		command = new MoveCommand(dwarfy, new Vector3(-0.75f,0.5f,-0.75f),2,(Result) => {

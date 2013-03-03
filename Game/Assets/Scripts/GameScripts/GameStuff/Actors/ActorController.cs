@@ -39,8 +39,9 @@ public class ActorController {
 			Object.Destroy(d);
 		}
 		else if (a is Ball) {
-			ballActors.Remove((Ball) a);
-			Object.Destroy ((Ball) a);
+			Ball b = a as Ball;
+			ballActors.Remove(b);
+			Object.Destroy (b);
 		}
 		
 	}

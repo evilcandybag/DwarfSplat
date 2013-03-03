@@ -14,8 +14,7 @@ public class MovementScript : MonoBehaviour {
 	void FixedUpdate () 
 	{		
 		if (Input.GetKey (KeyCode.LeftArrow)){
-	    	rigidbody.AddForce (Vector3.left * 70);
-			//transform.rot
+			rigidbody.AddForce (Vector3.left * 70);
 		}
 		if (Input.GetKey (KeyCode.RightArrow)){
 	   	 	rigidbody.AddForce (Vector3.right * 70);
