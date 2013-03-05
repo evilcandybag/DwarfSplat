@@ -11,7 +11,15 @@ public class Dwarf : AbstractAIActor {
 	public Status State {
 		get { return state_; }
 		set {
-			Debug.Log("Changed state to: " + value);
+			//Debug.Log("Changed state to: " + value);
+			switch (value) {
+			case Status.FLEE:
+				this.renderer.material.color = Color.red;
+				break;
+			default:
+				this.renderer.material.color = Color.green;
+				break;
+			}
 			state_ = value; 
 		}
 	}
@@ -19,7 +27,7 @@ public class Dwarf : AbstractAIActor {
 	public Result moveResult,sleepResult,workResult;
 	
 	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.00001, FLEE_RATE = 0.8,
-		DISTANCE_FAR = 10, DISTANCE_CLOSE = 5, AI_SCALE = 40;
+		DISTANCE_FAR = 40, DISTANCE_CLOSE = 20, AI_SCALE = 40;
 	
 	private DwarfManager manager_;
 	public DwarfManager Manager {
@@ -96,6 +104,7 @@ public class Dwarf : AbstractAIActor {
 		foreach (Ball b in ActorController.getActorController().getBallActors()) {
 			float dist = Vector3.Distance(transform.position,b.transform.position);
 			if (dist < ((State == Status.FLEE) ? DISTANCE_FAR : DISTANCE_CLOSE))
+				Debug.Log("OMG BALL CLOSE!");
 				return true;
 		}
 		return false;
@@ -107,6 +116,7 @@ public class Dwarf : AbstractAIActor {
 			if ( Physics.Linecast(transform.position, b.transform.position, 1 << obstacles))
 				return false;
 		}
+		Debug.Log("OMG, See ball!");
 		return true;
 	}
 }
