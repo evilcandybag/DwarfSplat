@@ -31,6 +31,6 @@ public class MineActivated : MonoBehaviour {
 	}
 	
 	private void explode(Ball ball) {
-		ball.transform.rigidbody.AddForce(0,1000,0);
+		ball.transform.rigidbody.AddForce(0,1500,0);
 	}
 }

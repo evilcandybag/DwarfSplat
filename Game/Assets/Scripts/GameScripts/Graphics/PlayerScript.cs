@@ -18,32 +18,34 @@ public class PlayerScript : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
+		if (rigidbody.transform.position.y < 0.7) {
 		tiltHorizontal = 0;
 		tiltVertical = 0;
-		if(Input.GetKey ("down")){
-			rigidbody.AddForce(0,10,force);
-			tiltVertical = -1;
-			isDown = true;
-		}
-		else if(Input.GetKey ("up")){
-			rigidbody.AddForce(0,10,-force);
-			tiltVertical = 1;
-			isDown = true;
-
-		}
-		if(Input.GetKey ("left")){
-			rigidbody.AddForce(force,10,0);
-			tiltHorizontal = -1;
-			isDown = true;
-
-		}
-		else if(Input.GetKey ("right")){
-			rigidbody.AddForce(-force,10,0);
-			tiltHorizontal = 1;
-			isDown = true;
-		}
-		else{
-			isDown = false;
+			if(Input.GetKey ("down")){
+				rigidbody.AddForce(0,10,force);
+				tiltVertical = -1;
+				isDown = true;
+			}
+			else if(Input.GetKey ("up")){
+				rigidbody.AddForce(0,10,-force);
+				tiltVertical = 1;
+				isDown = true;
+	
+			}
+			if(Input.GetKey ("left")){
+				rigidbody.AddForce(force,10,0);
+				tiltHorizontal = -1;
+				isDown = true;
+	
+			}
+			else if(Input.GetKey ("right")){
+				rigidbody.AddForce(-force,10,0);
+				tiltHorizontal = 1;
+				isDown = true;
+			}
+			else{
+				isDown = false;
+			}
 		}
 	}
 	void callTerrainDestruction(){
