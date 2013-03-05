@@ -4,32 +4,33 @@ using System;
 
 public class MineActivated : MonoBehaviour {
 	
-	private static float blowupRadius = 0.2f;
-	
 	private List<IActor> list;
 	
-	public MineActivated(Vector3 position, List<IActor> actorsThatCanBlow) {
-		//TODO setposition
-		list = actorsThatCanBlow;
+	public void setProperties(List<IActor> actors) {
+		this.list = actors;
 	}
 	
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		//TODO not check every frame
-		foreach(IActor a in list){
-			if (Vector3.Distance(a.getPosition(), getPosition()) < blowupRadius) {
-				//TODO somehow blow up the mine
-				Destroy(this);
-				break;
-			}
+	void OnCollisionEnter(Collision collision) {
+		GameObject go = collision.contacts[0].otherCollider.gameObject;
+		Ball ball = go.GetComponent<Ball>();
+		if(list.Contains(ball) && collision.contacts[0].otherCollider.name.Equals("Ball(Clone)")) {
+			go = GameObject.Find("emptyCreationStuff");
+			go.GetComponent<ExplotionScript>().Explode(this.gameObject.transform.position);
+			explode(ball);
+			GroundStuffController.getGroundStuffController().destoyMine(this);
+			
 		}
 	}
 	
 	public Vector3 getPosition() {
 		return this.transform.localPosition;
+	}
+	
+	private void explode(Ball ball) {
+		ball.transform.rigidbody.AddForce(0,1000,0);
 	}
 }

@@ -383,7 +383,7 @@ public class WallMeshManagerScript : MonoBehaviour {
 	// Wait a little bit before removing destroyed wall parts
 	private IEnumerator Wait(float seconds, ArrayList arrayList ) {
 		
-		float alhpa = 0.1f;
+		//float alhpa = 0.1f;
 		
         yield return new WaitForSeconds(seconds);			
 		

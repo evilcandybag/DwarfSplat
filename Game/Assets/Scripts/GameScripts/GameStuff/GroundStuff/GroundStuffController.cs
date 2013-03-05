@@ -29,11 +29,11 @@ public class GroundStuffController {
 	
 	public void destoyMine(MineActivated m) {
 		allMines.Remove(m);
-		Object.Destroy(m);
+		if (m != null)
+			Object.Destroy(m.transform.gameObject);
 	}
 	
 	public void destroyItem(ItemOnGround i) {
-		Debug.Log("destroying itemonground");
 		allItems.Remove(i);
 		if (i != null)
 			Object.Destroy(i.transform.gameObject);
