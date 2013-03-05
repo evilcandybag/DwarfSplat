@@ -87,6 +87,11 @@ namespace Pathfinding.Graph {
 			}
 		}
 		
+		public void SetObstacle(int x, int z, bool obstacle) {
+			SetWalkable(x,z,!obstacle);
+			nodes[x,z].Obstacle = obstacle;
+		}
+		
 		public void SetWalkable(int x, int z, bool walkable) {
 			nodes[x,z].Walkable = walkable;
 		}
@@ -115,9 +120,9 @@ namespace Pathfinding.Graph {
 		 * Get neighbors around the given position, with a given radius, 
 		 * supposed to be used to extend unwalkable areas
 		 */
-		public List<Node> GetNeighbors(int x, int y, int radius = 1) {
-			if (nodes[x,y] != null && !nodes[x,y].Walkable) {
-				return getNeighbors(nodes[x,y], radius);
+		public List<Node> GetNeighbors(int x, int z, int radius = 1) {
+			if (nodes[x,z] != null && nodes[x,z].Obstacle) {
+				return getNeighbors(nodes[x,z], radius);
 			} else {
 				return null;	
 			}
