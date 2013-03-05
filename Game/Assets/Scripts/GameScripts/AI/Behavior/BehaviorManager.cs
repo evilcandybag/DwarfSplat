@@ -37,16 +37,17 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 		
 	}
 	
-	void Periodic() {
+	System.Collections.IEnumerator Periodic() {
 		foreach (KeyValuePair<TKey,TObject> kvp in objects) {
 			kvp.Value.RunAI();
+			yield return null;
 		}
 	}
 	
 	// Update is called once per frame
 	protected virtual void Update () {
 		if (runAI_ && frameCounter == 0) {
-			Periodic();
+			StartCoroutine( Periodic());
 		}
 		frameCounter = (frameCounter + 1) % UPDATE_FREQ;
 	}
