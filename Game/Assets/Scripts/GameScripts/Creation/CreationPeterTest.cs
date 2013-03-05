@@ -6,6 +6,7 @@ public class CreationPeterTest : MonoBehaviour {
 	public GameObject dwarf;
 	public GameObject bed;
 	public GameObject work;
+	public GameObject ball;
 	public int numberOfDwarfs = 3;
 	public int numberOfBeds = 4;
 	public float randomOffset = 20f;
@@ -23,6 +24,9 @@ public class CreationPeterTest : MonoBehaviour {
 			InteractableController.Instance.addBed(sleeper);
 			InteractableController.Instance.addWorkspace(arbeit);
 		}
+		
+		Ball roller = InstantiationUtils.GetNewInstance<Ball>(ball);
+		ActorController.getActorController().addBall(roller);
 		
 		for (int i = 0; i < numberOfDwarfs; i++) {
 		float x1 = Random.value*randomOffset, x2 = Random.value*randomOffset;
