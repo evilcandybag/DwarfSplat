@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		if (rigidbody.transform.position.y < 0.7) {
+		if (rigidbody.transform.position.y < 1.3) {
 		tiltHorizontal = 0;
 		tiltVertical = 0;
 			if(Input.GetKey ("down")){
