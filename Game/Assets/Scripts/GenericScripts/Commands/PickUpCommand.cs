@@ -20,6 +20,9 @@ public class PickUpCommand : ICommand {
 		if(isAllowed()) {
 			actor.addItem(item);
 			
+			//for now we'll use item at once
+			ICommand command = new UseItemCommand(actor, item);
+			command.execute();
 		}
 	}
 }

@@ -44,6 +44,6 @@ public class Mine : IItem {
 	}
 	
 	private void placeMine(IActor user) {
-		GroundStuffController.getGroundStuffController().createMine(user.getPosition());
+		//GroundStuffController.getGroundStuffController().createMine(user.getPosition());
 	}
 }

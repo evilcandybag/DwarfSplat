@@ -11,10 +11,12 @@ public class UseItemCommand : ICommand {
 	}
 	
 	public bool isAllowed() {
-		return false;
+		return true;
 	}
 	
 	public void execute() {
-		
+		if(isAllowed()) {
+			item.use(actor);
+		}
 	}
 }

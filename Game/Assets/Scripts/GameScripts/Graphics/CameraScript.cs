@@ -12,7 +12,7 @@ public class CameraScript : MonoBehaviour {
 	public float angle;
 			
 	void Start () {
-		player = GameObject.Find("Cube");
+		player = GameObject.Find("Ball(Clone)");
 		if (player == null)
 		{
 			Debug.Log("Player object not found!");
@@ -31,6 +31,10 @@ public class CameraScript : MonoBehaviour {
 		
 	void moveCamera()
 	{
+		if (player == null)
+		{
+			player = GameObject.Find("Ball(Clone)");
+		}
 		desiredPosition = new Vector3(
 			player.transform.position.x + cameraDistance*Mathf.Sin(PlayerScript.tiltHorizontal*(angle*(Mathf.PI/180))),	//X-coordinate
 			player.transform.position.y + cameraDistance - Mathf.Abs(Mathf.Sin(PlayerScript.tiltHorizontal*(angle*(Mathf.PI/180)))) - Mathf.Abs(Mathf.Sin(PlayerScript.tiltVertical*(angle*(Mathf.PI/180)))) - 0.5f*Mathf.Sin(rotationMaster.GetComponent<RotationMasterScript>().perspectiveAngle*(Mathf.PI/180))*cameraDistance,	//Y-coordinate

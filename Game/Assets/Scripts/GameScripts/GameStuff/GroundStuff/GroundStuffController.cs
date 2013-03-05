@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class GroundStuffController : MonoBehaviour {
+public class GroundStuffController {
 	
 	private static GroundStuffController ac;
 		
@@ -19,22 +19,24 @@ public class GroundStuffController : MonoBehaviour {
 		return ac;
 	}
 	
-	public void createMine(Vector3 position) {
-	
+	public void addMine(MineActivated mine) {
+		allMines.Add(mine);
 	}
 	
-	public void createItemOnGround(Vector3 position, IItem item) {
-	
+	public void addItemOnGround(ItemOnGround item) {
+		allItems.Add(item);
 	}
 	
 	public void destoyMine(MineActivated m) {
 		allMines.Remove(m);
-		Destroy(m);
+		Object.Destroy(m);
 	}
 	
 	public void destroyItem(ItemOnGround i) {
+		Debug.Log("destroying itemonground");
 		allItems.Remove(i);
-		Destroy(i);
+		if (i != null)
+			Object.Destroy(i.transform.gameObject);
 	}
 	
 	public List<MineActivated> getAllMines() {

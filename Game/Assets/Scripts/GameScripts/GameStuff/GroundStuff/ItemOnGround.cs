@@ -5,32 +5,41 @@ using System;
 public class ItemOnGround : MonoBehaviour {
 	IItem item;
 	
-	private static float pickupRadius = 0.2f;
+	private static float pickupRadius = 0.4f;
 	
-	List<IActor> list;
+	public List<IActor> list;
 	
 	void Start () {
 		
 	}
-	
+	void OnCollisionEnter(Collision collision) {
+		GameObject go = collision.contacts[0].otherCollider.gameObject;
+		Ball ball = go.GetComponent<Ball>();
+		if(collision.contacts[0].otherCollider.name.Equals("Ball(Clone)")) {
+			ICommand command = new PickUpCommand(ball, item);
+			command.execute();
+			GroundStuffController.getGroundStuffController().destroyItem(this);
+		}
+	}
+		
 	// Update is called once per frame
 	void Update () {
 		//TODO not check every frame
-		foreach(IActor a in list){
+		
+		/*foreach(IActor a in list){
 			if (Vector3.Distance(a.getPosition(), getPosition()) < pickupRadius) {
 				ICommand command = new PickUpCommand(a, item);
 				command.execute();
-				Destroy(this);
+				GroundStuffController.getGroundStuffController().destroyItem(this);
 				//comment be here
 				break;
 			}
-		}
+		}*/
 	}
 	
-	public ItemOnGround(IItem item, Vector3 position, List<IActor> actorsThatCanPick) {
-		//TODO instantiate and place item on position
+	public void setProperties(List<IActor> actors, IItem item) {
+		this.list = actors;
 		this.item = item;
-		this.list = actorsThatCanPick;
 	}
 	
 	public Vector3 getPosition() {

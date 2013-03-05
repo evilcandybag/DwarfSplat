@@ -12,7 +12,7 @@ public class RotationMasterScript : MonoBehaviour {
 	public GUIStyle myStyle;
 
 	void Start () {
-		player = GameObject.Find("Cube");
+		player = GameObject.Find("Ball(Clone)");
 		if (player == null)
 		{
 			Debug.Log("Player object not found!");
@@ -34,6 +34,8 @@ public class RotationMasterScript : MonoBehaviour {
 	
 	void positionPlane()
 	{
+		if (player == null)
+			player = GameObject.Find("Ball(Clone)");
 		transform.position = player.transform.position;
 	}
 	

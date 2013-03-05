@@ -5,13 +5,13 @@ public class ActorController {
 	
 	private static ActorController ac;
 		
-	private List<Ball> ballActors;
-	private List<Dwarf> dwarfActors;
+	private List<IActor> ballActors;
+	private List<IActor> dwarfActors;
 	private List<IActor> allActors;
 		
 	private ActorController() {
-		ballActors = new List<Ball>();
-		dwarfActors = new List<Dwarf>();
+		ballActors = new List<IActor>();
+		dwarfActors = new List<IActor>();
 		allActors = new List<IActor>();
 	}
 	
@@ -22,7 +22,7 @@ public class ActorController {
 	}
 	
 	public void addBall(Ball b) {
-	
+		ballActors.Add(b);
 	}
 	
 	public void addDwarf(Dwarf d) {
@@ -46,10 +46,10 @@ public class ActorController {
 		
 	}
 	
-	public List<Ball> getBallActors() {
+	public List<IActor> getBallActors() {
 		return ballActors;
 	}
-	public List<Dwarf> getDwarfActors() {
+	public List<IActor> getDwarfActors() {
 		return dwarfActors;
 	}
 	public List<IActor> getAllActors() {

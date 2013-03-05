@@ -13,8 +13,7 @@ public class WallCollisionScript : MonoBehaviour {
 		//Debug.Log("This collider collided with: " + collision.contacts[0].otherCollider.name);
 		
 		// Change name the objects name depending on what we want the wall to react with
-		if(collision.contacts[0].otherCollider.name.Equals("Cube")) {
-					
+		if(collision.contacts[0].otherCollider.name.Equals("Ball(Clone)")) {
 			Vector3 contactPoint = collision.contacts[0].point;
 			GameObject go = GameObject.Find("emptyCreationStuff");
 			WallMeshManagerScript meshManager = (WallMeshManagerScript) go.GetComponent<WallMeshManagerScript>();
