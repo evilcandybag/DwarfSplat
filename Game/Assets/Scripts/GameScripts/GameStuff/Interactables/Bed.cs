@@ -3,12 +3,15 @@ using System.Collections;
 using System;
 
 public class Bed : MonoBehaviour, IInteractable {
-
+	
 	public void interact(IActor dwarf, Action<Result> callback) {
-		if (canInteract(dwarf)) {
+		if (canInteract(dwarf) && dwarf is Dwarf) {
+			Dwarf d = dwarf as Dwarf;
 			//make dwarf enter sleep mode
 			Debug.Log("Dwarf now sleeping <3");
+			d.State = Dwarf.Status.SLEEP;
 			callback(Result.RUNNING);
+			
 		}
 		else {
 			callback(Result.FAIL);
