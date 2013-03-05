@@ -32,10 +32,10 @@ public class MovementAgent : MonoBehaviour {
 	 * It prevents the path to be recomputed too often, and during 
 	 * this time the AI does not get stuck, it keep moving
 	 */
-	private static float id = 0;
+	private static int id = 0;
 	public int repathRate = 60;
-	public float TIME_REPATH = 1;
-	private float lastPath = 0;
+	//public float TIME_REPATH = 1;
+	private int lastPath = 0;
 	private Vector3 currentPoint;
 	
 	/** Callback after the agent reached the target */
@@ -43,7 +43,7 @@ public class MovementAgent : MonoBehaviour {
 	private Result result;
 	
 	void Start () {
-		// avoid having to add a controller by hand from the editor
+		
 		if (gameObject.GetComponent<CharacterController>() == null) {
 			controller = gameObject.AddComponent<CharacterController>();
 		}
@@ -54,7 +54,7 @@ public class MovementAgent : MonoBehaviour {
 		currentPoint = new Vector3(0,0,0);
 		//targetPosition = transform.position;
 		id++;
-		lastPath = id/repathRate;
+		lastPath = id;
 		//lastPath = UnityEngine.Random.Range(0,TIME_REPATH*10)/10; // random offset
 
 	}
@@ -70,8 +70,8 @@ public class MovementAgent : MonoBehaviour {
 			}
 		} else {
 			if (smoothPath) path = Smoother.smoothPath(path);
-			if (path.Count >= 2) {
-				currentPos = 2; // avoid backward movement
+			if (path.Count >= 1) {
+				currentPos = 1; // avoid backward movement
 			}
 		}
 	}
@@ -88,10 +88,10 @@ public class MovementAgent : MonoBehaviour {
 		}
 		
 		
-		lastPath += Time.deltaTime;
+		lastPath++;
 		
 		// update the path every TIME_REPATH
-		if (lastPath > TIME_REPATH) {
+		if (lastPath > repathRate) {
 			lastPath = 0;
 			graph.AStar(transform.position, targetPosition, new OnPathComputed(onCallback));
 		}
@@ -103,9 +103,9 @@ public class MovementAgent : MonoBehaviour {
 		
 		// move agent
 		Vector3 direction = (currentPoint - transform.position).normalized;
-		direction *= speed * Time.deltaTime;
-		//transform.Translate(direction);
-		controller.SimpleMove(direction);
+		direction *= speed/100 * Time.deltaTime;
+		transform.Translate(direction);
+		//controller.SimpleMove(direction);
 		
 		// if close enough to the next way point
 		if (Vector3.Distance(transform.position, currentPoint) < realWayPointDistance) {
@@ -133,10 +133,4 @@ public class MovementAgent : MonoBehaviour {
 		endCallback = callback;
 	}
 	
-	/** Set an offset to divide the computation of the path 
-	 * 	between all the agent.
-	 * */
-	public void SetOffset(float offset) {
-		lastPath += offset;	
-	}
 }
