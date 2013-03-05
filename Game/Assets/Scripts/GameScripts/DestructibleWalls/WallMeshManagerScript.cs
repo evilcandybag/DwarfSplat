@@ -295,6 +295,7 @@ public class WallMeshManagerScript : MonoBehaviour {
 		mesh.Optimize();
 		
 		wallPart.AddComponent<Rigidbody>();
+		wallPart.GetComponent<Rigidbody>().mass = 0.01f;
 		wallPart.GetComponent<MeshFilter>().mesh = mesh;
 		
 		wallPart.renderer.material = wallMaterial;

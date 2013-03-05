@@ -16,6 +16,11 @@ public class WallCollisionScript : MonoBehaviour {
 		if(collision.contacts[0].otherCollider.name.Equals("Ball(Clone)")) {
 			Vector3 contactPoint = collision.contacts[0].point;
 			GameObject go = GameObject.Find("emptyCreationStuff");
+			GameObject camera = GameObject.Find ("Main Camera");
+			if (camera == null) {
+				Debug.Log("Camera object not found!");
+			}
+			camera.GetComponent<CameraScript>().Shake();
 			WallMeshManagerScript meshManager = (WallMeshManagerScript) go.GetComponent<WallMeshManagerScript>();
 			SubdivideMeshScript sms = GetComponent<SubdivideMeshScript>();
 			

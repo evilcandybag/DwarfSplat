@@ -6,6 +6,8 @@ public class PlayerScript : MonoBehaviour {
 	public static int tiltVertical;
 	public static int tiltHorizontal;
 	public TerrainDeformer terr;
+	public int force = 10;
+	
 	bool isDown;
 	// Use this for initialization
 	void Start () {
@@ -19,24 +21,24 @@ public class PlayerScript : MonoBehaviour {
 		tiltHorizontal = 0;
 		tiltVertical = 0;
 		if(Input.GetKey ("down")){
-			rigidbody.AddForce(0,0,6);
+			rigidbody.AddForce(0,10,force);
 			tiltVertical = -1;
 			isDown = true;
 		}
 		else if(Input.GetKey ("up")){
-			rigidbody.AddForce(0,0,-6);
+			rigidbody.AddForce(0,10,-force);
 			tiltVertical = 1;
 			isDown = true;
 
 		}
 		if(Input.GetKey ("left")){
-			rigidbody.AddForce(6,0,0);
+			rigidbody.AddForce(force,10,0);
 			tiltHorizontal = -1;
 			isDown = true;
 
 		}
 		else if(Input.GetKey ("right")){
-			rigidbody.AddForce(-6,0,0);
+			rigidbody.AddForce(-force,10,0);
 			tiltHorizontal = 1;
 			isDown = true;
 		}
