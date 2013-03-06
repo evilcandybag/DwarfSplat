@@ -52,7 +52,7 @@ public class DwarfBehavior
 			});
 			if (mc.isAllowed()) {
 				mc.execute();
-				d.State = Dwarf.Status.FLEE; //TODO set this shit somewhere else, plox
+				d.State = Dwarf.Status.FLEE; 
 				
 				return Node.Status.RUNNING;
 			} else {

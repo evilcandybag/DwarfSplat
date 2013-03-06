@@ -9,6 +9,7 @@ namespace Pathfinding.Core {
 		protected int id;
 		protected Vector3 position;
 		protected bool walkable = true;
+		protected bool obstacle = false;
 		protected float gScore = 0;
 		protected float fScore = float.MaxValue;
 		protected bool inOpenSet = false;
@@ -63,6 +64,14 @@ namespace Pathfinding.Core {
 			}
 		}
 
+		public bool Obstacle {
+			get {
+				return this.obstacle;
+			}
+			set {
+				obstacle = value;
+			}
+		}
 		public float GScore {
 			get {
 				return this.gScore;

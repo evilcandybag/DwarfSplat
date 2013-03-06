@@ -43,13 +43,6 @@ public class TileGraphGenerator : MonoBehaviour {
 		layer = (1 << layerFloor) | (1 << layerObstacles);
 
 		TileNode[,] nodes = new TileNode[width, depth];
-	
-		
-		// maybe not the proper way (use the MeshFilter component ?)
-		/*
-		Vector3 center = floor.GetComponent<Renderer>().bounds.center;
-		Vector3 size = floor.GetComponent<Renderer>().bounds.size;
-		*/
 		
 		Vector3 size = floor.GetComponent<Terrain>().terrainData.size;
 		
@@ -68,10 +61,11 @@ public class TileGraphGenerator : MonoBehaviour {
 				pos = startPos + new Vector3(x * cellWidth, height, z * cellDepth);
 				RaycastHit hit;
 				if (Physics.Raycast(pos, -Vector3.up, out hit, Mathf.Infinity, layer)) {
-					nodes[x,z] = new TileNode(hit.point, x*width+z, x, z);
+					Vector3 hitPos = new Vector3(hit.point.x, floor.transform.position.y+0.3f, hit.point.z);
+					nodes[x,z] = new TileNode(hitPos, x*width+z, x, z);
 					
 					if (hit.transform.gameObject.layer == layerObstacles) {
-						nodes[x,z].Walkable = false;
+						nodes[x,z].Obstacle = true;
 					}
 				}
 				
@@ -92,10 +86,16 @@ public class TileGraphGenerator : MonoBehaviour {
 		
 		TileNode bl = tileGraph.GetNode(bottomLeft);
 		TileNode tr = tileGraph.GetNode(topRight);
-		
+	
 		if (bl == null || tr == null) return;
 		
-		Rescan(bl.X, bl.Z, tr.X, tr.Z);
+		int sX = Mathf.Max(bl.X-3,0); 
+		int sZ = Mathf.Max(bl.Z-3,0);
+		int eX = Mathf.Min(tr.X+3,width); 
+		int eZ = Mathf.Min(tr.Z+3,depth);
+		Rescan(sX,sZ,eX,eZ);
+		
+		//Debug.Log ("startx: " + sX + " " + ", startz: " + sZ + "endx: "+ eX +", endz"+ eZ);
 		
 	}
 	
@@ -112,16 +112,15 @@ public class TileGraphGenerator : MonoBehaviour {
 				pos = startPos + new Vector3(x * cellWidth, height, z * cellDepth);
 				RaycastHit hit;
 				if (Physics.Raycast(pos, -Vector3.up, out hit, Mathf.Infinity, layer)) {
-					tileGraph.SetWalkable(x,z,true);
+					tileGraph.SetObstacle(x,z,false);
 					if (hit.transform.gameObject.layer == layerObstacles) {
-						tileGraph.SetWalkable(x,z,false);
+						tileGraph.SetObstacle(x,z,true);
 					}
 				}
 			}
 		}
-		
+	
 		RadiusModifier(startX, startZ, endX, endZ, radius);
-		
 	}
 	
 	/** 
@@ -150,7 +149,7 @@ public class TileGraphGenerator : MonoBehaviour {
 		}
 		
 		for (int i = 0; i < newObstacles.Count; ++i) {
-			newObstacles[i].Walkable = false;	
+			newObstacles[i].Walkable = false;
 		}
 		
 	}

@@ -25,7 +25,7 @@ public class WallCollisionScript : MonoBehaviour {
 			SubdivideMeshScript sms = GetComponent<SubdivideMeshScript>();
 			
 			// Removes the wall from the list and get p0 and p2 to send to jeremys method.
-			meshManager.RemovedWallPos(this.gameObject);
+			Vector3[] theVerts = meshManager.RemovedWallPos(this.gameObject);
 			
 			// Subdivide the front side of the wall to 8 from 2 triangles
 			sms.MySubdivide(false);
@@ -36,9 +36,11 @@ public class WallCollisionScript : MonoBehaviour {
 			// EXPLOTION OMFG!!!! ITS SO COOL - SHIT YAH!
 			go.GetComponent<ExplotionScript>().Explode(this.gameObject.transform.position);
 			
+			this.gameObject.layer = LayerMask.NameToLayer("Default");
 			Destroy(this.gameObject);
 			
-			go.GetComponent<TileGraphGenerator>().Rescan();
+			// Call Jeremys method here!! or something maybe in wallcollision. well see
+			go.GetComponent<TileGraphGenerator>().Rescan(theVerts[0], theVerts[1]);
 		}
     }	
 }

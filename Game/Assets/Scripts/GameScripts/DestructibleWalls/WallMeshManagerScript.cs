@@ -395,6 +395,7 @@ public class WallMeshManagerScript : MonoBehaviour {
 			
 			Destroy(g);
 		}
+		
 	}
 	
 	// To call method X? and tell at what vertices the destroyed wall stood
@@ -414,31 +415,28 @@ public class WallMeshManagerScript : MonoBehaviour {
 		int wallRot = (int) (removedWall.transform.rotation.eulerAngles.y);
 
 		if(wallRot == 90){
-			print ("yes");
-			p0.x += theVerts[0].z;
+			p0.x += theVerts[1].z;
 			p0.z += theVerts[0].x;
-			p2.x += theVerts[1].z;
+			p2.x += theVerts[0].z;
 			p2.z += theVerts[1].x;
 		}
 		else{
 			p0.x += theVerts[0].x;
-			p0.z += theVerts[0].z;
+			p0.z += theVerts[1].z;
 			p2.x += theVerts[1].x;
-			p2.z += theVerts[1].z;
+			p2.z += theVerts[0].z;
 		}
 		
 		theVerts[0] = p0;
 		theVerts[1] = p2;
 		
-		// Call Jeremys method here!! or something maybe in wallcollision. well see
-		
 		return theVerts;
 	}
-	
-	/*void OnDrawGizmos(){
+	/*
+	void OnDrawGizmos(){
 		Gizmos.DrawLine(points[0], points[1]);
-	}*/
-	
+	}
+	*/
 	
 	
 	/*********************OLD METHODS********************************/
