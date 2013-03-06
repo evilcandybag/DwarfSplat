@@ -39,7 +39,7 @@ namespace BehaviorTrees
 		}
 		
 		public void ResultCallback(Result res) {
-			Debug.Log("CALLBACK, " + name + ": " + res); 
+			//Debug.Log("CALLBACK, " + name + ": " + res); 
 			this.callbackResult = res;
 		}
 		

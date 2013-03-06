@@ -27,7 +27,7 @@ public class Dwarf : AbstractAIActor {
 	public Result moveResult,sleepResult,workResult;
 	
 	public static readonly double SLEEP_RATE = 1, WORK_RATE = 0.5, IDLE_RATE = 0.00001, FLEE_RATE = 0.8,
-		DISTANCE_FAR = 40, DISTANCE_CLOSE = 20, AI_SCALE = 40;
+		DISTANCE_FAR = 80, DISTANCE_CLOSE = 40, AI_SCALE = 40;
 	
 	private DwarfManager manager_;
 	public DwarfManager Manager {

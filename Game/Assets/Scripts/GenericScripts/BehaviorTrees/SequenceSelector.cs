@@ -37,21 +37,27 @@ namespace BehaviorTrees
 		/// The status of the first READY or newly finished RUNNING child tree. 
 		/// </returns>
 		public override Status Visit() { //TODO: this might not be the correct behaviour. Check book!
+			if (State == Node.Status.RUNNING && runningNode.State == Node.Status.RUNNING) {
+				return runningNode.Visit();
+			} else {
 			//LogChildren();
-			foreach (Node child in children_) {
-				switch (child.Visit()) {
-				case Status.READY:
-					throw new InvalidOperationException("A node should never return READY when visited!");
-				case Status.RUNNING:
-					State = Status.RUNNING;
-					return State;
-				case Status.FAIL: //we fail one, all fail and we start over.
-					FreeChildren();
-					State = Status.READY;
-					return Status.FAIL;
-				case Status.SUCCESS:
-					State = Node.Status.RUNNING;
-					break;
+				foreach (Node child in children_) {
+					
+					switch (child.Visit()) {
+					case Status.READY:
+						throw new InvalidOperationException("A node should never return READY when visited!");
+					case Status.RUNNING:
+						State = Status.RUNNING;
+						runningNode = child;
+						return State;
+					case Status.FAIL: //we fail one, all fail and we start over.
+						FreeChildren();
+						State = Status.READY;
+						return Status.FAIL;
+					case Status.SUCCESS:
+						State = Node.Status.RUNNING;
+						break;
+					}
 				}
 			}
 			//We reached the end of the List with all successes. Hooray! We are
