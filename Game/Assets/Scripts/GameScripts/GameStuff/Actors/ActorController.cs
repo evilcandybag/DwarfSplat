@@ -33,15 +33,16 @@ public class ActorController {
 		allActors.Remove(a);
 		
 		if (a is Dwarf) {
+			Debug.Log("KILLING IT!");
 			Dwarf d = a as Dwarf;
 			dwarfActors.Remove(d);
 			d.Manager.Decommission(d);
-			Object.Destroy(d);
+			Object.Destroy(d.gameObject);
 		}
 		else if (a is Ball) {
 			Ball b = a as Ball;
 			ballActors.Remove(b);
-			Object.Destroy (b);
+			Object.Destroy (b.gameObject);
 		}
 		
 	}
