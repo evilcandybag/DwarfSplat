@@ -20,6 +20,8 @@ public class MineActivated : MonoBehaviour {
 		if(list.Contains(ball) && collision.contacts[0].otherCollider.name.Equals("Ball(Clone)")) {
 			go = GameObject.Find("emptyCreationStuff");
 			go.GetComponent<ExplotionScript>().Explode(this.gameObject.transform.position);
+			GameObject camera = GameObject.Find ("Main Camera");
+			camera.GetComponent<CameraScript>().Shake();
 			explode(ball);
 			GroundStuffController.getGroundStuffController().destoyMine(this);
 			
