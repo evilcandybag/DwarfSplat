@@ -31,7 +31,7 @@ public class DwarfBehavior
 	
 	public void Run() {
 		root.Visit();
-		Debug.Log("Work: " + Work.Prio + " Sleep: " + Sleep.Prio);
+		//Debug.Log("Work: " + Work.Prio + " Sleep: " + Sleep.Prio);
 	}
 	
 	private static Node CreateFleeBehavior(Dwarf d) {	
@@ -87,7 +87,7 @@ public class DwarfBehavior
 		
 		BehaviorTrees.Action goToWork = new BehaviorTrees.Action();
 		goToWork.Task = () => {
-			Debug.Log("GOTOWORK: " + s);
+			//Debug.Log("GOTOWORK: " + s);
 			var mc = new MoveCommand(d,i.getPosition(),WALKSPEED, goToWork.ResultCallback);
 			if (mc.isAllowed()) {
 				mc.execute();
@@ -102,7 +102,7 @@ public class DwarfBehavior
 		BehaviorTrees.Action work = new BehaviorTrees.Action();
 		work.Task = () => {
 			
-			Debug.Log("WORK: " + s);
+			//Debug.Log("WORK: " + s);
 			var ic = new InteractCommand(d,i,(res) => {
 				callback(res);
 			});

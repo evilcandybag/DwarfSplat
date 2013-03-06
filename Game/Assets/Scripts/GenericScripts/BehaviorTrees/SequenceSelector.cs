@@ -37,7 +37,7 @@ namespace BehaviorTrees
 		/// The status of the first READY or newly finished RUNNING child tree. 
 		/// </returns>
 		public override Status Visit() { //TODO: this might not be the correct behaviour. Check book!
-			LogChildren();
+			//LogChildren();
 			foreach (Node child in children_) {
 				switch (child.Visit()) {
 				case Status.READY:

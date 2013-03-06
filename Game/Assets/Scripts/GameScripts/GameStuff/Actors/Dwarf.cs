@@ -104,7 +104,7 @@ public class Dwarf : AbstractAIActor {
 		foreach (Ball b in ActorController.getActorController().getBallActors()) {
 			float dist = Vector3.Distance(transform.position,b.transform.position);
 			if (dist < ((State == Status.FLEE) ? DISTANCE_FAR : DISTANCE_CLOSE))
-				Debug.Log("OMG BALL CLOSE!");
+				//Debug.Log("OMG BALL CLOSE!");
 				return true;
 		}
 		return false;
@@ -116,7 +116,7 @@ public class Dwarf : AbstractAIActor {
 			if ( Physics.Linecast(transform.position, b.transform.position, 1 << obstacles))
 				return false;
 		}
-		Debug.Log("OMG, See ball!");
+		//Debug.Log("OMG, See ball!");
 		return true;
 	}
 }
