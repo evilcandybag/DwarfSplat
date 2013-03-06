@@ -63,7 +63,7 @@ public class Ball : MonoBehaviour, IActor {
 	
 	public void startDestroyWallsPowerup() {
 		isVisible = true;
-		print("POWER UP YEAHHEHEHEHEHMGMGMHGJHDGLA OMFG!!! EHHEHE");
+		//print("POWER UP YEAHHEHEHEHEHMGMGMHGJHDGLA OMFG!!! EHHEHE");
 			
 		GameObject go = GameObject.Find("emptyCreationStuff");
 		allWalls = go.GetComponent<WallMeshManagerScript>().wallList;

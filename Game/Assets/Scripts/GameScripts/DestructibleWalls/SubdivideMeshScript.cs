@@ -235,7 +235,7 @@ public class SubdivideMeshScript : MonoBehaviour {
 	}
 	 
 	void Applymesh() {
-		print(verts.Length);
+		//print(verts.Length);
 		if(verts.Length > 65000){
 			Debug.Log("Exiting... Too many vertices");
 			return;
