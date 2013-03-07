@@ -19,10 +19,11 @@ public class TerrainPath : MonoBehaviour
     private float[, ,] alphaMapBackup;
 	bool isGrass = false;
 	
+
 	void Start()
     {
         terr = this.GetComponent<Terrain>();
-        hmWidth = terr.terrainData.heightmapWidth;
+		hmWidth = terr.terrainData.heightmapWidth;
         hmHeight = terr.terrainData.heightmapHeight;
         alphaMapWidth = terr.terrainData.alphamapWidth;
         alphaMapHeight = terr.terrainData.alphamapHeight;
@@ -42,8 +43,17 @@ public class TerrainPath : MonoBehaviour
         {
             terr.terrainData.SetHeights(0, 0, heightMapBackup);
             terr.terrainData.SetAlphamaps(0, 0, alphaMapBackup);
+			print("quited");
         }
     }
+	
+	public void RunBackUpTerrain() {
+		if (Debug.isDebugBuild) {
+            terr.terrainData.SetHeights(0, 0, heightMapBackup);
+            terr.terrainData.SetAlphamaps(0, 0, alphaMapBackup);
+			print("backup");
+        }
+	}
 	
     public void DestroyTerrain(Vector3 pos)
     {

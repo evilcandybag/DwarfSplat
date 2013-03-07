@@ -63,4 +63,8 @@ public class InteractableController {
 	public List<Workspace> getAllWorkspaces() {
 		return allWorkspaces;
 	}
+	
+	public static void Reset(){
+		ic = new InteractableController();
+	}
 }

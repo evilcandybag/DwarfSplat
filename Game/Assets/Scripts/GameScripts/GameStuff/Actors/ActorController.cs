@@ -55,4 +55,8 @@ public class ActorController {
 	public List<IActor> getAllActors() {
 		return allActors;
 	}
+	
+	public static void Reset(){
+		ac = new ActorController();
+	}
 }

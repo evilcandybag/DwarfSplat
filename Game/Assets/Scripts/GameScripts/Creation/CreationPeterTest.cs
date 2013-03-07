@@ -13,6 +13,11 @@ public class CreationPeterTest : MonoBehaviour {
 	public float spawnPositionOffset = -10f;
 	private DwarfManager manager;
 	
+	void Awake(){
+		ActorController.Reset();
+		InteractableController.Reset();
+	}
+	
 	// Use this for initialization
 	void Start () {
 		manager = this.gameObject.GetComponent<DwarfManager>();
@@ -26,6 +31,7 @@ public class CreationPeterTest : MonoBehaviour {
 		}
 		
 		Ball roller = InstantiationUtils.GetNewInstance<Ball>(ball);
+		print(ball.ToString());
 		ActorController.getActorController().addBall(roller);
 		
 		for (int i = 0; i < numberOfDwarfs; i++) {
