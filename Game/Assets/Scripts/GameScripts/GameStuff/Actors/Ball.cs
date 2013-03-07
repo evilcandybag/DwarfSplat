@@ -47,15 +47,11 @@ public class Ball : MonoBehaviour, IActor {
 	}
 	
 	
-	
-	
 	//from ballcollision by Julia
 	//Andreas moved code here
 	
 	bool isVisible = false;
 	ArrayList allWalls;
-	
-	public GUIStyle myStyle;
 	
 	/*void OnCollisionEnter(Collision collision) {
 		
@@ -98,10 +94,5 @@ public class Ball : MonoBehaviour, IActor {
 		isVisible = false;
 		dText.GetComponent<TextScript>().setInvisible();		
 	}
-//	
-//	void OnGUI(){
-//		if(isVisible){			
-//			GUI.Label(new Rect(Screen.width/2,50,50,500), "!!Destructible Walls mode!!", myStyle);
-//		}
-//	}
+
 }

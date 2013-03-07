@@ -11,6 +11,8 @@ public class DwarfSplatter : MonoBehaviour {
 	public AudioClip splat1;
 	public AudioClip splat2;
 	
+	public GUIStyle style = new GUIStyle();
+	
 	void Awake() {
 		score = 0;
 	}
@@ -31,6 +33,7 @@ public class DwarfSplatter : MonoBehaviour {
 			var pos = d.getPosition();
 			Debug.Log("" + pos);
 			var splat = Instantiate(splatter, new Vector3(pos.x,0.21f,pos.z), Quaternion.identity);
+			Debug.Log(splat == null);
 			Destroy(splat,3);
 			
 			ActorController.getActorController().destoyActor(d);
@@ -39,8 +42,13 @@ public class DwarfSplatter : MonoBehaviour {
 	}
 	
 	void OnGUI () {
-		GUI.Box(new Rect(Screen.width-130f, 230f, 100f,40f), 
-			"Score: " + score + "\n" +
-			"Dwarves: " + ActorController.getActorController().getDwarfActors().Count);
+		
+		//style.fontSize = 35;
+		//style.normal.textColor = Color.white;
+		
+		GUI.Box(new Rect(10f, 10f, 400f,40f), 
+			"SCORE: " + score + "\t\t\t " +
+			"DWARVES: " + ActorController.getActorController().getDwarfActors().Count, style);
+		
 	}
 }

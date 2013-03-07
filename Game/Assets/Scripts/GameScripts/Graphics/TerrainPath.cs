@@ -43,7 +43,6 @@ public class TerrainPath : MonoBehaviour
         {
             terr.terrainData.SetHeights(0, 0, heightMapBackup);
             terr.terrainData.SetAlphamaps(0, 0, alphaMapBackup);
-			print("quited");
         }
     }
 	
@@ -51,7 +50,6 @@ public class TerrainPath : MonoBehaviour
 		if (Debug.isDebugBuild) {
             terr.terrainData.SetHeights(0, 0, heightMapBackup);
             terr.terrainData.SetAlphamaps(0, 0, alphaMapBackup);
-			print("backup");
         }
 	}
 	
