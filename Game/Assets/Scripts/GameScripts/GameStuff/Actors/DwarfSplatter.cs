@@ -6,6 +6,8 @@ public class DwarfSplatter : MonoBehaviour {
 	private AudioSource aus;
 	private DwarfManager dm;
 	
+	public GameObject splatter;
+	
 	public AudioClip splat1;
 	public AudioClip splat2;
 	
@@ -26,6 +28,11 @@ public class DwarfSplatter : MonoBehaviour {
 			} else {
 				aus.PlayOneShot(splat2);
 			}
+			var pos = d.getPosition();
+			Debug.Log("" + pos);
+			var splat = Instantiate(splatter, new Vector3(pos.x,0.21f,pos.z), Quaternion.identity);
+			Destroy(splat,3);
+			
 			ActorController.getActorController().destoyActor(d);
 			score++;
 		}
