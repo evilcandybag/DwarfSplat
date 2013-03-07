@@ -2,10 +2,16 @@ using UnityEngine;
 using System.Collections;
 
 public class Ball : MonoBehaviour, IActor {
-	
+	private GameObject dText;
+	public AudioClip DESTRUCTION_MODE;
 	IItem inventory;
 	// Use this for initialization
 	void Start () {
+		dText = GameObject.Find("DText");
+		if (dText == null)
+		{
+			Debug.Log("DText object not found!");
+		}
 	}
 	
 	// Update is called once per frame
@@ -62,6 +68,9 @@ public class Ball : MonoBehaviour, IActor {
     }*/
 	
 	public void startDestroyWallsPowerup() {
+		dText.GetComponent<TextScript>().setVisible();
+		gameObject.GetComponent<AudioSource>().PlayOneShot(DESTRUCTION_MODE);
+		
 		isVisible = true;
 		//print("POWER UP YEAHHEHEHEHEHMGMGMHGJHDGLA OMFG!!! EHHEHE");
 			
@@ -87,12 +96,12 @@ public class Ball : MonoBehaviour, IActor {
 			Destroy(g.GetComponent<WallCollisionScript>());
 		}
 		isVisible = false;
-	
+		dText.GetComponent<TextScript>().setInvisible();		
 	}
-	
-	void OnGUI(){
-		if(isVisible){			
-			GUI.Label(new Rect(Screen.width/2,50,50,500), "!!Destructible Walls mode!!", myStyle);
-		}
-	}
+//	
+//	void OnGUI(){
+//		if(isVisible){			
+//			GUI.Label(new Rect(Screen.width/2,50,50,500), "!!Destructible Walls mode!!", myStyle);
+//		}
+//	}
 }
