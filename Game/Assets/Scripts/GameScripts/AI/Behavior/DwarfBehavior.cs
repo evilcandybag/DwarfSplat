@@ -8,6 +8,7 @@ using UnityEngine;
 public class DwarfBehavior
 {
 	public static readonly int WALKSPEED = 2, RUNSPEED = 3;
+	public static readonly float fleeOffset = 9f;
 	
 	private PrioritySelector root;
 	private PriorityNode flee_,work_,sleep_;
@@ -42,12 +43,17 @@ public class DwarfBehavior
 		ConditionDecorator ballclose = new ConditionDecorator(d.IsBallClose);
 		
 		BehaviorTrees.Action run = new BehaviorTrees.Action();
+		
+		float x=0,y=0;
+		x = (UnityEngine.Random.value > 0.5) ? -fleeOffset : fleeOffset; 
+		y = (UnityEngine.Random.value > 0.5) ? -fleeOffset : fleeOffset;
+		
 		run.Task = () => {
 			//TODO: flight location?
 			if(run.State == Node.Status.RUNNING)
 				return Node.Status.RUNNING;
 			
-			var mc = new MoveCommand(d, new Vector3(), RUNSPEED,(res) => {
+			var mc = new MoveCommand(d, new Vector3(x,0,y), RUNSPEED,(res) => {
 				d.FleeCallback(res);
 			});
 			if (mc.isAllowed()) {

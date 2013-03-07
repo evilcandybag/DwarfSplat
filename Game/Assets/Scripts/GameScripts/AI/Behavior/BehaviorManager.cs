@@ -47,7 +47,11 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	// Update is called once per frame
 	protected virtual void Update () {
 		if (runAI_ && frameCounter == 0) {
-			StartCoroutine( Periodic());
+			try {
+				StartCoroutine( Periodic());
+			} catch (InvalidOperationException) {
+				//some shit here?
+			}
 		}
 		frameCounter = (frameCounter + 1) % UPDATE_FREQ;
 	}
