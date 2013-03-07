@@ -33,7 +33,6 @@ public class ActorController {
 		allActors.Remove(a);
 		
 		if (a is Dwarf) {
-			Debug.Log("KILLING IT!");
 			Dwarf d = a as Dwarf;
 			dwarfActors.Remove(d);
 			d.Manager.Decommission(d);
