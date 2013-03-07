@@ -11,7 +11,6 @@ public class DwarfSplatter : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
 		// check if this is a dwarf. 
 		GameObject col = collision.contacts[0].otherCollider.gameObject;
-		if (col.name.StartsWith("Dw")) Debug.Log("DORF!!") ;
 		Dwarf d = col.GetComponent<Dwarf>();
 		if (d != null) {
 			ActorController.getActorController().destoyActor(d);
