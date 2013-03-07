@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class DwarfManager : BehaviorManager<int,Dwarf>
 {
-	private int counter;
+	private static int counter;
+	
+	public override void Awake() {
+		base.Awake();
+		counter = 0;
+	}
 	
 	public override void Start() {
 		base.Start();
-		counter = 0;
 	}
 	
 	protected override void Update() {

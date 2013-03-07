@@ -27,7 +27,7 @@ public abstract class BehaviorManager<TKey,TObject> : MonoBehaviour where TObjec
 	public static readonly float DEFAULT_INTERVAL = 0.1f;
 	public int UPDATE_FREQ = 60;
 	
-	void Awake() {
+	public virtual void Awake() {
 		objects = new Dictionary<TKey, TObject>();
 	}
 	

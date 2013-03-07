@@ -29,17 +29,22 @@ public class CreationPeterTest : MonoBehaviour {
 		ActorController.getActorController().addBall(roller);
 		
 		for (int i = 0; i < numberOfDwarfs; i++) {
-		float x1 = Random.value*randomOffset, x2 = Random.value*randomOffset;
-			manager.Spawn(new Vector3(spawnPositionOffset+x1,0.5f,spawnPositionOffset+x2));
+			SpawnRandomDwarf();
 		}
 		
 		var bds = InteractableController.Instance.getAllBeds();
 		var wrk = InteractableController.Instance.getAllWorkspaces();
 		manager.Run = true;
+		InvokeRepeating("SpawnRandomDwarf",10f,10f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	
+	private void SpawnRandomDwarf() {
+		float x1 = Random.value*randomOffset, x2 = Random.value*randomOffset;
+		manager.Spawn(new Vector3(spawnPositionOffset+x1,0.5f,spawnPositionOffset+x2));
 	}
 }

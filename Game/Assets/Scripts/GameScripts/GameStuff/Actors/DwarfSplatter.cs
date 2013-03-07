@@ -4,6 +4,7 @@ using System.Collections;
 public class DwarfSplatter : MonoBehaviour {
 	private int score;
 	private AudioSource aus;
+	private DwarfManager dm;
 	
 	public AudioClip splat1;
 	public AudioClip splat2;
@@ -30,9 +31,9 @@ public class DwarfSplatter : MonoBehaviour {
 		}
 	}
 	
-	void OnGui() {
-		GUI.color = Color.white;
-		GUI.Box(new Rect(90,90,350,175), "");
-		GUI.Label(new Rect(100,100,500,500), "Score: " + score);
+	void OnGUI () {
+		GUI.Box(new Rect(Screen.width-130f, 230f, 100f,40f), 
+			"Score: " + score + "\n" +
+			"Dwarves: " + ActorController.getActorController().getDwarfActors().Count);
 	}
 }
