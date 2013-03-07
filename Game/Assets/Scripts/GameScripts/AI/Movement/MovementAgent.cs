@@ -50,6 +50,7 @@ public class MovementAgent : MonoBehaviour {
 		else {
 			controller = gameObject.GetComponent<CharacterController>();
 		}
+		
 		// init positions
 		currentPoint = new Vector3(0,0,0);
 		//targetPosition = transform.position;
@@ -104,12 +105,17 @@ public class MovementAgent : MonoBehaviour {
 		// move agent
 		Vector3 direction = (currentPoint - transform.position).normalized;
 		direction *= speed/100 * Time.deltaTime;
-		transform.Translate(direction);
-		//controller.SimpleMove(direction);
+		
+		transform.LookAt(transform.position + 10*direction);
+		//transform.Translate(direction);
+		Vector3 newPos = new Vector3(transform.position.x, 0.3f, transform.position.z);
+		transform.position = newPos;
+		controller.Move(direction);
 		
 		// if close enough to the next way point
 		if (Vector3.Distance(transform.position, currentPoint) < realWayPointDistance) {
 			currentPos++;
+			
 		}
 		
 		// reached the end position?
