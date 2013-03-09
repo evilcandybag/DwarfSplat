@@ -27,7 +27,9 @@ namespace Pathfinding.Graph {
 		
 		public void AStar(Vector3 start, Vector3 end, OnPathComputed callback) {
 			
-			// Reset all 
+			// Reset all
+			// This is O(n) complexity so it might be possible to
+			// improve this with some sort of polling
 			parentPath.Clear();
 			pq.Clear();
 			openSetHash.Clear();

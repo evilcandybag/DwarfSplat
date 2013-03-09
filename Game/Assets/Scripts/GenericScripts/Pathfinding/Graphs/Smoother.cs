@@ -8,6 +8,8 @@ namespace Pathfinding.Graph {
 	
 	/**
 	 * Smooth a given path to make it look more realistic
+	 * It starts at the beginning of the given path, and tries to 
+	 * raycast as far as possible until it hits an obstacle.
 	 */
 	public class Smoother {
 		

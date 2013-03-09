@@ -46,9 +46,8 @@ public class TileGraphGenerator : MonoBehaviour {
 		
 		Vector3 size = floor.GetComponent<Terrain>().terrainData.size;
 		
-		// consider the mesh as a rectangle
+		// consider the terrain as a rectangle
 		startPos = floor.transform.position;
-		//startPos = center - size / 2;
 		cellWidth = size.x / width;
 		cellDepth = size.z / depth;
 		
@@ -76,7 +75,9 @@ public class TileGraphGenerator : MonoBehaviour {
 		RadiusModifier(radius); // extend the unwalkable areas
 	}
 	
-	/** Rescan the ENTIRE map to detect new obstacles */
+	/** Rescan the ENTIRE map to detect new obstacles 
+	 * Warning: may be expensive as it is O(n²)
+	 * */
 	public void Rescan() {
 		Rescan(0, 0, width, depth);
 	}
@@ -94,8 +95,6 @@ public class TileGraphGenerator : MonoBehaviour {
 		int eX = Mathf.Min(tr.X+3,width); 
 		int eZ = Mathf.Min(tr.Z+3,depth);
 		Rescan(sX,sZ,eX,eZ);
-		
-		//Debug.Log ("startx: " + sX + " " + ", startz: " + sZ + "endx: "+ eX +", endz"+ eZ);
 		
 	}
 	

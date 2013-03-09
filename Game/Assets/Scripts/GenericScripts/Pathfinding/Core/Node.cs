@@ -2,6 +2,12 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/**
+ * Class to represent a general node
+ * It is used to store the f and g score requires by the 
+ * A* algorithm
+ */
+
 namespace Pathfinding.Core {
 	
 	public class Node : IComparable<Node> {
@@ -12,8 +18,6 @@ namespace Pathfinding.Core {
 		protected bool obstacle = false;
 		protected float gScore = 0;
 		protected float fScore = float.MaxValue;
-		protected bool inOpenSet = false;
-		protected bool inClosedSet = false;
 		
 		public Node() {}
 		
@@ -25,8 +29,6 @@ namespace Pathfinding.Core {
 		public void Reset() {
 			this.gScore = 0;
 			this.fScore = float.MaxValue;
-			this.inOpenSet = false;
-			this.inClosedSet = false;
 		}
 		
 		public int CompareTo(Node node) {
@@ -89,25 +91,5 @@ namespace Pathfinding.Core {
 				fScore = value;
 			}
 		}
-
-		public bool InOpenSet {
-			get {
-				return this.inOpenSet;
-			}
-			set {
-				inOpenSet = value;
-			}
-		}
-		
-		public bool InClosedSet {
-			get {
-				return this.inClosedSet;
-			}
-			set {
-				inClosedSet = value;
-			}
-		}
 	}
-	
-	
 }

@@ -174,9 +174,6 @@ namespace Pathfinding.Graph {
 					List<Node> neighbors = getNeighbors(nodes[i,j]);
 					for (int n = 0; n < neighbors.Count; ++n) {
 						Color color = Color.red;
-						if (nodes[i,j].InClosedSet) {
-							color = Color.blue;	
-						}
 						Debug.DrawLine(nodes[i,j].Position, neighbors[n].Position, color);	
 					}
 				}

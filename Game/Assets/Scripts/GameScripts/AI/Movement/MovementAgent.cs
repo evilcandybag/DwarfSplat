@@ -53,10 +53,11 @@ public class MovementAgent : MonoBehaviour {
 		
 		// init positions
 		currentPoint = new Vector3(0,0,0);
-		//targetPosition = transform.position;
+		
+		// the following "trick" is used to dispatch the path computation
+		// to different frames for each dwarf
 		id++;
 		lastPath = id;
-		//lastPath = UnityEngine.Random.Range(0,TIME_REPATH*10)/10; // random offset
 
 	}
 	
@@ -79,8 +80,8 @@ public class MovementAgent : MonoBehaviour {
 	
 	void Update () {
 		
-		// scale distance with the size of the agent
-		realWayPointDistance = wayPointDistance;// * transform.localScale.magnitude;
+		// scale distance with the size of the agent (can be tweaked)
+		realWayPointDistance = wayPointDistance;
 		
 		if (graph == null) {
 			// graph is cached as soon as possible
