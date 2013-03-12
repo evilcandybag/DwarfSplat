@@ -27,8 +27,8 @@
 \paperfontsize default
 \spacing single
 \use_hyperref false
-\papersize default
-\use_geometry false
+\papersize a4paper
+\use_geometry true
 \use_amsmath 1
 \use_esint 1
 \use_mhchem 1
@@ -43,6 +43,13 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\headheight 3cm
+\headsep 3cm
+\footskip 1cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -408,11 +415,18 @@ Project plan
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Tabular
 <lyxtabular version="3" rows="8" columns="2">
 <features tabularvalignment="middle">
 <column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
+<column alignment="left" valignment="top" width="12cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -425,7 +439,7 @@ Week 1 (4)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -452,7 +466,7 @@ Week 2 (5)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -480,7 +494,7 @@ Week 3 (6)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -502,7 +516,7 @@ Week 4 (7)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -524,7 +538,7 @@ Week 5 (8)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -546,7 +560,7 @@ Week 6 (9)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -573,7 +587,7 @@ Week 7 (10)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -595,7 +609,7 @@ Week 8 (11)
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -606,6 +620,27 @@ Write group report and individual report
 </cell>
 </row>
 </lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Project plan
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
@@ -998,6 +1033,24 @@ sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/GeneralArchitectureSimEng.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption
 
 \begin_layout Plain Layout
@@ -1213,9 +1266,28 @@ Interaction
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/pathfinding-interactions.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption
@@ -1229,10 +1301,6 @@ TileGraphGenerator is put in our common global scripts object.
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -1260,18 +1328,47 @@ Classes
 \begin_layout Standard
 The BehaviorTrees library contains many different classes, all of which
  are part of a common hierarchy.
- The Node class is the common abstract superclass for all behavior tree
- nodes.
+ The 
+\series bold
+Node
+\series default
+ class is the common abstract superclass for all behavior tree nodes.
  It handles the basic workings of a behavior tree, i.e.
  storing and reporting a node’s state.
- It has three major abstract subclasses: Selector, which represents branches
- in the tree, and handles child nodes in different ways; Decorator, which
- has a single child and enables the user to control how this child is accessed
- and how its result is handled; Leaf, which represents nodes with no children.
- A Leaf is either a Condition, which checks game state, or an Action, which
- handles an actor’s actual interaction with the game model.
- The BehaviorManager is an abstract class designed for creating, managing
- and destroying AI actors.
+ It has three major abstract subclasses: 
+\series bold
+Selector
+\series default
+, which represents branches in the tree, and handles child nodes in different
+ ways; 
+\series bold
+Decorator
+\series default
+, which has a single child and enables the user to control how this child
+ is accessed and how its result is handled; 
+\series bold
+Leaf
+\series default
+, which represents nodes with no children.
+ A Leaf is either a 
+\series bold
+Condition
+\series default
+, which checks game state, or an 
+\series bold
+Action
+\series default
+, which handles an actor’s actual interaction with the game model.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+BehaviorManager
+\series default
+ is an abstract class designed for creating, managing and destroying AI
+ actors.
  Users should extend this class to create managers for specific types of
  actors.
  
@@ -1283,12 +1380,22 @@ Interaction
 
 \begin_layout Standard
 Interaction with the Unity engine is handled on two levels: the high level,
- making sure the actors’ AI methods are run (through the RunAI() method
- in the IActor interface) is handled by the BehaviorManager.
+ making sure the actors’ AI methods are run (through the 
+\series bold
+RunAI()
+\series default
+ method in the 
+\series bold
+IAgent
+\series default
+ interface) is handled by the BehaviorManager.
  The low-level interactions for each individual actor are handled through
  the Leaf Nodes of the behavior trees.
- Running a behavior tree is done by calling the Visit() method of its root
- Node.
+ Running a behavior tree is done by calling the 
+\series bold
+Visit()
+\series default
+ method of its root Node.
  This will execute the Visit() methods of the Node’s children according
  to the type of the root and its children, until a final result has been
  reached.
@@ -1315,14 +1422,18 @@ The extension is made up from three Unity MonoBehavior script classes, all
  written in C#; CameraScript, RotationMasterScript and PlayerScript.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 PlayerScript: this class takes input from the keyboard and adds forces to
  the player object (a ball) to make it move around the world.
  Not really part of the extension per se, other than that it provides the
  other classes with how the world should tilt to explain the gravitational
  movement of the ball.
  The script is attached to the player GameObject.
- RotationMasterScript: this is a class which is attached to a meshless Unity
+ 
+\end_layout
+
+\begin_layout Itemize
+RotationMasterScript: this is a class which is attached to a meshless Unity
  GameObject, which will follow the players position and rotate in a way
  that simulates the world tilting.
  This RotationMaster object is a parent of the camera, which means that
@@ -1332,7 +1443,7 @@ PlayerScript: this class takes input from the keyboard and adds forces to
  and amount to tilt.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 CameraScript: this is the class which does all the mathematical calculations
  to decide where the camera should be positioned to create the illusion
  of the world tilting.
@@ -1399,7 +1510,14 @@ Classes and interaction
 \begin_layout Standard
 There are mainly three classes that handles the creation and destruction
  of meshes, but a few others in total that are important for it to function
- correctly (FIG X).
+ correctly (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:The-most-important"
+
+\end_inset
+
+).
  All classes are derived from Unity’s MonoBehavior.
  Startscript or MapGenerationScript is used to generate the walls in the
  beginning, where the last mentioned are generating a maze where the walls
@@ -1414,7 +1532,50 @@ There are mainly three classes that handles the creation and destruction
 \end_layout
 
 \begin_layout Standard
-FIG X The most important classes handling destructible objects 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/julia/classdiagram_physics.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-most-important"
+
+\end_inset
+
+The most important classes handling destructible objects.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1459,22 +1620,32 @@ The command interface works in the following order: Firstly the wanted type
 Currently these commands exist and work:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 MoveCommand, which makes use of the pathfinding scripts to move IActor objects
  in the maze.
  It works splendidly.
- InteractCommand, which is a command that calls the interact-function in
+ 
+\end_layout
+
+\begin_layout Itemize
+InteractCommand, which is a command that calls the interact-function in
  the IInteractable object.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 PickupItemCommand, that currently uses the item that is being picked up
  instantly.
  It does so by first adding the item to the IActor object’s inventory and
  then calling the UseItemCommand.
- UseItemCommand, that calls the use-function of the item carried by a certain
+\end_layout
+
+\begin_layout Itemize
+UseItemCommand, that calls the use-function of the item carried by a certain
  IActor.
- FindInteractableCommand, which finds a random IInteractable of a specified
+\end_layout
+
+\begin_layout Itemize
+FindInteractableCommand, which finds a random IInteractable of a specified
  type.
  The randomness is there to make sure that not all dwarves use the same
  beds or workspaces.
@@ -1544,18 +1715,30 @@ Before doing any pathfinding, it is necessary to build a graph to represent
  as we are on top of everything on the map.
  It is also necessary to get the dimensions of the terrain to put the starting
  point in the bottom left of the terrain.
- The width and are the height are specified to give the precision of the
+ 
+\end_layout
+
+\begin_layout Standard
+The width and are the height are specified to give the precision of the
  graph (for example 100x100).
  The raycast algorithm perform a loop on these two parameters to iterate
  over the entire map and produces a Node[width,height] matrix.
- Scene objects are put in different layers.
+ 
+\end_layout
+
+\begin_layout Standard
+Scene objects are put in different layers.
  This is absolutely primordial to be able to detect which objects are obstacles
  and which are not.
  In practice, the terrain is put in the Floor layer and the walls in the
  Obstacles layer.
  If the ray hits an object layered Obstacles, then the corresponding node
  in the graph is set to unwalkable.
- There is also a post-process to extend the unwalkable areas.
+ 
+\end_layout
+
+\begin_layout Standard
+There is also a post-process to extend the unwalkable areas.
  This is to prevent the agents from moving too close to the walls.
  This post-process is done by iterating over every cells labeled as obstacles,
  and for each of these obstacles, take the neighbors cells in a given radius
@@ -1576,7 +1759,11 @@ Searching for the shortest path is done using the A* algorithm.
 e between performance and accuracy.
  But it is also possible to use the manhattan heuristic which works really
  fine for maze maps.
- At the end of the computation, it gives a Path as a parameter to the callback,
+ 
+\end_layout
+
+\begin_layout Standard
+At the end of the computation, it gives a Path as a parameter to the callback,
  which is simply a List<Vector3>.
  
 \end_layout
@@ -1591,7 +1778,11 @@ The MovementAgent script is a basic script, which goal is to move from the
  It can access the TileGraphGenerator by searching for the common scripts
  object.
  Then it uses the the AStar method of the graph.
- Once the movement agent has a target and a non-empty path, it simply moves
+ 
+\end_layout
+
+\begin_layout Standard
+Once the movement agent has a target and a non-empty path, it simply moves
  until the next point in the path (using the CharacterController component).
  When the distance from the next point to the current position of the agent
  is less than wayPointDistance, the point is considered reached and the
@@ -1611,7 +1802,11 @@ The introduction of destructible walls finally made the rescan of the map
  wall.
  The TileGraphGenerator then gets the corresponding nodes in this area and
  performs a raycast on this area only.
- It is necessary to do this raycast because there can be some unwalkable
+ 
+\end_layout
+
+\begin_layout Standard
+It is necessary to do this raycast because there can be some unwalkable
  cells around which are not obstacles but have been labeled as unwalkable
  by the radius modifier post-process.
  
@@ -1622,7 +1817,9 @@ AI - Behavior
 \end_layout
 
 \begin_layout Standard
-text between heading 
+Implementing the BehaviorTrees library and its interface to Unity turned
+ out to be a fairly straight forward task, the designed interfaces could
+ be used in their entirety.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1631,23 +1828,52 @@ The BehaviorTrees library
 
 \begin_layout Standard
 The implementation of the BehaviorTrees library follows the structure outlined
- in <chapter reference>.
+ in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:design"
+
+\end_inset
+
+.
  To minimize the amount of project-specific subclassing required by the
  user, all functionality accessing anything outside the data structure itself
  is handled using delegate properties.
- The Node class contains an enum type Status, which is used as the return
+ 
+\end_layout
+
+\begin_layout Standard
+The Node class contains an enum type Status, which is used as the return
  type for the Visit() method, to report the results of executing a Node.
  It is also reported as a property State, to let other Nodes know about
  the result of previous executions of the Node.
- Selector and Decorator Nodes come in a large variety of different versions
- which, apart from the properties stated in <chapter reference>, have few
- properties in common with each other.
+ 
+\end_layout
+
+\begin_layout Standard
+Selector and Decorator Nodes come in a large variety of different versions
+ which, apart from the properties stated in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:spec"
+
+\end_inset
+
+, have few properties in common with each other.
  The specific details of these different implementations will not be covered
  here.
- Condition Nodes are fed a Func<bool> delegate (an arbitrary function with
+ 
+\end_layout
+
+\begin_layout Standard
+Condition Nodes are fed a Func<bool> delegate (an arbitrary function with
  a bool return type) and returns success or failure depending on the result
  of calling this function.
- Action Nodes have their behavior defined by a Func<Status> delegate, which
+ 
+\end_layout
+
+\begin_layout Standard
+Action Nodes have their behavior defined by a Func<Status> delegate, which
  interacts with the underlying engine and returns a result of this interaction.
  In the case of non-immediate interactions (such as moving to a spot), Action
  Nodes provide a callback method to be called by the system when the interaction
@@ -1665,7 +1891,11 @@ As mentioned above, low level interactions with the game engine is handled
  by the user writing custom delegate functions to this end.
  Higher level engine specific functionality, such as functions for getting
  the current time is also handled this way.
- The responsibility of keeping track of actors belongs to BehaviorManager
+ 
+\end_layout
+
+\begin_layout Standard
+The responsibility of keeping track of actors belongs to BehaviorManager
  and its subclasses.
  A BehaviorManager has several components of interest.
  A GameObject property set in Unity’s Inspector contains the prototype GameObjec
@@ -1673,7 +1903,11 @@ t for the actors to be created and managed.
  Methods for spawning or decommissioning actors of the managed type are
  provided.
  Actors are stored in a C# Dictionary, for which users can either provide
- their own key values manually or use the abstract method GetUniqueKey().
+ their own key values manually or use the abstract method 
+\series bold
+GetUniqueKey()
+\series default
+.
  This method can be used to define rules for when spawning an actor is legal,
  by returning null values when spawning is not allowed.
 \end_layout
@@ -1721,27 +1955,151 @@ The amount to tilt and the camera distance variables are read from the rotation
  Then the desired end position of the camera is calculated based on the
  current direction of force applied to the player, the camera distance and
  the amount to tilt.
- This is done using standard trigonometric math in the following way: x
- = (player’s x-coordinate) + (camera distance) * sin((horizontal tilt) *
- (amount to tilt)) y = (player’s y-coordinate) + (camera distance) * cos(((verti
-cal tilt) * (amount to tilt)) z = (player’z z-coordinate) + (camera distance)
- * sin((vertical tilt) * (amount to tilt)) + sin((perspective angle) * (camera
- distance)) where the horizontal and vertical tilt variables are either
- -1, 0 or 1 at any given time, depending on the current direction of force
- applied to the player.
- A graphical model for how this is done can be seen in FIG X.
-\end_layout
+ This is done using standard trigonometric math in the following way: 
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
-FIG X: A model of how the position of the camera in relation to the player
- is calculated The cameras position is then linearly interpolated between
- the current and desired position by using the Vector3.Lerp function, again
- using the animationSpeed variable to determine quickness.
-\end_layout
 
-\begin_layout Standard
-FIG X: Final in-game result of the tilting camera.
+\family typewriter
+x = (player’s x-coordinate) + (camera distance) * sin((horizontal tilt)
+ * (amount to tilt)) 
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+y = (player’s y-coordinate) + (camera distance) * cos(((vertical tilt) *
+ (amount to tilt)) 
+\family default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\family typewriter
+z = (player’z z-coordinate) + (camera distance) * sin((vertical tilt) *
+ (amount to tilt)) + sin((perspective angle) * (camera distance))
+\family default
  
+\begin_inset Newline newline
+\end_inset
+
+where the horizontal and vertical tilt variables are either -1, 0 or 1 at
+ any given time, depending on the current direction of force applied to
+ the player.
+ A graphical model for how this is done can be seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-model-of"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/Section_6.4_trigonometric_illustration.png
+	scale 25
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-model-of"
+
+\end_inset
+
+A model of how the position of the camera in relation to the player is calculate
+d.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The cameras position is then linearly interpolated between the current and
+ desired position by using the Vector3.Lerp function, again using the animationSp
+eed variable to determine quickness.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/Section_6.4_screenshot.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Final in-game result of the tilting camera.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1760,11 +2118,52 @@ The terrain paths is created by modifying the build in terrain that exists
  if that is preferred, for example if the ball is rolling on a texture made
  of grass it might look good to change this texture in the paths to one
  that contains mud.
- ´
+ 
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/terrainPath picutre.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
 Paths made on grass texture 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1842,18 +2241,38 @@ Creation of walls
 \end_layout
 
 \begin_layout Standard
-Walls are made up a mesh, defined by eight vertices building a cube (PIC
- X).
+Walls are made up a mesh, defined by eight vertices building a cube figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-mesh-cube"
+
+\end_inset
+
+.
  A mesh is used to define a destructible object because it can be modified
  from script.
  Each vertice is defined by a x-, y- and z-value and the eight vertices
  are put in an array which defined the six different faces bottom, left,
  front, back, right and top.
- For example in PIC X one of the faces are made up of the vertices P4, P5,
- P1 and P0.
+ For example in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-mesh-cube"
+
+\end_inset
+
+ one of the faces are made up of the vertices P4, P5, P1 and P0.
  Since meshes are built of triangles at least two triangles must define
- each face; in PIC X the blue line separates the two triangles made of P1,
- P4, P5 and P1, P0, P4.
+ each face; in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-mesh-cube"
+
+\end_inset
+
+ the blue line separates the two triangles made of P1, P4, P5 and P1, P0,
+ P4.
  The triangles are defined by an int-array simply with indices to the array
  with the vertices.
  To each mesh an array with normals and an array with UV-values are included,
@@ -1869,7 +2288,51 @@ Walls are made up a mesh, defined by eight vertices building a cube (PIC
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/julia/mesh_vertices.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-mesh-cube"
+
+\end_inset
+
 A mesh cube made of eight vertices 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1893,16 +2356,33 @@ WallCollisionScript handles the collision, what it does is calling for a
  MySubdivide in the SubdivideMeshScript which changes the front side of
  the wall to made of eight triangles instead of two (each two made to four
  new).
- This works as follows; consider the wall part shown in fig X.
+ This works as follows; consider the wall part shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subdivision"
+
+\end_inset
+
+.
  The upper triangle is from the beginning defined by the vertices P0, P1
  and P3.
  To subdivide this triangle into four triangles three new vertices need
  to be calculated b, c and d shown in the figure.
  These are calculated with simple vector mathematics:
-\end_layout
+\family typewriter
 
-\begin_layout Standard
-b = (P1 + P0) / 2 c = (P3 + P1) / 2 d = (P3 + P0) / 2
+\begin_inset Newline newline
+\end_inset
+
+b = (P1 + P0) / 2 
+\begin_inset Newline newline
+\end_inset
+
+c = (P3 + P1) / 2 
+\begin_inset Newline newline
+\end_inset
+
+d = (P3 + P0) / 2
 \end_layout
 
 \begin_layout Standard
@@ -1912,7 +2392,51 @@ By means of these three new vertices together with the three old ones, the
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/julia/mesh_dividedwireframe2.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Subdivision"
+
+\end_inset
+
 Subdivision
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1923,17 +2447,73 @@ When the walls front face has been subdivided WallMeshManager takes care
  that makes up the eight triangles that defines the wall’s front face.
  The three vertices defining each triangle are then used as a base to create
  a new wall part that looks like a destroyed part from the big wall.
- To do this the vertices P0, P4 and P5 (from PIC mesh cube) which defines
- a mesh cube are set to the three vertices defining one small triangle,
- then the rest of the vertices are derived from these but moved a slight
- bit to make the triangle get volume and look like it is actually a part
- from the big wall..
+ To do this the vertices P0, P4 and P5 (from figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-mesh-cube"
+
+\end_inset
+
+) which defines a mesh cube are set to the three vertices defining one small
+ triangle, then the rest of the vertices are derived from these but moved
+ a slight bit to make the triangle get volume and look like it is actually
+ a part from the big wall..
  Four of the eight vertices are put really close to each other to make the
- cube look like a triangle (PIC x).
+ cube look like a triangle (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-destroyed-wall"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/julia/wallpart_wireframe.PNG
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-destroyed-wall"
+
+\end_inset
+
 A destroyed wall part
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1943,7 +2523,55 @@ The eight new parts are then given the a position as well as Unity’s component
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/julia/destruction.png
+	width 4.9cm
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/julia/destruction2.png
+	width 4.9cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
 Walls destroyed in the game engine’s demo game 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2016,9 +2644,28 @@ The maze will randomly spawn items like powerups.
 The demo features:
 \end_layout
 
-\begin_layout Standard
-Pathfinding Dwarves with different behaviours Camera effects Terrain paths
- Randomly generated maze Destructible walls
+\begin_layout Itemize
+Pathfinding 
+\end_layout
+
+\begin_layout Itemize
+Dwarves with different behaviours 
+\end_layout
+
+\begin_layout Itemize
+Camera effects 
+\end_layout
+
+\begin_layout Itemize
+Terrain paths 
+\end_layout
+
+\begin_layout Itemize
+Randomly generated maze 
+\end_layout
+
+\begin_layout Itemize
+Destructible walls
 \end_layout
 
 \begin_layout Subsection
@@ -2026,10 +2673,17 @@ Design
 \end_layout
 
 \begin_layout Standard
-MazeGenerationScript builds up the maze, which is made of walls that are
- destructible, upon a terrain in a Unity scene.
- Dwarf objects are spawned with the DwarfManager class, a set number (currently
- 10) at startup and then one every 10 seconds.
+
+\series bold
+MazeGenerationScript
+\series default
+ builds up the maze, which is made of walls that are destructible, upon
+ a terrain in a Unity scene.
+ Dwarf objects are spawned with the 
+\series bold
+DwarfManager
+\series default
+ class, a set number (currently 10) at startup and then one every 10 seconds.
  The AI routines are run at a set interval (currently every 20 frames).
  The dwarves’ behavior is defined using a prioritized selection between
  three different behaviors: flight, when the dwarf sees the ball and the
@@ -2042,11 +2696,21 @@ The player, in the shape of a ball, plays a central part as most of the
  extension parts are dependent on what the player does, where it is and
  how it looks.
  First of all the camera needs to follow the player as well as, for this
- game at least, simulate tilting of the game board handled by the RotationMaster
- and Camera classes together with PlayerScript which receives input from
- the arrow keys.
+ game at least, simulate tilting of the game board handled by the 
+\series bold
+RotationMaster
+\series default
+ and 
+\series bold
+Camera
+\series default
+ classes together with PlayerScript which receives input from the arrow
+ keys.
  Further the terrain takes in input from where the player is, what size
- and shape it has to simulate paths in the ground sent to the TerrainPath
+ and shape it has to simulate paths in the ground sent to the 
+\series bold
+TerrainPath
+\series default
  script from PlayerScript.
 \end_layout
 
@@ -2136,24 +2800,201 @@ Screenshots from the tech demo representing the game engine.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/screen1.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
 Time to kill some dwarves!
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/screen2.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
 Damn it! They put a mine there.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/screen3.png
+	width 12cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
 Destruction mode!
 \end_layout
 
-\begin_layout Standard
-So much blood.
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/screen4.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+So much blood.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/screen5.png
+	width 10cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
 A dwarf working hard.
  And terrain paths! zomg 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -2193,6 +3034,14 @@ The different extensions have been made in such a way that they as easily
  outside of Unity.
  The game engine could be used to feature others games as well as be split
  up and only use the different parts.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
