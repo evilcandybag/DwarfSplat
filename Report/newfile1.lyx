@@ -356,9 +356,21 @@ Another extension related to software engineering that we wanted to add
 In the AI category, two extensions were made: a behavior part and a pathfinding
  part.
  There are several frameworks in Unity for handling high level behavioral
- AI, most notably the framework Behave<ref>, an implementation of a common
- AI abstraction called behavior trees<ref> that is available at no fee on
- the Unity asset store.
+ AI, most notably the framework Behave 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "behave-framework"
+
+\end_inset
+
+, an implementation of a common AI abstraction called behavior trees 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "knafla"
+
+\end_inset
+
+ that is available at no fee on the Unity asset store.
  The goal was to make a new implementation which has a base non-specific
  to Unity.
 \end_layout
@@ -372,9 +384,9 @@ ng.
 \end_layout
 
 \begin_layout Standard
-The graphics part were also split, one part handled the camera movement
- and different camera effects such as making the camera shake when a wall
- was destroyed.
+The graphics part was also split, one part handled the camera movement and
+ different camera effects such as making the camera shake when a wall was
+ destroyed.
  The second part had more of a focus on environmental effects such as making
  paths in the terrain during game play.
  This is something that is not included in Unity at the moment.
@@ -396,51 +408,208 @@ Project plan
 \end_layout
 
 \begin_layout Standard
-Week 1 (4) Find a group, start talking about what to do.
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 1 (4)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Find a group, start talking about what to do.
  Individual pre-study about Unity and
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 within the chosen extension field.
 \end_layout
 
-\begin_layout Standard
-Week 2 (5) Final decision about what to do, present concept before class.
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 2 (5)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Final decision about what to do, present concept before class.
  Set up git-repo.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Keep going with pre-study within chosen extension and start implementing
  if possible.
 \end_layout
 
-\begin_layout Standard
-Week 3 (6) Individual implementation
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 3 (6)
 \end_layout
 
-\begin_layout Standard
-Week 4 (7) Individual implementation and mid-course presentation 
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Individual implementation
 \end_layout
 
-\begin_layout Standard
-Week 5 (8) Start integration of the different parts
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 4 (7)
 \end_layout
 
-\begin_layout Standard
-Week 6 (9) Keep on integrating as well working on individual parts as well
- as work with the 
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Individual implementation and mid-course presentation
 \end_layout
 
-\begin_layout Standard
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 5 (8)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Start integration of the different parts
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 6 (9)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Keep on integrating as well working on individual parts as well as work
+ with the 
+\end_layout
+
+\begin_layout Plain Layout
 workshop assignment
 \end_layout
 
-\begin_layout Standard
-Week 7 (10) Final touch, prepare presentation and start with group report
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 7 (10)
 \end_layout
 
-\begin_layout Standard
-Week 8 (11) Write group report and individual report 
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Final touch, prepare presentation and start with group report
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Week 8 (11)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Write group report and individual report 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -464,15 +633,28 @@ The extension for this game engine was divided in six parts, mainly based
  The extensions are as follows including the responsible person.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Software Engineering - Andreas Eklund
 \end_layout
 
-\begin_layout Standard
-Artificial intelligence, behavior - Peter Holm Artificial intelligence,
- pathfinding - Jerémy Tuloup Camera centered graphics - Jacob Martinsköld
- Graphics, terrain paths - Ann Michélsen Physics, destructible objects -
- Julia Adamsson 
+\begin_layout Itemize
+Artificial intelligence, behavior - Peter Holm 
+\end_layout
+
+\begin_layout Itemize
+Artificial intelligence, pathfinding - Jerémy Tuloup 
+\end_layout
+
+\begin_layout Itemize
+Camera centered graphics - Jacob Martinsköld 
+\end_layout
+
+\begin_layout Itemize
+Graphics, terrain paths - Ann Michélsen 
+\end_layout
+
+\begin_layout Itemize
+Physics, destructible objects - Julia Adamsson 
 \end_layout
 
 \begin_layout Section
@@ -508,12 +690,20 @@ The basis for this extension is to implement a command interface for the
  The functional requirements are:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Making it possible for the AI or the GUI programmer to use only the command
  interface when either the player or the AI are performing actions (like
- moving, using items etc) Checking whether or not a certain action is allowed
- before trying to perform it.
- Optionally letting the command user know if an action is allowed or not.
+ moving, using items etc) 
+\end_layout
+
+\begin_layout Itemize
+Checking whether or not a certain action is allowed before trying to perform
+ it.
+ 
+\end_layout
+
+\begin_layout Itemize
+Optionally letting the command user know if an action is allowed or not.
 \end_layout
 
 \begin_layout Standard
@@ -535,9 +725,13 @@ The maze generator extension is able to both generate a random looking maze,
  The functional demands are:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Creating a random looking, perfect 2D-maze of any size.
- Place walls of a given type on correct places.
+ 
+\end_layout
+
+\begin_layout Itemize
+Place walls of a given type on correct places.
 \end_layout
 
 \begin_layout Standard
@@ -561,13 +755,21 @@ The AI-Pathfinding extension should provide a tool to make agents move on
  The functional demands are:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 It should generate its own representation of the map and use its own data
  structure for storing nodes and information needed for the pathfinding.
- Given a start position and an end position, it should compute the shortest
+ 
+\end_layout
+
+\begin_layout Itemize
+Given a start position and an end position, it should compute the shortest
  path between these two points.
- The extension should also provide a basic MovementAgent script to make
- an agent move along a path to a given target position.
+ 
+\end_layout
+
+\begin_layout Itemize
+The extension should also provide a basic MovementAgent script to make an
+ agent move along a path to a given target position.
 \end_layout
 
 \begin_layout Standard
@@ -589,14 +791,22 @@ The AI behavior extension is meant to provide a general purpose library
  The functional demands of this extension are:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 To enable modeling of complex high level behaviors as well as lower level
  behaviors, down to simple interactions with the game model (e.g.
  moving to a point, interacting with an object).
- To handle these behaviors as an independent component, separate from other
+ 
+\end_layout
+
+\begin_layout Itemize
+To handle these behaviors as an independent component, separate from other
  parts of the game logic.
- To manage all actors of a given type under a given context through one
- single interface.
+ 
+\end_layout
+
+\begin_layout Itemize
+To manage all actors of a given type under a given context through one single
+ interface.
 \end_layout
 
 \begin_layout Standard
@@ -626,12 +836,20 @@ The purpose of this extension is to offer a simple way of moving the camera
 Functional demands of the extension are:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Given a Unity Camera and a GameObject, the extension should work in a default
  way (Top down view).
- It should have some easily alterable variables to change things such as
+ 
+\end_layout
+
+\begin_layout Itemize
+It should have some easily alterable variables to change things such as
  distance between camera and the object, perspective angle etc.
- Any effects should be triggered in a simple way; just simply by calling
+ 
+\end_layout
+
+\begin_layout Itemize
+Any effects should be triggered in a simple way; just simply by calling
  a function.
 \end_layout
 
@@ -658,10 +876,18 @@ This extension will focus on making paths in the terrain after the ball.
 This extensions functional demands are:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Given the balls position it should be able to dig a hole in the terrain.
- Given the balls position change the texture of the terrain.
- The extension should be able to know which texture the ball is moving on
+ 
+\end_layout
+
+\begin_layout Itemize
+Given the balls position change the texture of the terrain.
+ 
+\end_layout
+
+\begin_layout Itemize
+The extension should be able to know which texture the ball is moving on
  and from this information decide which texture that should be used in the
  paths.
 \end_layout
@@ -693,11 +919,19 @@ The physics extension will handle the destruction of simple geometry (with
  Functional demands for the the destruction is:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 The destroyed part must not be made up of pre-made geometry.
- The destroyed parts should be made of meshes calculated based on how the
- objects that is destroyed looks.
- The extension should also implement collision detection and other physics
+ 
+\end_layout
+
+\begin_layout Itemize
+The destroyed parts should be made of meshes calculated based on how the
+ object that is destroyed look.
+ 
+\end_layout
+
+\begin_layout Itemize
+The extension should also implement collision detection and other physics
  implementations provided by Unity, that decides when the walls are destroyed
  and other such things.
 \end_layout
@@ -743,7 +977,14 @@ Architecture
 
 \begin_layout Standard
 The general architecture of the application is basically looking like figure
- X below.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:General-architecture-of"
+
+\end_inset
+
+ below.
  The different extensions are working as standalone modules and are usually
  only connected to the rest of the application where needed.
  The command interface acts as the application’s glue between most of the
@@ -751,9 +992,35 @@ The general architecture of the application is basically looking like figure
 \end_layout
 
 \begin_layout Standard
-Figure X: General architecture of our application’s different extensions
- and how they are connected to each other.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+General architecture of our application’s different extensions and how they
+ are connected to each other.
  
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:General-architecture-of"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -818,13 +1085,20 @@ on between them.
 Other commands include:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 EmoteCommand, in which a IActor displays some kind of emotion (like fear,
- sleeping “Z”:s etc.) RollCommand, which starts to apply a force on an object
- in a certain direction.
+ sleeping “Z”:s etc.) 
+\end_layout
+
+\begin_layout Itemize
+RollCommand, which starts to apply a force on an object in a certain direction.
  This is intended to be used by the ball, since it will not move in a regular
  fashion.
- PickupItemCommand, which makes sure that a certain IActor picks up items
+ 
+\end_layout
+
+\begin_layout Itemize
+PickupItemCommand, which makes sure that a certain IActor picks up items
  that can be found on the ground, for instance powerups.
  Items on the ground are called GroundStuff and can for instance be powerups
  or mines.
@@ -832,10 +1106,22 @@ EmoteCommand, in which a IActor displays some kind of emotion (like fear,
  enough.
  The types of IActors that can use a certain GroundStuff are defined by
  the GroundStuff itself.
- SoundCommand, which plays a certain sound from a certain location.
- UseItemCommand, which makes sure that a certain IActor uses an item that
+ 
+\end_layout
+
+\begin_layout Itemize
+SoundCommand, which plays a certain sound from a certain location.
+ 
+\end_layout
+
+\begin_layout Itemize
+UseItemCommand, which makes sure that a certain IActor uses an item that
  it has in it’s inventory.
- FindInteractableCommand, which finds a suitable IInteractable of the specified
+ 
+\end_layout
+
+\begin_layout Itemize
+FindInteractableCommand, which finds a suitable IInteractable of the specified
  type for an IActor.
  This is intended to be used for the dwarves AI agent.
 \end_layout
@@ -882,10 +1168,14 @@ The AI-Pathfinding extension has a simple design, which make new features
  The first part contains the Monobehaviour scripts:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 TileGraphGenerator: scan and rescan the map to detect obstacles, and build
  an internal graph to represent the walkable areas.
- MovementAgent: a script designed to be attached on an mobile agent.
+ 
+\end_layout
+
+\begin_layout Itemize
+MovementAgent: a script designed to be attached on an mobile agent.
  The agent is always looking for a target to reach, and when the target
  has been defined, it calls the AStar method from the graph to get a path
  and move along it.
@@ -895,16 +1185,24 @@ TileGraphGenerator: scan and rescan the map to detect obstacles, and build
 The second part contains more generic classes to represent a graph and nodes:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 Graph, TileGraph: Graph is an abstract class, and TileGraph is a possible
  way to represent a graph.
  It is easy to add new map representations, like a more general navmesh,
  by just extending the Graph class.
- Node, TileNode: Node defines the common properties of a node, like the
- world position, but also stores the g and f scores used by the A* algorithm.
+ 
+\end_layout
+
+\begin_layout Itemize
+Node, TileNode: Node defines the common properties of a node, like the world
+ position, but also stores the g and f scores used by the A* algorithm.
  TileNode extends the Node class and add information about the x and z coordinat
 es in the graph.
- Path: structure to store.
+ 
+\end_layout
+
+\begin_layout Itemize
+Path: structure to store.
  It simply extends a List<Vector3>, but can be used as a wrapper to store
  more information.
 \end_layout
@@ -914,10 +1212,33 @@ Interaction
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
 TileGraphGenerator is put in our common global scripts object.
  It can be used from everywhere by just performing a GameObject.Find().
  This is how MovementAgent interact to get the graph and compute a path.
  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -925,8 +1246,7 @@ AI - Behavior
 \end_layout
 
 \begin_layout Standard
-<I should probably talk a bit about why behavior trees are interesting here…>
- The behavior extension consists of two main parts.
+The behavior extension consists of two main parts.
  The BehaviorTrees C# library, which is independent of the Unity platform,
  and the BehaviorManager, a Unity specific entity manager designed for managing
  and running AI actors.
