@@ -216,11 +216,6 @@ Pre-study
 \end_layout
 
 \begin_layout Standard
-Briefly about relevant literature both within Unity and the different extensions
- Talk about thing we read
-\end_layout
-
-\begin_layout Standard
 To be able to create a game engine in Unity pre study was made both within
  Unity and within the different extension parts that was made.
  For more information about the extensions see 
@@ -247,16 +242,18 @@ key "quill18"
 \end_layout
 
 \begin_layout Standard
-In order to generate a good maze, some pre-study about mazes was needed.
- There is a wealth of information about this and similar problems online,
- for example 
+For the software engineering, most of the pre-study was done for the maze
+ generation.
+ Information about mazes, how to generate them and how to represent them
+ internally can be found on many places on the Internet.
+ The primary source used for this was 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "mazes"
 
 \end_inset
 
-, which was used for this project.
+.
 \end_layout
 
 \begin_layout Standard
@@ -2495,35 +2492,6 @@ reference "fig:A-destroyed-wall"
 \end_inset
 
 ).
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -3043,7 +3011,7 @@ status open
 
 \end_inset
 
-
+
 \begin_inset space \hfill{}
 \end_inset
 
@@ -3105,29 +3073,6 @@ The different extensions have been made in such a way that they as easily
  outside of Unity.
  The game engine could be used to feature others games as well as be split
  up and only use the different parts.
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-shoudl answer the goals:
-\end_layout
-
-\begin_layout Standard
-High level of generality: the extensions made for the engine should be easy
- to apply in other projects.
- High level of modularity: the extensions should be as modular as possible
- and not dependant upon each other.
- Extensions should be possible to take away and/or modify without breaking
- the engine.
- .
- 
 \end_layout
 
 \begin_layout Standard
