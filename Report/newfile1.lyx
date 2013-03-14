@@ -3,6 +3,9 @@
 \begin_document
 \begin_header
 \textclass article
+\begin_preamble
+\usepackage{hyperref}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -290,6 +293,26 @@ key "champandard,knafla"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+For the camera centered graphics extension, the internet was searched for
+ how other developers had implemented different scripts for controlling
+ the camera.
+ There was a lot to be read on the subject on Unity’s own support pages
+ and forums, but also on other web pages, mostly forums and tutorial videos
+ on Youtube.
+ No projects with precisely the same goal for the camera as this was found,
+ but many useful bits and pieces and general methods to do things concerning
+ translations and rotations of the camera in Unity was found.
+\end_layout
+
+\begin_layout Standard
+In the terrain path extension it was necessary to read up on how Unity’s
+ terrain was made and how it could be changed.
+ Also a lot of forums, cool games that is modifying the terrain and other
+ resources was read and studied.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3086,9 +3109,20 @@ options "plainnat"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 \start_of_appendix
 Extension proposals
+\end_layout
+
+\begin_layout Standard
+<This page intentionally left blank>
 \end_layout
 
 \end_body
