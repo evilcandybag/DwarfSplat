@@ -1,4 +1,12 @@
 DwarfSplat
 ==========
 
-Ten Tips on How to Play with a Hamster
+Student project for CIT course Simulation Engines 2013.
+
+Authors credits:
+Andreas Eklund
+Ann Michelsen
+Julia Adamsson
+Jeremy Toloup
+Jakob Martinskjöld
+Peter Holm
